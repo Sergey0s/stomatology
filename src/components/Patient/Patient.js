@@ -1,19 +1,14 @@
 import React from "react";
-import Button from '../Patient/Button';
+import classes from './Patient.css';
 
 const patient = (props) => {
-    const style = {
-        display:"block",
-        position: "relative",
-        margin: "20px auto",
-        border: "2px solid red"
-    };
     return (
-        <div>
-        <input type='text' style={style} onChange={(e)=>{props.onChange(e)}}/>
-        <Button onClick={props.onClick}/>
-        </div>
-    )
-};
+    <div className={classes.Patient}>
+        <p>ФИО: {props.surname} {props.name} {props.secondName} </p>
+        <p>Дата регистрации: {new Date(props.registerDate).toLocaleString()}</p>
+        <button>Первичный прием</button>
+    </div>
+    )};
+
 
 export default patient;
