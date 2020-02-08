@@ -1,0 +1,22 @@
+.Question {
+
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    width: 80%;
+    margin: 20px auto;
+
+
+    padding: 25px;
+    text-align: center;
+    border: 1px solid #eee;
+    box-shadow: 0 2px 3px #ccc;
+
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.Question:hover,
+.Question:active {
+    background-color: #C0DDF5;
+}
