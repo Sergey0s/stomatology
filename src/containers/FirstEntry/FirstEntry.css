@@ -10,7 +10,6 @@
 
 .testBlock__title {
     font-size: 1.8rem;
-
 }
 
 .testBlock__form {
@@ -38,6 +37,7 @@
     margin-left: 1rem;
     margin-right: 1rem;
     align-self: flex-end;
+    font-size: 1.4rem;
 }
 
 .testBlock__form__buttonDiv {
