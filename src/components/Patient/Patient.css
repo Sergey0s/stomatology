@@ -1,14 +1,27 @@
 .Patient {
-    width: 40%;
+    width: 60%;
     border: 1px solid #eee;
     box-shadow: 0 2px 3px #ccc;
     padding: 10px;
     margin: 10px auto;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
 }
 
 .patient_span {
     color: red;
     font-weight: bolder;
     font-size: 1.2em;
+}
+
+.Patient__p {
+    width: 100%;
+    font-size: 1.4rem;
+}
+
+.Patient__firstEntryButton {
+    width: 20%;
+    height: 50px;
+    font-size: 1.2rem;
 }
