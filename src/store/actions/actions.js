@@ -1,3 +1,0 @@
-export {
-    getPatientsData
-} from './patientData'

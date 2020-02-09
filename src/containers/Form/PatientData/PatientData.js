@@ -114,9 +114,8 @@ class PatientData extends Component {
                         />
                     )
                 )}
-                <Button
-                    btnType='Success'
-                > Сохранить </Button>
+                <button
+                > Сохранить </button>
             </form>);
 
         return (

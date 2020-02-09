@@ -3,6 +3,8 @@ import classes from './FirstEntry.css';
 import Aux from '../../hoc/Auxiliary/Auxiliary';
 import Input from '../../components/UI/Input/Input';
 import {connect} from 'react-redux';
+import * as actions from "../../store/actions";
+
 
 class FirstEntry extends Component {
     state = {
@@ -100,23 +102,33 @@ class FirstEntry extends Component {
         }
     };
 
+    inputChangeHandler = (event,inputIdentifier) => {
+            const updatedFirstEntryForm = {
+                ...this.state.firstEntryForm
+            };
+            const updatedFormElement = {
+                ...updatedFirstEntryForm[inputIdentifier]
+            };
+            updatedFormElement.value = event.target.value;
+        updatedFirstEntryForm[inputIdentifier] = updatedFormElement;
+
+            this.setState({firstEntryForm: updatedFirstEntryForm})
+    };
+
     onSubmitHandler = (event) => {
         event.preventDefault();
-        console.log()
+        this.props.onAddFirstEntry(this.props.location.state.patientId, this.state.firstEntryForm)
     };
 
     render() {
         const formElementArray = [];
         for (let key in this.state.firstEntryForm) {
-            console.log(this.state.firstEntryForm)
             // console.log(key)
             formElementArray.push({
                 id: key,
                 config: this.state.firstEntryForm[key],
             })
         }
-
-        console.log(formElementArray);
 
         let form = (
             (<div className={classes.testBlock}>
@@ -131,7 +143,7 @@ class FirstEntry extends Component {
                                         elementType={formElement.config.elementType}
                                         elementConfig={formElement.config.elementConfig}
                                         value={formElement.config.value}
-                                        // changed={(event) => this.inputChangeHandler(event, formElement.id)}
+                                        changed={(event) => this.inputChangeHandler(event, formElement.id)}
                                     /></div>
                             </Aux>
                         )
@@ -141,7 +153,6 @@ class FirstEntry extends Component {
                         <button className={classes.saveButton}> Сохранить данные</button>
                     </div>
                 </form>
-                );
             </div>));
 
         return (
@@ -152,11 +163,17 @@ class FirstEntry extends Component {
     }
 }
 
-const mapDispatchToProps = (state)=> {
+const mapStateToProps = (state)=> {
   return {
-
+      patientData: state.patientData.patients
   }
 };
 
+const  mapDispatchToProps = dispatch => {
+    return {
+        onAddFirstEntry: (patientId, formData) => dispatch(actions.firstEntrySuccess(patientId, formData))
+    }
+};
 
-export default connect(mapDispatchToProps)(FirstEntry);
+
+export default connect(mapStateToProps, mapDispatchToProps)(FirstEntry);

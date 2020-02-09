@@ -5,17 +5,21 @@ const initialState = {
 };
 
 
-
-const initPatientData = (state=initialState, action) => {
+const patientData = (state=initialState, action) => {
     switch (action.type) {
         case actionTypes.INIT_PATIENTS: {
             return {
                 ...state,
                 patients: action.patients}
         }
+        case actionTypes.FIRST_ENTRY_SUCCESS: {
+            return {
+                ...state,
+                ...state.patients[action.patientId].patientData,
+                firstEntry: action.entryFormData}
+        }
         default: return state
     }
 };
 
-export default initPatientData;
-
+export default patientData;

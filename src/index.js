@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import {createStore, combineReducers, applyMiddleware,compose} from "redux";
+import {HashRouter} from "react-router-dom";
 import {Provider} from "react-redux";
 import thunk from "redux-thunk";
 
@@ -21,9 +22,9 @@ const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)))
 
 const app = (
     <Provider store={store}>
-        {/*<HashRouter>*/}
+        <HashRouter>
             <App/>
-        {/*</HashRouter>*/}
+        </HashRouter>
     </Provider>
 );
 

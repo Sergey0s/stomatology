@@ -21,3 +21,23 @@ export const getPatientsData = () => {
             })
     }
 };
+
+export const firstEntrySuccess = (patientId, entryFormData) => {
+    return dispatch => {
+        axios.post('/patients/'+patientId+'/patientData/entryTest.json', entryFormData)
+            .then(response => {
+                console.log(response);
+                dispatch(saveFirstEntry(patientId, entryFormData))
+            })
+
+    }
+};
+
+export const saveFirstEntry = (patientId, entryFormData) => {
+    return {
+        type: actionTypes.FIRST_ENTRY_SUCCESS,
+        patientId: patientId,
+        entryFormData: entryFormData
+    }
+};
+
