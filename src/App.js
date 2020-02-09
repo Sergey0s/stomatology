@@ -4,6 +4,7 @@ import Aux from './hoc/Auxiliary/Auxiliary';
 import TestCreator from './containers/TestCreator/TestCreator';
 import PatientData from './containers/Form/PatientData/PatientData';
 import Patients from "./containers/Patients/Patients";
+import FirstEntry from "./containers/FirstEntry/FirstEntry";
 
 class App extends Component {
     render() {
@@ -12,6 +13,7 @@ class App extends Component {
                 <PatientData/>
                 {/*<TestCreator/>*/}
                 <Patients/>
+                <FirstEntry/>
             </Aux>
         )
     }
