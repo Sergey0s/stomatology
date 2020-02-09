@@ -1,0 +1,3 @@
+export {
+    getPatientsData
+} from './patientData'

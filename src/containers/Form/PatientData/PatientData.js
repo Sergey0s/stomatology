@@ -72,7 +72,7 @@ class PatientData extends Component {
         }
 
         const patient = {
-            patientData: {...formData, registerDate: Date()}
+            patientData: {...formData, registerDate: Date(), firstEntry: true}
         };
 
         axios.post('/patients.json', patient)

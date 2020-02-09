@@ -1,45 +1,42 @@
 import React, {Component} from "react";
-import axios from '../../axios-orders';
+import {connect} from "react-redux";
 import Patient from "../../components/Patient/Patient";
+import * as actions from '../../store/actions/actions';
+import {getPatientsData} from "../../store/actions/actions";
 
 class Patients extends Component {
-    state = {
-        patients: []
-    };
 
     componentDidMount() {
-        axios.get('/patients.json')
-            .then(response => {
-                console.log(response.data)
-                const fetchedPatients = [];
-                for (let key in response.data) {
-                    console.log(key)
-                    fetchedPatients.push({
-                        ...response.data[key],
-                        id: key
-                        });
-                }
-                this.setState({patients: fetchedPatients})
-            })
+                this.props.onInitPatientsData();
     }
 
 
     render() {
-        console.log(this.state.patients);
-        let patientsList = (
-            <div style={{marginTop: '80px'}}>
+            const fetchedPatients = [];
+            for (let key in this.props.patientsData.patients) {
+                console.log(key)
+                fetchedPatients.push({
+                    ...this.props.patientsData.patients[key],
+                    id: key
+                    });
+        }
+        let patientsList = '';
+        if (this.props.patientsData.patients) {
+            patientsList = (
+                <div style={{marginTop: '80px'}}>
                     {
-                    this.state.patients.map((patient) => {
-                        return <Patient
-                            key={patient.id}
-                            surname={patient.patientData.surname}
-                            name={patient.patientData.name}
-                            secondName={patient.patientData.secondName}
-                            registerDate={patient.patientData.registerDate}
-                        />
-                    })
-                }
-            </div>);
+                        fetchedPatients.map((patient) => {
+                            return <Patient
+                                key={patient.id}
+                                surname={patient.patientData.surname}
+                                name={patient.patientData.name}
+                                secondName={patient.patientData.secondName}
+                                registerDate={patient.patientData.registerDate}
+                            />
+                        })
+                    }
+                </div>);
+        }
 
         return (
             <div>
@@ -49,4 +46,16 @@ class Patients extends Component {
     }
 }
 
-export default Patients;
+const mapStateToProps = (state) => {
+    return {
+        patientsData: state.patientData
+    }
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onInitPatientsData: ()=> dispatch(actions.getPatientsData())
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Patients);
