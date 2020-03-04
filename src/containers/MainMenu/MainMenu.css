@@ -1,0 +1,27 @@
+.MainMenu {
+    box-sizing: border-box;
+    border: 5px solid black;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.MainMenu__button {
+    border: 5px solid #b7b7b7;
+    box-shadow: 0 3px 5px #ccc;
+    border-radius: 20px;
+    width: 400px;
+    height: 70px;
+    text-align: center;
+    line-height: 70px;
+    margin: 10px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+}
+
+.MainMenu__button:hover {
+    border: 5px solid #555555;
+}

@@ -1,22 +1,25 @@
 import React from "react";
 import Result from './Result/Result';
-import Diagnosis from '../Diagnosis/Diagnosis';
+import Treatment from '../Treatment/Treatment';
+import classes from './Results.css';
 
 const results = (props) => {
     return (
-        <div>
-            <h1> Выбранные ответы </h1>
-            <h2>Пациент: {props.patientName}</h2>
-    <ul>
-        {props.results.map((result,i) => {
-        return (
-        <Result
-            key={i}
-            result ={result}/>
-            )
-    })}
-    </ul>
-            <Diagnosis totalValue = {props.totalValue}/>
+        <div className={classes.Results}>
+            <h1> Результаты и лечение </h1>
+            <details>
+                <summary></summary>
+                <ul>
+                    {props.results.map((result, i) => {
+                        return (
+                            <Result
+                                key={i}
+                                result={result}/>
+                        )
+                    })}
+                </ul>
+            </details>
+            <Treatment totalValue={props.totalValue}/>
         </div>
     )
 };

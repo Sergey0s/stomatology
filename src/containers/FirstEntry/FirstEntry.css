@@ -1,60 +1,59 @@
 .testBlock {
-    width: 80%;
-    margin: auto;
+    margin: 40px auto;
+    padding: 0;
+    width: 65%;
+    border: 1px solid #ccc;
+    box-shadow: 0 3px 5px #ccc;
     text-align: left;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: end;
 }
 
 .testBlock__title {
-    font-size: 1.8rem;
+    font-size: 1.2rem;
 }
 
 .testBlock__form {
-    padding: 1.8rem;
+    width: 100%;
     display: flex;
+    flex-direction: row;
     flex-wrap: wrap;
-
+    justify-content: space-between;
 }
 
 .testBlock__form__p {
     width: 60%;
-    font-size: 1.4rem;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    line-height: 2rem;
+    font-size: 0.9rem;
+    margin: 4px 16px;
 }
 
 .testBlock__diagnosis {
-    font-size: 1.4rem;
-    width: 100%;
+    font-size: 1rem;
+    margin: 16px auto;
 }
 
 .testBlock__form__input {
-    width: 30%;
-    margin-left: 1rem;
-    margin-right: 1rem;
-    align-self: flex-end;
-    font-size: 1.4rem;
+    width: 35%;
+    font-size: 0.8rem;
 }
 
 .testBlock__form__buttonDiv {
     width: 100%;
     text-align: center;
+    margin: 10px 0;
 }
 
 .saveButton {
     width: 20%;
-    height: 10vh;
+    height: 6vh;
     align-self: center;
-    font-size: 2rem;
-    background: #639244;
+    font-size: 1rem;
+    background: #cccccc;
 }
 
 .saveButton:hover,
 .saveButton:active
 {
-    background: #940301;
+    background: gold;
 }

@@ -1,19 +1,20 @@
 .Answer {
-
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
     width: 30%;
-    margin: auto;
+    margin: 10px auto;
 
     padding: 25px;
     text-align: center;
-    border: 1px solid #eee;
+    border: 3px solid #b7b7b7;
     box-shadow: 0 2px 3px #ccc;
 
     box-sizing: border-box;
     cursor: pointer;
     list-style-type: none ;
+        -webkit-user-select: none;
+        -moz-user-select: none;
 }
 
 .Answer:hover,

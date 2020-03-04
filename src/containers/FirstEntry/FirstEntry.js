@@ -4,10 +4,12 @@ import Aux from '../../hoc/Auxiliary/Auxiliary';
 import Input from '../../components/UI/Input/Input';
 import {connect} from 'react-redux';
 import * as actions from "../../store/actions";
+import TestCreator from "../TestCreator/TestCreator";
 
 
 class FirstEntry extends Component {
     state = {
+        firstFormDone: false,
         firstEntryForm: {
             complaints: {
                 text: 'Жалобы: на жжение, болезненность слизистой оболочки рта',
@@ -117,44 +119,57 @@ class FirstEntry extends Component {
 
     onSubmitHandler = (event) => {
         event.preventDefault();
-        this.props.onAddFirstEntry(this.props.location.state.patientId, this.state.firstEntryForm)
+            this.props.onAddFirstEntry(this.props.location.state.patientId, this.state.firstEntryForm);
+            this.setState({
+                firstFormDone: true
+            })
+        console.log(this.props.location.state.patientId, this.state.firstEntryForm)
     };
 
     render() {
         const formElementArray = [];
         for (let key in this.state.firstEntryForm) {
-            // console.log(key)
             formElementArray.push({
                 id: key,
                 config: this.state.firstEntryForm[key],
             })
         }
 
-        let form = (
-            (<div className={classes.testBlock}>
-                <h1 className={classes.testBlock__title}> Первичный прием пациента</h1>
-                <form className={classes.testBlock__form} onSubmit={this.onSubmitHandler}>
-                    {formElementArray.map(formElement => (
-                            <Aux>
-                                <p className={classes.testBlock__form__p}> {formElement.config.text} </p>
-                                <div className={classes.testBlock__form__input}>
-                                    <Input
-                                        key={formElement.id}
-                                        elementType={formElement.config.elementType}
-                                        elementConfig={formElement.config.elementConfig}
-                                        value={formElement.config.value}
-                                        changed={(event) => this.inputChangeHandler(event, formElement.id)}
-                                    /></div>
-                            </Aux>
-                        )
-                    )}
-                    <h2 className={classes.testBlock__diagnosis}>Диагноз: К 12.0 - рецидивирующие афты полости рта</h2>
-                    <div className={classes.testBlock__form__buttonDiv}>
-                        <button className={classes.saveButton}> Сохранить данные</button>
-                    </div>
-                </form>
-            </div>));
+        let form = '';
 
+        if (this.props.location.state===undefined) {
+            this.props.history.push('/patients');
+        } else {
+            if (!this.state.firstFormDone) {
+                form = (
+                    (<div className={classes.testBlock}>
+                        <h1 className={classes.testBlock__title}> Первичный прием пациента</h1>
+                        <form className={classes.testBlock__form} onSubmit={this.onSubmitHandler}>
+                            {formElementArray.map((formElement, i) => (
+                                    <Aux key={i}>
+                                        <p className={classes.testBlock__form__p}> {formElement.config.text} </p>
+                                        <div className={classes.testBlock__form__input}>
+                                            <Input
+                                                key={formElement.id}
+                                                elementType={formElement.config.elementType}
+                                                elementConfig={formElement.config.elementConfig}
+                                                value={formElement.config.value}
+                                                changed={(event) => this.inputChangeHandler(event, formElement.id)}
+                                            /></div>
+                                    </Aux>
+                                )
+                            )}
+                            <h2 className={classes.testBlock__diagnosis}>Диагноз: К 12.0 - рецидивирующие афты полости
+                                рта</h2>
+                            <div className={classes.testBlock__form__buttonDiv}>
+                                <button className={classes.saveButton}> Сохранить данные</button>
+                            </div>
+                        </form>
+                    </div>));
+            } else {
+                form = <TestCreator/>
+            }
+        }
         return (
             <div>
                 {form}

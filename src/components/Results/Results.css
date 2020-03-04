@@ -1,0 +1,25 @@
+ul {
+    list-style-type: none
+}
+
+.Results {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+
+details {
+    margin: 20px 0;
+
+}
+
+summary {
+    outline-style: none;
+}
+details summary::after {
+    content: "Показать результаты тестирования";
+}
+details[open] summary::after {
+    content: "Скрыть результаты тестирования";
+}

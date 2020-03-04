@@ -13,20 +13,16 @@ export const getPatientsData = () => {
     return dispatch => {
         axios.get('/patients.json')
             .then(response => {
-                console.log(response.data);
                 dispatch(setPatientsData(response.data))
-                    // .catch(err => {
-                    //     // dispatch(fetchIngredientsFailed(err.response.data))
-                    // })
             })
     }
 };
 
 export const firstEntrySuccess = (patientId, entryFormData) => {
     return dispatch => {
-        axios.post('/patients/'+patientId+'/patientData/entryTest.json', entryFormData)
+        axios.post('/patients/'+patientId+'/patientData/entryProfile.json', entryFormData)
             .then(response => {
-                console.log(response);
+                console.log(response)
                 dispatch(saveFirstEntry(patientId, entryFormData))
             })
 

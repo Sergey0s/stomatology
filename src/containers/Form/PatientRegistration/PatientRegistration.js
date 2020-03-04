@@ -1,11 +1,10 @@
 import React, {Component} from "react";
 import axios from '../../../axios-orders';
 
-import classes from './PatientData.css';
-import Button from '../../../components/UI/Button/Button';
+import classes from './PatientRegistration.css';
 import Input from '../../../components/UI/Input/Input';
 
-class PatientData extends Component {
+class PatientRegistration extends Component {
     state = {
         patientForm: {
             surname: {
@@ -62,8 +61,6 @@ class PatientData extends Component {
         },
     };
 
-
-
     patientHandler = (event) => {
         event.preventDefault();
         const formData = {};
@@ -72,12 +69,13 @@ class PatientData extends Component {
         }
 
         const patient = {
-            patientData: {...formData, registerDate: Date(), firstEntry: true}
+            patientData: {...formData, registerDate: Date()}
         };
 
         axios.post('/patients.json', patient)
             .then(response => {
-            console.log(response)});
+                this.props.history.push('/patients')});
+
     };
 
     inputChangeHandler = (event, inputIdentifier) => {
@@ -114,17 +112,16 @@ class PatientData extends Component {
                         />
                     )
                 )}
-                <button
-                > Сохранить </button>
+                <button className={classes.PatientRegistration__button}> Сохранить </button>
             </form>);
 
         return (
-            <div className={classes.ContactData}>
+            <div className={classes.PatientRegistration}>
                 {form}
             </div>
         );
     }
 }
 
-export default PatientData;
+export default PatientRegistration;
 

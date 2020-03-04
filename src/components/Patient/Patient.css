@@ -1,27 +1,50 @@
 .Patient {
-    width: 60%;
-    border: 1px solid #eee;
-    box-shadow: 0 2px 3px #ccc;
-    padding: 10px;
-    margin: 10px auto;
-    box-sizing: border-box;
+    width: 70%;
+    border: 2px solid #eee;
+    box-shadow: 2px 2px 2px #ccc;
+    margin: 8px auto;
+    padding: 5px;
+    display: flex;
+    flex-direction: row;
+}
+
+.Patient:hover {
+    background-color: #cccccc;
+}
+
+.Patient__baseInfo {
     display: flex;
     flex-direction: column;
 }
 
-.patient_span {
-    color: red;
+p {
+    margin: 5px;
+}
+
+.Patient__span {
     font-weight: bolder;
-    font-size: 1.2em;
+    font-size: 0.8em;
+    padding: 0 10px;
 }
 
 .Patient__p {
-    width: 100%;
-    font-size: 1.4rem;
+    font-size: 0.7rem;
+    margin: 5px;
+    padding: 0 10px;
 }
 
 .Patient__firstEntryButton {
-    width: 20%;
-    height: 50px;
-    font-size: 1.2rem;
+    width: 70px;
+    padding: 5px;
+    margin: 2px 40px;;
+    font-size: 0.7rem;
+    cursor: pointer;
+}
+
+.Patient__firstEntryButton:hover {
+    background-color: gold;
+}
+
+.Patient__firstEntryInfo {
+    margin: 0 30px;
 }

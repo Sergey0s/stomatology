@@ -5,25 +5,25 @@ import {connect} from "react-redux";
 class Patient extends Component {
 
     render() {
-        const entryTest = this.props.firstEntry[this.props.id].patientData.entryTest;
+        const entryTest = this.props.firstEntry[this.props.id].patientData.entryProfile;
         let updatedEntryTest = [];
         if (entryTest) {
             for (let key in entryTest) {
                 updatedEntryTest.push(entryTest[key])
             }
-            console.log(updatedEntryTest)
         }
         return (
             <div className={classes.Patient}>
+                <div className={classes.Patient__baseInfo}>
                 <p className={classes.Patient__p}>ФИО: {this.props.surname} {this.props.name} {this.props.secondName} </p>
-                <p className={classes.Patient__p}>Дата
-                    регистрации: {new Date(this.props.registerDate).toLocaleString()}</p>
+                <p className={classes.Patient__p}>Дата регистрации: {new Date(this.props.registerDate).toLocaleString()}</p>
+            </div>
                 {
-                    !entryTest &&
-                    <button className={classes.Patient__firstEntryButton} onClick={this.props.firstEntryHandler}>Первичный прием</button>
+                    (!entryTest &&
+                    <button className={classes.Patient__firstEntryButton} onClick={this.props.firstEntryHandler}>Первичный прием</button>)
                     ||
-                    <div>
-                        <p className={classes.Patient__p}> Результаты первого приема: </p>
+                    <div className={classes.Patient__firstEntryInfo}>
+                        <p className={classes.Patient__span}> Результаты первого приема: </p>
                         <p className={classes.Patient__p}> Жалобы: {updatedEntryTest[0].complaints.value} </p>
                         <p className={classes.Patient__p}> Диагноз: К 12.0 - рецидивирующие афты полости рта</p>
                     </div>

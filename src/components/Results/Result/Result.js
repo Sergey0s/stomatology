@@ -1,10 +1,11 @@
 import React from "react";
+import classes from './Result.css';
 
 const result = (props) => {
     return (
-        <li>
-            {props.result}
-        </li>
+                <li>
+                    {props.result}
+                </li>
     )
 };
 

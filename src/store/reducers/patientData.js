@@ -16,7 +16,7 @@ const patientData = (state=initialState, action) => {
             return {
                 ...state,
                 ...state.patients[action.patientId].patientData,
-                firstEntry: action.entryFormData}
+                firstEntryTest: action.entryFormData}
         }
         default: return state
     }

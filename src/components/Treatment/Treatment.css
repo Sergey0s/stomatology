@@ -1,0 +1,19 @@
+.Treatment {
+    margin: 30px auto;
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.Treatment__title {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+p {
+    text-align: center;
+}

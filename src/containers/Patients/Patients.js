@@ -2,7 +2,8 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import Patient from "../../components/Patient/Patient";
 import * as actions from '../../store/actions';
-import {Redirect} from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
+import classes from "../../containers/Patients/Patients.css"
 
 class Patients extends Component {
 
@@ -15,26 +16,27 @@ class Patients extends Component {
         this.props.onInitPatientsData();
     }
 
+    UNSAFE_componentWillMount(nextProps, nextState, nextContext) {
+        this.props.onInitPatientsData();
+    }
+
     firstEntryHandler = (patientId) => {
         this.setState({
             firstEntry: true,
             patientId: patientId
         })
-
     };
 
 
     render() {
         const fetchedPatients = [];
         for (let key in this.props.patientsData.patients) {
-            console.log(key)
             fetchedPatients.push({
                 ...this.props.patientsData.patients[key],
                 id: key
             });
         }
         let patientsList = '';
-        console.log(this.props.patientsData);
         if (this.state.firstEntry) {
             patientsList = (<Redirect to={{
                 pathname: '/firstEntry',
@@ -46,9 +48,9 @@ class Patients extends Component {
         } else {
             if (this.props.patientsData.patients) {
                 patientsList = (
-                    <div style={{marginTop: '80px'}}>
+                    <div className={classes.Patients}>
                         {
-                            fetchedPatients.map((patient) => {
+                            fetchedPatients.reverse().map((patient) => {
                                 return <Patient
                                     key={patient.id}
                                     id={patient.id}
@@ -74,7 +76,6 @@ class Patients extends Component {
 const mapStateToProps = (state) => {
     return {
         patientsData: state.patientData,
-        // firstEntry: state.patientData.entryTest
     }
 };
 

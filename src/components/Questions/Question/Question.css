@@ -9,14 +9,10 @@
 
     padding: 25px;
     text-align: center;
-    border: 1px solid #eee;
+    border: 3px solid #b7b7b7;
     box-shadow: 0 2px 3px #ccc;
 
     box-sizing: border-box;
-    cursor: pointer;
-}
-
-.Question:hover,
-.Question:active {
-    background-color: #C0DDF5;
+    -webkit-user-select: none;
+    -moz-user-select: none;
 }
