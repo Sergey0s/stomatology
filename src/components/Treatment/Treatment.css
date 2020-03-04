@@ -6,8 +6,12 @@
     flex-wrap: nowrap;
     align-items: center;
     justify-content: center;
-
 }
+
+.Treatment__content {
+    margin-top: 20px;
+}
+
 
 .Treatment__title {
     font-size: 1.2rem;

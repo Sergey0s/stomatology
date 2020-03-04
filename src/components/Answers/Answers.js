@@ -1,6 +1,5 @@
 import React from "react";
 import Answer from './Answer/Answer';
-// import classes from './Answers.css'
 
 const answers = (props) => {
     // console.log(props)

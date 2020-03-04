@@ -9,7 +9,7 @@
     text-align: center;
     border: 3px solid #b7b7b7;
     box-shadow: 0 2px 3px #ccc;
-
+border-radius: 20px;
     box-sizing: border-box;
     cursor: pointer;
     list-style-type: none ;

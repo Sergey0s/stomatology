@@ -4,7 +4,7 @@ import Aux from '../../hoc/Auxiliary/Auxiliary';
 import Input from '../../components/UI/Input/Input';
 import {connect} from 'react-redux';
 import * as actions from "../../store/actions";
-import TestCreator from "../TestCreator/TestCreator";
+import Test from "../Test/Test";
 
 
 class FirstEntry extends Component {
@@ -123,7 +123,7 @@ class FirstEntry extends Component {
             this.setState({
                 firstFormDone: true
             })
-        console.log(this.props.location.state.patientId, this.state.firstEntryForm)
+        // console.log(this.props.location.state.patientId, this.state.firstEntryForm)
     };
 
     render() {
@@ -167,7 +167,7 @@ class FirstEntry extends Component {
                         </form>
                     </div>));
             } else {
-                form = <TestCreator/>
+                form = <Test/>
             }
         }
         return (

@@ -1,0 +1,25 @@
+.Test__title {
+    margin: 120px auto 0 auto;
+    font-size: 1.6rem;
+    font-weight: bold;
+}
+
+.TestCore__backButton {
+    border-radius: 20px;
+    height: 80px;
+    width: 300px;
+    box-shadow: 0 3px 5px #ccc;
+    background-color: #ccc;
+    font-size: 1rem;
+    margin: 20px auto;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    outline:none;
+    text-align: center;
+    line-height: 80px;
+}
+
+.TestCore__backButton:hover {
+    background-color: #7d7d7d;
+    color: #faffff;
+}
