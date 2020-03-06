@@ -1,5 +1,3 @@
-import React from "react";
-
 let questionList2 =
     {
         questionsListName: 'Часть 2 - Степень тяжести',

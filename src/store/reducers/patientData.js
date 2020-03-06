@@ -18,6 +18,16 @@ const patientData = (state=initialState, action) => {
                 ...state.patients[action.patientId].patientData,
                 firstEntryTest: action.entryFormData}
         }
+        case actionTypes.TEST_COMPLETED_SUCCESS: {
+            return {
+                ...state,
+                completedTests: {
+                    name: action.testName,
+                    totalScore: action.totalScore,
+                    date: new Date()
+                }
+            }
+        }
         default: return state
     }
 };

@@ -5,129 +5,152 @@ import Input from '../../components/UI/Input/Input';
 import {connect} from 'react-redux';
 import * as actions from "../../store/actions";
 // import Test from "../Test/Test";
-import REAL_TestCore from "../TestCore/REAL_TestCore";
+import TestCore from "../TestCore/TestCore";
+import questionList2 from "../../components/DataBase/List2";
+import questionList1 from "../../components/DataBase/List1";
+import {Redirect} from "react-router-dom";
 
 class FirstEntry extends Component {
-    state = {
-        firstFormDone: false,
-        firstEntryForm: {
-            complaints: {
-                text: 'Жалобы: на жжение, болезненность слизистой оболочки рта',
-                elementType: 'input',
-                elementConfig: {
-                    type: 'text',
-                    placeholder: 'Жалобы'
+    constructor(props) {
+        super(props);
+        this.handleIsFinished = this.handleIsFinished.bind(this);
+        this.state = {
+            firstFormDone: false,
+            isFinished: false,
+            localFinished: false,
+            numberOfTest: 0,
+            firstEntryForm: {
+                complaints: {
+                    text: 'Жалобы: на жжение, болезненность слизистой оболочки рта',
+                    elementType: 'input',
+                    elementConfig: {
+                        type: 'text',
+                        placeholder: 'Жалобы'
+                    },
+                    value: ''
                 },
-                value: ''
-            },
-            firstSymptoms: {
-                text: 'Из анамнеза выявлено: считает себя больным (-ой)',
-                elementType: 'input',
-                elementConfig: {
-                    type: 'text',
-                    placeholder: 'Первое появление'
+                firstSymptoms: {
+                    text: 'Из анамнеза выявлено: считает себя больным (-ой)',
+                    elementType: 'input',
+                    elementConfig: {
+                        type: 'text',
+                        placeholder: 'Первое появление'
+                    },
+                    value: ''
                 },
-                value: ''
-            },
-            howOften: {
-                text: 'лет, когда впервые заметил (-а) появляющиеся болезненные образования на слизистой оболочке рта. Со слов пациента, патологические элементы возникают',
-                elementType: 'input',
-                elementConfig: {
-                    type: 'text',
-                    placeholder: 'Как часто'
+                howOften: {
+                    text: 'лет, когда впервые заметил (-а) появляющиеся болезненные образования на слизистой оболочке рта. Со слов пациента, патологические элементы возникают',
+                    elementType: 'input',
+                    elementConfig: {
+                        type: 'text',
+                        placeholder: 'Как часто'
+                    },
+                    value: ''
                 },
-                value: ''
-            },
-            healingIn: {
-                text: 'раз(-а) в год, заживают в течение',
-                elementType: 'input',
-                elementConfig: {
-                    type: 'text',
-                    placeholder: 'Срок заживления'
+                healingIn: {
+                    text: 'раз(-а) в год, заживают в течение',
+                    elementType: 'input',
+                    elementConfig: {
+                        type: 'text',
+                        placeholder: 'Срок заживления'
+                    },
+                    value: ''
                 },
-                value: ''
-            },
-            reason: {
-                text: 'дней(-я). Обострение заболевания связывает с',
-                elementType: 'input',
-                elementConfig: {
-                    type: 'text',
-                    placeholder: 'Причина болезни'
+                reason: {
+                    text: 'дней(-я). Обострение заболевания связывает с',
+                    elementType: 'input',
+                    elementConfig: {
+                        type: 'text',
+                        placeholder: 'Причина болезни'
+                    },
+                    value: ''
                 },
-                value: ''
-            },
-            firstLook: {
-                text: 'Объективно: на фоне видимо неизмененной бледно-розовой слизистой оболочки',
-                elementType: 'input',
-                elementConfig: {
-                    type: 'text',
-                    placeholder: 'Качество эпителия'
+                firstLook: {
+                    text: 'Объективно: на фоне видимо неизмененной бледно-розовой слизистой оболочки',
+                    elementType: 'input',
+                    elementConfig: {
+                        type: 'text',
+                        placeholder: 'Качество эпителия'
+                    },
+                    value: ''
                 },
-                value: ''
-            },
-            defect: {
-                text: 'обнаружен',
-                elementType: 'input',
-                elementConfig: {
-                    type: 'text',
-                    placeholder: 'Дефект'
+                defect: {
+                    text: 'обнаружен',
+                    elementType: 'input',
+                    elementConfig: {
+                        type: 'text',
+                        placeholder: 'Дефект'
+                    },
+                    value: ''
                 },
-                value: ''
-            },
-            size: {
-                text: 'дефект эпителия слизистой рта размерами',
-                elementType: 'input',
-                elementConfig: {
-                    type: 'text',
-                    placeholder: 'Размер'
+                size: {
+                    text: 'дефект эпителия слизистой рта размерами',
+                    elementType: 'input',
+                    elementConfig: {
+                        type: 'text',
+                        placeholder: 'Размер'
+                    },
+                    value: ''
                 },
-                value: ''
-            },
-            form: {
-                text: 'мм,',
-                elementType: 'input',
-                elementConfig: {
-                    type: 'text',
-                    placeholder: 'Форма'
+                form: {
+                    text: 'мм,',
+                    elementType: 'input',
+                    elementConfig: {
+                        type: 'text',
+                        placeholder: 'Форма'
+                    },
+                    value: ''
                 },
-                value: ''
-            },
-            palpation: {
-                text: 'формы, имеющий четкие контуры, покрытый фибринозным налетом серо-белого цвета, не снимающимся при попытке удаления, ограниченный ярким венчиком гиперемии по периферии. При пальпации патологический элемент мягкий, болезненный. В баллах по 10-бальной вербальной ранговой шкале - ',
-                elementType: 'input',
-                elementConfig: {
-                    type: 'text',
-                    placeholder: 'Пальпация'
+                palpation: {
+                    text: 'формы, имеющий четкие контуры, покрытый фибринозным налетом серо-белого цвета, не снимающимся при попытке удаления, ограниченный ярким венчиком гиперемии по периферии. При пальпации патологический элемент мягкий, болезненный. В баллах по 10-бальной вербальной ранговой шкале - ',
+                    elementType: 'input',
+                    elementConfig: {
+                        type: 'text',
+                        placeholder: 'Пальпация'
+                    },
+                    value: ''
                 },
-                value: ''
-            },
+            }
         }
-    };
+    }
 
-    inputChangeHandler = (event,inputIdentifier) => {
-            const updatedFirstEntryForm = {
-                ...this.state.firstEntryForm
-            };
-            const updatedFormElement = {
-                ...updatedFirstEntryForm[inputIdentifier]
-            };
-            updatedFormElement.value = event.target.value;
+    handleIsFinished() {
+        console.log('я тут');
+        let questionsArr = [questionList1, questionList2];
+
+        if (questionsArr.length === this.state.numberOfTest + 1) {
+            this.setState({isFinished: !this.state.isFinished, numberOfTest: this.state.numberOfTest + 1});
+        }
+        this.setState({localFinished: !this.state.localFinished, numberOfTest: this.state.numberOfTest + 1});
+    }
+
+    inputChangeHandler = (event, inputIdentifier) => {
+        const updatedFirstEntryForm = {
+            ...this.state.firstEntryForm
+        };
+        const updatedFormElement = {
+            ...updatedFirstEntryForm[inputIdentifier]
+        };
+        updatedFormElement.value = event.target.value;
         updatedFirstEntryForm[inputIdentifier] = updatedFormElement;
 
-            this.setState({firstEntryForm: updatedFirstEntryForm})
+        this.setState({firstEntryForm: updatedFirstEntryForm})
     };
 
     onSubmitHandler = (event) => {
         event.preventDefault();
-            this.props.onAddFirstEntry(this.props.location.state.patientId, this.state.firstEntryForm);
-            this.setState({
-                firstFormDone: true
-            })
+        this.props.onAddFirstEntry(this.props.location.state.patientId, this.state.firstEntryForm);
+        this.setState({
+            firstFormDone: true
+        })
         // console.log(this.props.location.state.patientId, this.state.firstEntryForm)
     };
 
     render() {
+        let questionsArr = [questionList1, questionList2];
+
         const formElementArray = [];
+
         for (let key in this.state.firstEntryForm) {
             formElementArray.push({
                 id: key,
@@ -137,7 +160,9 @@ class FirstEntry extends Component {
 
         let form = '';
 
-        if (this.props.location.state===undefined) {
+        console.log(this.state.isFinished);
+
+        if (this.props.location.state === undefined) {
             this.props.history.push('/patients');
         } else {
             if (!this.state.firstFormDone) {
@@ -167,7 +192,24 @@ class FirstEntry extends Component {
                         </form>
                     </div>));
             } else {
-                form = <REAL_TestCore patientId={this.props.location.state.patientId}/>
+                if (!this.state.isFinished) {
+                    if (!this.state.localFinished) {
+                        form =
+                            <div>
+                                <TestCore
+                                    isLocalFinished={this.state.localFinished}
+                                    isFinished ={this.state.isFinished}
+                                    isFinishedChange={this.handleIsFinished}
+                                    patientId={this.props.location.state.patientId}
+                                    questions={questionsArr[this.state.numberOfTest]}
+                                />
+                            </div>
+                    } else {
+                        this.setState({localFinished: false})
+                    }
+                } else {
+                    form = <Redirect to={'/patients'}/>;
+                }
             }
         }
         return (
@@ -178,17 +220,19 @@ class FirstEntry extends Component {
     }
 }
 
-const mapStateToProps = (state)=> {
-  return {
-      patientData: state.patientData.patients
-  }
-};
+//
+// const mapStateToProps = (state)=> {
+//   return {
+//       patientData: state.patientData.patients
+//   }
+// };
 
-const  mapDispatchToProps = dispatch => {
+const mapDispatchToProps = dispatch => {
     return {
         onAddFirstEntry: (patientId, formData) => dispatch(actions.firstEntrySuccess(patientId, formData))
     }
 };
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(FirstEntry);
+export default connect(null, mapDispatchToProps)(FirstEntry);
+
