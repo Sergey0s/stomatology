@@ -19,30 +19,30 @@ class TestCore extends Component {
     };
 
     setAnswerHandler = (answerId) => {
-        let numberOfQuestions = null;
-
-        if (this.props.stomatit) {
-            numberOfQuestions = 18;
-        } else {
-            numberOfQuestions = 15;
-        }
-
-        if (this.state.activeQuestion + 1 >= numberOfQuestions) {
-            this.setState({isFinished: true})
-        }
-
-        if (this.state.activeQuestion <= 15) {
-            let oldTotalValue = this.state.total1;
-            oldTotalValue += this.state.questions[this.state.activeQuestion].answers[answerId].value;
-            this.setState({total1: oldTotalValue, activeQuestion: this.state.activeQuestion + 1});
-        } else {
-            let oldTotalValue = this.state.total2;
-            oldTotalValue += this.state.questions[this.state.activeQuestion].answers[answerId].value;
-            this.setState({total2: oldTotalValue, activeQuestion: this.state.activeQuestion + 1});
-        }
-        const newResults = [...this.state.results];
-        newResults.push(this.state.questions[this.state.activeQuestion].question + ': ' + this.state.questions[this.state.activeQuestion].answers[answerId].text);
-        this.setState({results: newResults});
+        // let numberOfQuestions = null;
+        //
+        // if (this.props.stomatit) {
+        //     numberOfQuestions = 18;
+        // } else {
+        //     numberOfQuestions = 15;
+        // }
+        //
+        // if (this.state.activeQuestion + 1 >= numberOfQuestions) {
+        //     this.setState({isFinished: true})
+        // }
+        //
+        // if (this.state.activeQuestion <= 15) {
+        //     let oldTotalValue = this.state.total1;
+        //     oldTotalValue += this.state.questions[this.state.activeQuestion].answers[answerId].value;
+        //     this.setState({total1: oldTotalValue, activeQuestion: this.state.activeQuestion + 1});
+        // } else {
+        //     let oldTotalValue = this.state.total2;
+        //     oldTotalValue += this.state.questions[this.state.activeQuestion].answers[answerId].value;
+        //     this.setState({total2: oldTotalValue, activeQuestion: this.state.activeQuestion + 1});
+        // }
+        // const newResults = [...this.state.results];
+        // newResults.push(this.state.questions[this.state.activeQuestion].question + ': ' + this.state.questions[this.state.activeQuestion].answers[answerId].text);
+        // this.setState({results: newResults});
     };
 
     redirectHandler = () => {

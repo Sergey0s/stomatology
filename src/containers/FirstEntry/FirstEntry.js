@@ -4,8 +4,8 @@ import Aux from '../../hoc/Auxiliary/Auxiliary';
 import Input from '../../components/UI/Input/Input';
 import {connect} from 'react-redux';
 import * as actions from "../../store/actions";
-import Test from "../Test/Test";
-
+// import Test from "../Test/Test";
+import REAL_TestCore from "../TestCore/REAL_TestCore";
 
 class FirstEntry extends Component {
     state = {
@@ -167,7 +167,7 @@ class FirstEntry extends Component {
                         </form>
                     </div>));
             } else {
-                form = <Test/>
+                form = <REAL_TestCore patientId={this.props.location.state.patientId}/>
             }
         }
         return (
