@@ -1,6 +1,6 @@
 let questionList4 =
     {
-        questionsListName: 'Лабораторные анализы. Ближайшие сроки (до 6 месяцев)',
+        questionsListName: 'Лабораторные анализы. Отдаленные сроки (до 12 месяцев)',
         questions: [
             {
                 id: 1,
@@ -29,7 +29,7 @@ let questionList4 =
                 title: 'Лабораторные анализы',
                 question: 'ИЛ-10',
                 answers: [
-                    {text: '8.4 ± 1.6 (6.8-10.0) тут ошибка! ', id: 0, value: 3},
+                    {text: 'отсутствует', id: 0, value: 3},
                     {text: 'свыше 10.0', id: 1, value: 2},
                     {text: '7.25-9.99', id: 2, value: 1},
                     {text: 'менее 7.24', id: 3, value: 0}
