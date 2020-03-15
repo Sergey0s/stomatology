@@ -29,19 +29,19 @@ export const getPatientsData = () => {
     }
 };
 
-export const firstEntrySuccess = (patientId, entryFormData) => {
-    return dispatch => {
-        axios.post('/patients/' + patientId + '/patientData/entryProfile.json', entryFormData)
-            .then(response => {
-                console.log(response);
-                dispatch(saveFirstEntry(patientId, entryFormData))
-            })
-    }
+export const entryProfileSuccess = (patientId, entryFormData) => {
+    return dispatch =>
+    axios.post('/patients/' + patientId + '/completedTests/entryProfile.json', entryFormData)
+        .then(response => {
+            console.log(response);
+            dispatch(saveProfile(patientId, entryFormData));
+            axios.patch('/patients/' + patientId + '/.json', {status: 'Ожидает первичный прием'}).then();
+        });
 };
 
-export const saveFirstEntry = (patientId, entryFormData) => {
+export const saveProfile = (patientId, entryFormData) => {
     return {
-        type: actionTypes.FIRST_ENTRY_SUCCESS,
+        type: actionTypes.ENTRY_PROFILE_SUCCESS,
         patientId: patientId,
         entryFormData: entryFormData
     }
@@ -49,7 +49,7 @@ export const saveFirstEntry = (patientId, entryFormData) => {
 
 export const testCompletedSuccess = (patientId, testName, totalScore) => {
     return dispatch => {
-        axios.post('/patients/' + patientId + '/patientData/completedTests/' + testName + '.json', { totalScore, date: new Date() })
+        axios.post('/patients/' + patientId + '/completedTests/' + testName + '.json', { totalScore, date: new Date() })
             .then(response => {
                 console.log(response);
                 dispatch(saveTestResults(patientId, testName, totalScore))

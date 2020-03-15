@@ -8,158 +8,65 @@ import TestCore from "../TestCore/TestCore";
 import questionList2 from "../../DataBase/List2";
 import questionList1 from "../../DataBase/List1";
 import {Redirect} from "react-router-dom";
+import {EntryProfileForm} from '../../DataBase/EntryProfileForm';
 
 class FirstEntry extends Component {
     constructor(props) {
         super(props);
-        this.handleIsFinished = this.handleIsFinished.bind(this);
+        // this.handleIsFinished = this.handleIsFinished.bind(this);
         this.state = {
-            firstFormDone: false,
+            // firstFormDone: false,
             isFinished: false,
-            localFinished: false,
-            numberOfTest: 0,
-            firstEntryForm: {
-                complaints: {
-                    text: 'Жалобы: на жжение, болезненность слизистой оболочки рта',
-                    elementType: 'input',
-                    elementConfig: {
-                        type: 'text',
-                        placeholder: 'Жалобы'
-                    },
-                    value: ''
-                },
-                firstSymptoms: {
-                    text: 'Из анамнеза выявлено: считает себя больным (-ой)',
-                    elementType: 'input',
-                    elementConfig: {
-                        type: 'text',
-                        placeholder: 'Первое появление'
-                    },
-                    value: ''
-                },
-                howOften: {
-                    text: 'лет, когда впервые заметил (-а) появляющиеся болезненные образования на слизистой оболочке рта. Со слов пациента, патологические элементы возникают',
-                    elementType: 'input',
-                    elementConfig: {
-                        type: 'text',
-                        placeholder: 'Как часто'
-                    },
-                    value: ''
-                },
-                healingIn: {
-                    text: 'раз(-а) в год, заживают в течение',
-                    elementType: 'input',
-                    elementConfig: {
-                        type: 'text',
-                        placeholder: 'Срок заживления'
-                    },
-                    value: ''
-                },
-                reason: {
-                    text: 'дней(-я). Обострение заболевания связывает с',
-                    elementType: 'input',
-                    elementConfig: {
-                        type: 'text',
-                        placeholder: 'Причина болезни'
-                    },
-                    value: ''
-                },
-                firstLook: {
-                    text: 'Объективно: на фоне видимо неизмененной бледно-розовой слизистой оболочки',
-                    elementType: 'input',
-                    elementConfig: {
-                        type: 'text',
-                        placeholder: 'Качество эпителия'
-                    },
-                    value: ''
-                },
-                defect: {
-                    text: 'обнаружен',
-                    elementType: 'input',
-                    elementConfig: {
-                        type: 'text',
-                        placeholder: 'Дефект'
-                    },
-                    value: ''
-                },
-                size: {
-                    text: 'дефект эпителия слизистой рта размерами',
-                    elementType: 'input',
-                    elementConfig: {
-                        type: 'text',
-                        placeholder: 'Размер'
-                    },
-                    value: ''
-                },
-                form: {
-                    text: 'мм,',
-                    elementType: 'input',
-                    elementConfig: {
-                        type: 'text',
-                        placeholder: 'Форма'
-                    },
-                    value: ''
-                },
-                palpation: {
-                    text: 'формы, имеющий четкие контуры, покрытый фибринозным налетом серо-белого цвета, не снимающимся при попытке удаления, ограниченный ярким венчиком гиперемии по периферии. При пальпации патологический элемент мягкий, болезненный. В баллах по 10-бальной вербальной ранговой шкале - ',
-                    elementType: 'input',
-                    elementConfig: {
-                        type: 'text',
-                        placeholder: 'Пальпация'
-                    },
-                    value: ''
-                },
-            }
+            // localFinished: false,
+            // numberOfTest: 0,
+            EntryProfileForm
         }
     }
 
-    handleIsFinished() {
-        let questionsArr = [questionList1, questionList2];
-
-        if (questionsArr.length === this.state.numberOfTest + 1) {
-            this.setState({isFinished: !this.state.isFinished, numberOfTest: this.state.numberOfTest + 1});
-        }
-        this.setState({localFinished: !this.state.localFinished, numberOfTest: this.state.numberOfTest + 1});
-    }
+    // handleIsFinished() {
+    //     let questionsArr = [questionList1, questionList2];
+    //
+    //     if (questionsArr.length === this.state.numberOfTest + 1) {
+    //         this.setState({isFinished: !this.state.isFinished, numberOfTest: this.state.numberOfTest + 1});
+    //     }
+    //     this.setState({localFinished: !this.state.localFinished, numberOfTest: this.state.numberOfTest + 1});
+    // }
 
     inputChangeHandler = (event, inputIdentifier) => {
-        const updatedFirstEntryForm = {
-            ...this.state.firstEntryForm
+        const updatedEntryProfileForm = {
+            ...this.state.EntryProfileForm
         };
         const updatedFormElement = {
-            ...updatedFirstEntryForm[inputIdentifier]
+            ...updatedEntryProfileForm[inputIdentifier]
         };
         updatedFormElement.value = event.target.value;
-        updatedFirstEntryForm[inputIdentifier] = updatedFormElement;
+        updatedEntryProfileForm[inputIdentifier] = updatedFormElement;
 
-        this.setState({firstEntryForm: updatedFirstEntryForm})
+        this.setState({EntryProfileForm: updatedEntryProfileForm})
     };
 
     onSubmitHandler = (event) => {
         event.preventDefault();
-        this.props.onAddFirstEntry(this.props.location.state.patientId, this.state.firstEntryForm);
+        this.props.onAddFirstEntry(this.props.location.state.patientId, this.state.EntryProfileForm);
         this.setState({
             firstFormDone: true
         })
     };
 
     render() {
-        let questionsArr = [questionList1, questionList2];
-
-        const formElementArray = [];
-
-        for (let key in this.state.firstEntryForm) {
-            formElementArray.push({
-                id: key,
-                config: this.state.firstEntryForm[key],
-            })
-        }
-
         let form = '';
 
-        if (this.props.location.state === undefined) {
-            this.props.history.push('/patients');
+        if (this.props.location.state === undefined || this.state.isFinished) {
+            form = <Redirect to={'/patients'}/>
         } else {
+            const formElementArray = [];
+            for (let key in this.state.EntryProfileForm) {
+                formElementArray.push({
+                    id: key,
+                    config: this.state.EntryProfileForm[key],
+                })
+            }
+
             if (!this.state.firstFormDone) {
                 form = (
                     (<div className={classes.testBlock}>
@@ -186,32 +93,37 @@ class FirstEntry extends Component {
                             </div>
                         </form>
                     </div>));
-            } else {
-                if (!this.state.isFinished) {
-                    if (!this.state.localFinished) {
-                        form =
-                            <div>
-                                <TestCore
-                                    isLocalFinished={this.state.localFinished}
-                                    isFinished ={this.state.isFinished}
-                                    isFinishedChange={this.handleIsFinished}
-                                    patientId={this.props.location.state.patientId}
-                                    questions={questionsArr[this.state.numberOfTest]}
-                                />
-                            </div>
-                    } else {
-                        this.setState({localFinished: false})
-                    }
-                } else {
-                    form = <Redirect to={'/patients'}/>;
-                }
             }
+
+
+            // let questionsArr = [questionList1, questionList2];
+            // }  else {
+            //         if (!this.state.isFinished) {
+            //             if (!this.state.localFinished) {
+            //                 form =
+            //                     <div>
+            //                         <TestCore
+            //                             isLocalFinished={this.state.localFinished}
+            //                             isFinished ={this.state.isFinished}
+            //                             isFinishedChange={this.handleIsFinished}
+            //                             patientId={this.props.location.state.patientId}
+            //                             questions={questionsArr[this.state.numberOfTest]}
+            //                         />
+            //                     </div>
+            //             } else {
+            //                 this.setState({localFinished: false})
+            //             }
+            //         } else {
+            //             form = ;
+            //         }
+            //     }
+            // }
+            return (
+                <div>
+                    {form}
+                </div>
+            )
         }
-        return (
-            <div>
-                {form}
-            </div>
-        )
     }
 }
 
@@ -224,7 +136,7 @@ class FirstEntry extends Component {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onAddFirstEntry: (patientId, formData) => dispatch(actions.firstEntrySuccess(patientId, formData))
+        onAddFirstEntry: (patientId, formData) => dispatch(actions.entryProfileSuccess(patientId, formData))
     }
 };
 

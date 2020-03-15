@@ -7,7 +7,7 @@ const initialState = {
 };
 
 
-const patientData = (state=initialState, action) => {
+const patientData = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.INIT_PATIENTS: {
             return {
@@ -17,11 +17,20 @@ const patientData = (state=initialState, action) => {
                 pageLoading: false
             }
         }
-        case actionTypes.FIRST_ENTRY_SUCCESS: {
+        case actionTypes.ENTRY_PROFILE_SUCCESS: {
             return {
                 ...state,
-                ...state.patients[action.patientId],
-                firstEntryTest: action.entryFormData}
+                patients : {
+                    ...state.patients,
+                   [action.patientId] : {
+                        ...state.patients[action.patientId],
+                       status: 'Ожидает первого приема',
+                        completedTests : {
+                            entryProfile: action.entryFormData
+                        }
+                    }
+                }
+            }
         }
         case actionTypes.TEST_COMPLETED_SUCCESS: {
             return {
@@ -33,7 +42,8 @@ const patientData = (state=initialState, action) => {
                 }
             }
         }
-        default: return state
+        default:
+            return state
     }
 };
 

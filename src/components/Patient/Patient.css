@@ -1,20 +1,16 @@
 .Patient {
-    width: 70%;
+    width: 85%;
     border: 2px solid #eee;
     box-shadow: 2px 2px 2px #ccc;
     margin: 8px auto;
     padding: 5px;
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
 }
 
 .Patient:hover {
     background-color: #cccccc;
-}
-
-.Patient__baseInfo {
-    display: flex;
-    flex-direction: column;
 }
 
 p {
@@ -24,27 +20,63 @@ p {
 .Patient__span {
     font-weight: bolder;
     font-size: 0.8em;
-    padding: 0 10px;
+    padding: 0 5px;
 }
 
 .Patient__p {
     font-size: 0.7rem;
     margin: 5px;
-    padding: 0 10px;
+    padding: 0 5px;
 }
 
-.Patient__firstEntryButton {
-    width: 70px;
+.Patient__showMore {
+    cursor: pointer;
+}
+
+
+.PatientFull {
+    display: flex;
+    flex-direction: column;
+    width: 85%;
+    border: 2px solid #eee;
+    box-shadow: 2px 2px 2px #ccc;
+    margin: 8px auto;
     padding: 5px;
-    margin: 2px 40px;;
-    font-size: 0.7rem;
+    justify-content: center;
+    align-content: center;
+}
+
+.PatientFull__baseInfo {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    align-content: center;
+}
+
+.PatientFull__p {
+    font-size: 1rem;
+    margin: 5px;
+    padding: 0 5px;
+    text-align: center;
+}
+
+.PatientFull__status {
+    font-size: 1.2rem;
+    margin: 5px;
+    padding: 0 5px;
+    text-align: center;
+}
+
+
+.PatientFull__firstEntryButton {
+    width: 210px;
+    padding: 5px;
+    margin: 20px auto;
+    font-size: 0.9rem;
     cursor: pointer;
 }
 
 .Patient__firstEntryButton:hover {
     background-color: gold;
-}
-
-.Patient__firstEntryInfo {
-    margin: 0 30px;
 }

@@ -16,7 +16,7 @@ class Patients extends Component {
         this.props.onInitPatientsData();
     }
 
-    firstEntryHandler = (patientId) => {
+    entryProfileHandler = (patientId) => {
         this.setState({
             firstEntry: true,
             patientId: patientId
@@ -47,8 +47,6 @@ class Patients extends Component {
             />)
         } else {
             if (this.props.patients && this.props.patients.length!==0) {
-                // console.log(this.props.patients);
-                // console.log('here');
                 patientsList = (
                     <div className={classes.Patients}>
                         {
@@ -60,7 +58,7 @@ class Patients extends Component {
                                     name={patient.name}
                                     secondName={patient.secondName}
                                     registerDate={patient.registerDate}
-                                    firstEntryHandler={() => this.firstEntryHandler(patient.id)}
+                                    entryProfileHandler={() => this.entryProfileHandler(patient.id)}
                                 />
                             })
                         }
