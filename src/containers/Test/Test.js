@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import TestCore from "../TestCore/TestCore";
+import FAKEtestCore from "../TestCore/FAKEtestCore";
 import Questions from "../../components/Questions/Questions";
 import Answers from "../../components/Answers/Answers";
 import classes from '../Test/Test.css';
@@ -58,7 +58,7 @@ class Test extends Component {
                         onAnswerClick={this.setAnswerHandler}/>
                 </div>
         } else {
-            test = (<TestCore
+            test = (<FAKEtestCore
                 stomatit = {this.state.stomatit}
                 stomatitNow = {this.state.stomatitNow}/>)
         }

@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import axios from '../../../axios-orders';
+import {connect} from "react-redux";
 
 import classes from './PatientRegistration.css';
 import Input from '../../../components/UI/Input/Input';
@@ -68,8 +69,23 @@ class PatientRegistration extends Component {
             formData[formElementIdentifier] = this.state.patientForm[formElementIdentifier].value;
         }
 
+        let counter = 1;
+        if (this.props.patientsData!==null) {counter = Object.keys(this.props.patientsData).length+1}
+
         const patient = {
-            patientData: {...formData, registerDate: Date()}
+            id: counter ,...formData, registerDate: Date(),
+            status: 'Ожидает анкетирование',
+            stages: {
+                entryProfile: false,
+                stomatitisPresence: false,
+                riskDevelopment: false,
+                severity: false,
+                clinicNow: false,
+                clinicFuture: false,
+                laboratoryAnalysisNow: false,
+                laboratoryAnalysisFuture: false,
+                laboratoryAnalysisFarFuture: false
+            }
         };
 
         axios.post('/patients.json', patient)
@@ -123,5 +139,11 @@ class PatientRegistration extends Component {
     }
 }
 
-export default PatientRegistration;
+const mapStateToProps = (state)=> {
+    return {
+        patientsData: state.patientData.patients
+    }
+};
+
+export default connect(mapStateToProps)(PatientRegistration);
 

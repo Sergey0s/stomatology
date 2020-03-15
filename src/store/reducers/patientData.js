@@ -1,24 +1,49 @@
 import * as actionTypes from '../actions/actionTypes'
 
 const initialState = {
-    patients: null
+    patientsExist: false,
+    pageLoading: true,
+    patients: []
 };
 
 
-const patientData = (state=initialState, action) => {
+const patientData = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.INIT_PATIENTS: {
             return {
                 ...state,
-                patients: action.patients}
+                patients: action.patients,
+                patientsExist: action.patientsExist,
+                pageLoading: false
+            }
         }
-        case actionTypes.FIRST_ENTRY_SUCCESS: {
+        case actionTypes.ENTRY_PROFILE_SUCCESS: {
             return {
                 ...state,
-                ...state.patients[action.patientId].patientData,
-                firstEntryTest: action.entryFormData}
+                patients : {
+                    ...state.patients,
+                   [action.patientId] : {
+                        ...state.patients[action.patientId],
+                       status: 'Ожидает первичный прием',
+                        completedTests : {
+                            entryProfile: action.entryFormData
+                        }
+                    }
+                }
+            }
         }
-        default: return state
+        case actionTypes.TEST_COMPLETED_SUCCESS: {
+            return {
+                ...state,
+                completedTests: {
+                    name: action.testName,
+                    totalScore: action.totalScore,
+                    date: new Date()
+                }
+            }
+        }
+        default:
+            return state
     }
 };
 

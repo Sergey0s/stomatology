@@ -25,3 +25,20 @@
 .MainMenu__button:hover {
     border: 5px solid #555555;
 }
+
+.MainMenu__button__disabled {
+    background-color: #cccccc;
+    color: #7d7d7d;
+    border: 5px solid #b7b7b7;
+    box-shadow: 0 3px 5px #ccc;
+    border-radius: 20px;
+    width: 400px;
+    height: 70px;
+    text-align: center;
+    line-height: 70px;
+    margin: 10px;
+    cursor: not-allowed;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+
+}

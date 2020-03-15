@@ -16,27 +16,27 @@ class Patients extends Component {
         this.props.onInitPatientsData();
     }
 
-    UNSAFE_componentWillMount(nextProps, nextState, nextContext) {
-        this.props.onInitPatientsData();
-    }
-
-    firstEntryHandler = (patientId) => {
+    entryProfileHandler = (patientId) => {
         this.setState({
             firstEntry: true,
             patientId: patientId
         })
     };
 
-
     render() {
         const fetchedPatients = [];
-        for (let key in this.props.patientsData.patients) {
+        for (let key in this.props.patients) {
             fetchedPatients.push({
-                ...this.props.patientsData.patients[key],
+                ...this.props.patients[key],
                 id: key
             });
         }
         let patientsList = '';
+
+        // if (!this.props.patients || this.props.patients.length===0) {
+        //     this.props.onInitPatientsData()
+        // }
+
         if (this.state.firstEntry) {
             patientsList = (<Redirect to={{
                 pathname: '/firstEntry',
@@ -46,7 +46,7 @@ class Patients extends Component {
             }}
             />)
         } else {
-            if (this.props.patientsData.patients) {
+            if (this.props.patients && this.props.patients.length!==0) {
                 patientsList = (
                     <div className={classes.Patients}>
                         {
@@ -54,11 +54,11 @@ class Patients extends Component {
                                 return <Patient
                                     key={patient.id}
                                     id={patient.id}
-                                    surname={patient.patientData.surname}
-                                    name={patient.patientData.name}
-                                    secondName={patient.patientData.secondName}
-                                    registerDate={patient.patientData.registerDate}
-                                    firstEntryHandler={() => this.firstEntryHandler(patient.id)}
+                                    surname={patient.surname}
+                                    name={patient.name}
+                                    secondName={patient.secondName}
+                                    registerDate={patient.registerDate}
+                                    entryProfileHandler={() => this.entryProfileHandler(patient.id)}
                                 />
                             })
                         }
@@ -75,7 +75,7 @@ class Patients extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        patientsData: state.patientData,
+        patients: state.patientData.patients,
     }
 };
 

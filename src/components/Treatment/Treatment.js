@@ -68,7 +68,7 @@ const treatment = (props) => {
                     {risk === 'Высокий' &&
                     <p>Профилактический курс гиалуроновой кислоты в капсулах: 1 раз в год, по 1 капсуле, 1 месяц</p>}
                     <div className={classes.Treatment__content}>
-                        <p> Курс Гиалуроновой кислоты в капсулах для приема внутрь {acid} </p>
+                        <p>  {acid} </p>
                     </div>
                     <div className={classes.Treatment__content}>
                         <p> Курс аппликаций геля "Гиалудент" {gel} </p>
