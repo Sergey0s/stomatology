@@ -1,7 +1,9 @@
 import * as actionTypes from '../actions/actionTypes'
 
 const initialState = {
-    patients: null
+    patientsExist: false,
+    pageLoading: true,
+    patients: []
 };
 
 
@@ -10,12 +12,15 @@ const patientData = (state=initialState, action) => {
         case actionTypes.INIT_PATIENTS: {
             return {
                 ...state,
-                patients: action.patients}
+                patients: action.patients,
+                patientsExist: action.patientsExist,
+                pageLoading: false
+            }
         }
         case actionTypes.FIRST_ENTRY_SUCCESS: {
             return {
                 ...state,
-                ...state.patients[action.patientId].patientData,
+                ...state.patients[action.patientId],
                 firstEntryTest: action.entryFormData}
         }
         case actionTypes.TEST_COMPLETED_SUCCESS: {

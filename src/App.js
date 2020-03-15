@@ -5,7 +5,6 @@ import Aux from './hoc/Auxiliary/Auxiliary';
 import PatientRegistration from './containers/Form/PatientRegistration/PatientRegistration';
 import Patients from "./containers/Patients/Patients";
 import FirstEntry from "./containers/FirstEntry/FirstEntry";
-// import Test from "./containers/Test/Test";
 import MainMenu from './containers/MainMenu/MainMenu';
 import TestCore from "./containers/TestCore/TestCore";
 

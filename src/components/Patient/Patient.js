@@ -5,7 +5,7 @@ import {connect} from "react-redux";
 class Patient extends Component {
 
     render() {
-        const entryTest = this.props.firstEntry[this.props.id].patientData.entryProfile;
+        const entryTest = this.props.firstEntry[this.props.id].entryProfile;
         let updatedEntryTest = [];
         if (entryTest) {
             for (let key in entryTest) {

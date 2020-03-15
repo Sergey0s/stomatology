@@ -2,17 +2,28 @@ import axios from '../../axios-orders';
 import * as actionTypes from './actionTypes'
 
 export const setPatientsData = (patients) => {
-    return {
-        type: actionTypes.INIT_PATIENTS,
-        patients: patients,
-    };
+    if (patients === null) {
+        return {
+            type: actionTypes.INIT_PATIENTS,
+            patients,
+            pageLoading: false
+        }
+    }
+     if (Object.keys(patients).length!==0) {
+         return {
+             type: actionTypes.INIT_PATIENTS,
+             patients,
+             patientsExist: true,
+             pageLoading: false
+         };
+     }
 };
-
 
 export const getPatientsData = () => {
     return dispatch => {
         axios.get('/patients.json')
             .then(response => {
+                console.log(response);
                 dispatch(setPatientsData(response.data))
             })
     }
