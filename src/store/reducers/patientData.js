@@ -24,7 +24,7 @@ const patientData = (state = initialState, action) => {
                     ...state.patients,
                    [action.patientId] : {
                         ...state.patients[action.patientId],
-                       status: 'Ожидает первого приема',
+                       status: 'Ожидает первичный прием',
                         completedTests : {
                             entryProfile: action.entryFormData
                         }

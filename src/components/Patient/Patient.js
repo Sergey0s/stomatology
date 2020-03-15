@@ -58,15 +58,7 @@ class Patient extends Component {
                                 onClick={this.props.entryProfileHandler}>Начать анкетирование</button>
                         }
 
-                        { status=='Ожидает анкетирование' &&
-                        <button className={classes.PatientFull__firstEntryButton}
-                                onClick={this.props.entryProfileHandler}>Начать анкетирование</button>
-                        }
 
-                        { status=='Ожидает анкетирование' &&
-                        <button className={classes.PatientFull__firstEntryButton}
-                                onClick={this.props.entryProfileHandler}>Начать анкетирование</button>
-                        }
 
 
                         <button className={classes.Patient__showMore} onClick={(id) => showMoreHandler(this.props.id)}>
@@ -108,3 +100,14 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps)(Patient);
+
+
+// { status=='Ожидает первичный прием' &&
+// <button className={classes.PatientFull__firstEntryButton}
+//         onClick={this.props.entryProfileHandler}>Начать первичный прием</button>
+// }
+//
+// { status=='Ожидает повторный прием' &&
+// <button className={classes.PatientFull__firstEntryButton}
+//         onClick={this.props.entryProfileHandler}>Начать повторный прием</button>
+// }

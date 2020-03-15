@@ -35,7 +35,8 @@ export const entryProfileSuccess = (patientId, entryFormData) => {
         .then(response => {
             console.log(response);
             dispatch(saveProfile(patientId, entryFormData));
-            axios.patch('/patients/' + patientId + '/.json', {status: 'Ожидает первичный прием'}).then();
+            axios.patch('/patients/' + patientId + '/.json', {status: 'Ожидает первичный прием'});
+            axios.patch('/patients/' + patientId + '/stages/.json', {entryProfile: true});
         });
 };
 

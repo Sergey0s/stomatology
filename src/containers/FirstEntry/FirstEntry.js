@@ -49,81 +49,80 @@ class FirstEntry extends Component {
         event.preventDefault();
         this.props.onAddFirstEntry(this.props.location.state.patientId, this.state.EntryProfileForm);
         this.setState({
-            firstFormDone: true
+            isFinished: !this.state.isFinished
         })
     };
 
     render() {
-        let form = '';
+        let content = '';
 
         if (this.props.location.state === undefined || this.state.isFinished) {
-            form = <Redirect to={'/patients'}/>
+            content = <Redirect to={'/patients'}/>
         } else {
             const formElementArray = [];
             for (let key in this.state.EntryProfileForm) {
                 formElementArray.push({
                     id: key,
                     config: this.state.EntryProfileForm[key],
-                })
-            }
+                });
 
-            if (!this.state.firstFormDone) {
-                form = (
-                    (<div className={classes.testBlock}>
-                        <h1 className={classes.testBlock__title}> Первичный прием пациента</h1>
-                        <form className={classes.testBlock__form} onSubmit={this.onSubmitHandler}>
-                            {formElementArray.map((formElement, i) => (
-                                    <Aux key={i}>
-                                        <p className={classes.testBlock__form__p}> {formElement.config.text} </p>
-                                        <div className={classes.testBlock__form__input}>
-                                            <Input
-                                                key={formElement.id}
-                                                elementType={formElement.config.elementType}
-                                                elementConfig={formElement.config.elementConfig}
-                                                value={formElement.config.value}
-                                                changed={(event) => this.inputChangeHandler(event, formElement.id)}
-                                            /></div>
-                                    </Aux>
-                                )
-                            )}
-                            <h2 className={classes.testBlock__diagnosis}>Диагноз: К 12.0 - рецидивирующие афты полости
-                                рта</h2>
-                            <div className={classes.testBlock__form__buttonDiv}>
-                                <button className={classes.saveButton}> Сохранить данные</button>
-                            </div>
-                        </form>
-                    </div>));
-            }
-
-
-            // let questionsArr = [questionList1, questionList2];
-            // }  else {
-            //         if (!this.state.isFinished) {
-            //             if (!this.state.localFinished) {
-            //                 form =
-            //                     <div>
-            //                         <TestCore
-            //                             isLocalFinished={this.state.localFinished}
-            //                             isFinished ={this.state.isFinished}
-            //                             isFinishedChange={this.handleIsFinished}
-            //                             patientId={this.props.location.state.patientId}
-            //                             questions={questionsArr[this.state.numberOfTest]}
-            //                         />
-            //                     </div>
-            //             } else {
-            //                 this.setState({localFinished: false})
-            //             }
-            //         } else {
-            //             form = ;
-            //         }
-            //     }
-            // }
-            return (
-                <div>
-                    {form}
-                </div>
-            )
+                    content = (
+                        (<div className={classes.testBlock}>
+                            <h1 className={classes.testBlock__title}> Первичный прием пациента</h1>
+                            <form className={classes.testBlock__form} onSubmit={this.onSubmitHandler}>
+                                {formElementArray.map((formElement, i) => (
+                                        <Aux key={i}>
+                                            <p className={classes.testBlock__form__p}> {formElement.config.text} </p>
+                                            <div className={classes.testBlock__form__input}>
+                                                <Input
+                                                    key={formElement.id}
+                                                    elementType={formElement.config.elementType}
+                                                    elementConfig={formElement.config.elementConfig}
+                                                    value={formElement.config.value}
+                                                    changed={(event) => this.inputChangeHandler(event, formElement.id)}
+                                                /></div>
+                                        </Aux>
+                                    )
+                                )}
+                                <h2 className={classes.testBlock__diagnosis}>Диагноз: К 12.0 - рецидивирующие афты
+                                    полости
+                                    рта</h2>
+                                <div className={classes.testBlock__form__buttonDiv}>
+                                    <button className={classes.saveButton}> Сохранить данные</button>
+                                </div>
+                            </form>
+                        </div>));
+                }
         }
+
+
+        // let questionsArr = [questionList1, questionList2];
+        // }  else {
+        //         if (!this.state.isFinished) {
+        //             if (!this.state.localFinished) {
+        //                 form =
+        //                     <div>
+        //                         <TestCore
+        //                             isLocalFinished={this.state.localFinished}
+        //                             isFinished ={this.state.isFinished}
+        //                             isFinishedChange={this.handleIsFinished}
+        //                             patientId={this.props.location.state.patientId}
+        //                             questions={questionsArr[this.state.numberOfTest]}
+        //                         />
+        //                     </div>
+        //             } else {
+        //                 this.setState({localFinished: false})
+        //             }
+        //         } else {
+        //             form = ;
+        //         }
+        //     }
+        // }
+        return (
+            <div>
+                {content}
+            </div>
+        )
     }
 }
 

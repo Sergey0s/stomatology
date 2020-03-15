@@ -73,7 +73,19 @@ class PatientRegistration extends Component {
         if (this.props.patientsData!==null) {counter = Object.keys(this.props.patientsData).length+1}
 
         const patient = {
-            id: counter ,...formData, registerDate: Date(), status: 'Ожидает анкетирование'
+            id: counter ,...formData, registerDate: Date(),
+            status: 'Ожидает анкетирование',
+            stages: {
+                entryProfile: false,
+                stomatitisPresence: false,
+                riskDevelopment: false,
+                severity: false,
+                clinicNow: false,
+                clinicFuture: false,
+                laboratoryAnalysisNow: false,
+                laboratoryAnalysisFuture: false,
+                laboratoryAnalysisFarFuture: false
+            }
         };
 
         axios.post('/patients.json', patient)
