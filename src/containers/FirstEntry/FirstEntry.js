@@ -4,10 +4,9 @@ import Aux from '../../hoc/Auxiliary/Auxiliary';
 import Input from '../../components/UI/Input/Input';
 import {connect} from 'react-redux';
 import * as actions from "../../store/actions";
-// import Test from "../Test/Test";
 import TestCore from "../TestCore/TestCore";
-import questionList2 from "../../components/DataBase/List2";
-import questionList1 from "../../components/DataBase/List1";
+import questionList2 from "../../DataBase/List2";
+import questionList1 from "../../DataBase/List1";
 import {Redirect} from "react-router-dom";
 
 class FirstEntry extends Component {
@@ -115,7 +114,6 @@ class FirstEntry extends Component {
     }
 
     handleIsFinished() {
-        console.log('я тут');
         let questionsArr = [questionList1, questionList2];
 
         if (questionsArr.length === this.state.numberOfTest + 1) {
@@ -143,7 +141,6 @@ class FirstEntry extends Component {
         this.setState({
             firstFormDone: true
         })
-        // console.log(this.props.location.state.patientId, this.state.firstEntryForm)
     };
 
     render() {
@@ -159,8 +156,6 @@ class FirstEntry extends Component {
         }
 
         let form = '';
-
-        console.log(this.state.isFinished);
 
         if (this.props.location.state === undefined) {
             this.props.history.push('/patients');

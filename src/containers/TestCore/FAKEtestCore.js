@@ -4,7 +4,7 @@ import Questions from '../../components/Questions/Questions';
 import Answers from '../../components/Answers/Answers';
 import Results from '../../components/Results/Results';
 import classes from './TestCore.css';
-import questionList1 from "../../components/DataBase/List1";
+import questionList1 from "../../DataBase/List1";
 
 
 class FAKEtestCore extends Component {
