@@ -4,9 +4,9 @@ import Aux from '../../hoc/Auxiliary/Auxiliary';
 import Input from '../../components/UI/Input/Input';
 import {connect} from 'react-redux';
 import * as actions from "../../store/actions";
-import TestCore from "../TestCore/TestCore";
-import questionList2 from "../../DataBase/List2";
-import questionList1 from "../../DataBase/List1";
+// import TestCore from "../TestCore/TestCore";
+// import questionList2 from "../../DataBase/List2";
+// import questionList1 from "../../DataBase/List1";
 import {Redirect} from "react-router-dom";
 import {EntryProfileForm} from '../../DataBase/EntryProfileForm';
 

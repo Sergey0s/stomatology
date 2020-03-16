@@ -1,47 +1,38 @@
-import classes from "../../containers/FirstEntry/FirstEntry.css";
+import classes from "../../components/EntryProfile/EntryProfile.css";
 import Aux from "../../hoc/Auxiliary/Auxiliary";
-import Input from "../UI/Input/Input";
-import React, {Component} from "react";
+import React from "react";
+import {EntryProfileForm} from '../../DataBase/EntryProfileForm';
 
-class EntryProfile extends Component {
-    state = {
-        
-    };
+const entryProfile = (props) => {
+    let updatedForm = [];
+    Object.keys(EntryProfileForm).map(el => {
+       return updatedForm.push(EntryProfileForm[el])
+    });
 
+    let updatedAnswers = [];
+        Object.keys(props.profileData).map(el => {
+           return updatedAnswers.push(props.profileData[el])
+        });
 
-    render() {
-        //
-        // let form = (
-        //     (<div className={classes.testBlock}>
-        //         <h1 className={classes.testBlock__title}> Первичный прием пациента</h1>
-        //         <form className={classes.testBlock__form} onSubmit={this.onSubmitHandler}>
-        //             {formElementArray.map((formElement, i) => (
-        //                     <Aux key={i}>
-        //                         <p className={classes.testBlock__form__p}> {formElement.config.text} </p>
-        //                         <div className={classes.testBlock__form__input}>
-        //                             <Input
-        //                                 key={formElement.id}
-        //                                 elementType={formElement.config.elementType}
-        //                                 elementConfig={formElement.config.elementConfig}
-        //                                 value={formElement.config.value}
-        //                                 changed={(event) => this.inputChangeHandler(event, formElement.id)}
-        //                             /></div>
-        //                     </Aux>
-        //                 )
-        //             )}
-        //             <h2 className={classes.testBlock__diagnosis}>Диагноз: К 12.0 - рецидивирующие афты полости
-        //                 рта</h2>
-        //             <div className={classes.testBlock__form__buttonDiv}>
-        //                 <button className={classes.saveButton}> Сохранить данные</button>
-        //             </div>
-        //         </form>
-        //     </div>));
+        let form = (
+            (<div className={classes.profileBlock} onClick={props.clicked}>
+                <h1 className={classes.profile__title}>Результаты первичного анкетирования</h1>
+                <div className={classes.profile__content}>
+                    {updatedForm.map((formElement, i) => {
+                            return (<Aux key={i}>
+                                    <p className={classes.profileBlock__p}> {formElement.text} <span className={classes.profileBlock__answers}>{updatedAnswers[i].value!=='' ? updatedAnswers[i].value : '_____________'}</span></p>
+                                </Aux>
+                            )
+                        }
+                    )}
+                    <h2 className={classes.profileBlock__diagnosis}>Диагноз: К 12.0 - рецидивирующие афты полости
+                        рта</h2>
+                </div>
+            </div>));
 
+    return (form);
+};
 
-        return (1);
-    }
-}
-
-export default EntryProfile;
+export default entryProfile;
 
 

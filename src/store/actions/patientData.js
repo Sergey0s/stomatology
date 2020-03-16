@@ -23,7 +23,6 @@ export const getPatientsData = () => {
     return dispatch => {
         axios.get('/patients.json')
             .then(response => {
-                console.log(response);
                 dispatch(setPatientsData(response.data))
             })
     }
@@ -33,7 +32,6 @@ export const entryProfileSuccess = (patientId, entryFormData) => {
     return dispatch =>
     axios.post('/patients/' + patientId + '/completedTests/entryProfile.json', entryFormData)
         .then(response => {
-            console.log(response);
             dispatch(saveProfile(patientId, entryFormData));
             axios.patch('/patients/' + patientId + '/.json', {status: 'Ожидает первичный прием'});
             axios.patch('/patients/' + patientId + '/stages/.json', {entryProfile: true});
@@ -47,6 +45,10 @@ export const saveProfile = (patientId, entryFormData) => {
         entryFormData: entryFormData
     }
 };
+
+
+
+
 
 export const testCompletedSuccess = (patientId, testName, totalScore) => {
     return dispatch => {

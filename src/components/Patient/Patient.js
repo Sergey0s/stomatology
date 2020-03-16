@@ -1,44 +1,50 @@
 import React, {Component} from "react";
 import classes from './Patient.css';
 import {connect} from "react-redux";
+import EntryProfile from '../EntryProfile/EntryProfile';
+import TestCore from "../../containers/TestCore/TestCore";
 
 class Patient extends Component {
     state = {
-        showMore: false
+        showMore: false,
+        showProfile: false,
     };
 
 
+
+
     render() {
+        console.log(this.props.testStarted)
 
         const showMoreHandler = (id) => {
-            console.log(id);
             this.setState({showMore: !this.state.showMore})
         };
 
-         const currentPatient = this.props.patientsData[this.props.id];
+        const currentPatient = this.props.patientsData[this.props.id];
 
-         let status = null;
+        let status = null;
         if (this.props.patientsData[this.props.id].status !== undefined) {
             status = this.props.patientsData[this.props.id].status;
         }
-        console.log(status);
+        // console.log(status);
 
+        // console.log(currentPatient);
+        let profileCompleted = currentPatient.stages.entryProfile;
+        let profileData = '';
+        if (profileCompleted === true) {
+            let profilePath = currentPatient.completedTests.entryProfile;
+            // console.log(profilePath);
+            let testKey = Object.keys(profilePath);
+           if (testKey.length!==1) {
+               profileData = profilePath
+           } else {
+               profileData = profilePath[testKey];
+           }
+        }
 
-        // console.log(this.props.patientsData);
-        // const currentPatient = this.props.patientsData[this.props.id];
-        // let entryProfile = null;
-        // // console.log(this.props.patientsData[this.props.id]);
-        // if (this.props.patientsData[this.props.id].completedTests !== undefined) {
-        //     entryProfile = this.props.patientsData[this.props.id].completedTests.entryProfile;
-        // }
-        // console.log(entryProfile);
-
-        // let updatedEntryProfile = [];
-        // if (entryTest) {
-        //     for (let key in entryTest) {
-        //         updatedEntryTest.push(entryTest[key])
-        //     }
-        // }
+        const showProfileHandler = (id) => {
+            this.setState({showProfile: !this.state.showProfile})
+        };
 
         let content = '';
         if (this.state.showMore) {
@@ -53,12 +59,27 @@ class Patient extends Component {
                         </div>
                         <p className={classes.PatientFull__status}>Статус: {currentPatient.status} </p>
 
-                        { status=='Ожидает анкетирование' &&
+                        {(profileCompleted === true && !this.state.showProfile &&
+                        <div className={classes.PatientFull__results}>
+                            <p className={classes.PatientFull__link}
+                               onClick={(id) => showProfileHandler(this.props.id)}
+                            >Смотреть результаты анкеты </p></div>)
+                        ||
+                        (profileCompleted === true &&
+                        <EntryProfile profileData={profileData} clicked={(id) => showProfileHandler(this.props.id)}/>)
+                        }
+
+                        {status === 'Ожидает анкетирование' &&
                         <button className={classes.PatientFull__firstEntryButton}
                                 onClick={this.props.entryProfileHandler}>Начать анкетирование</button>
                         }
 
-
+                        {(status === 'Ожидает первичный прием' && !this.props.testStarted &&
+                        <button className={classes.PatientFull__firstEntryButton}
+                                onClick={this.props.firstTestsHandler}>Начать первичный прием</button>)
+                            ||
+                        (status === 'Ожидает первичный прием' && <TestCore questionList = {this.props.testList}/>)
+                        }
 
 
                         <button className={classes.Patient__showMore} onClick={(id) => showMoreHandler(this.props.id)}>
@@ -85,7 +106,7 @@ class Patient extends Component {
             {/*        <p className={classes.Patient__p}> Диагноз: К 12.0 - рецидивирующие афты полости рта</p>*/}
             {/*    </div>*/}
             {/*}*/}
-        </div>
+        </div>;
 
         return (
             content
@@ -102,10 +123,6 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps)(Patient);
 
 
-// { status=='Ожидает первичный прием' &&
-// <button className={classes.PatientFull__firstEntryButton}
-//         onClick={this.props.entryProfileHandler}>Начать первичный прием</button>
-// }
 //
 // { status=='Ожидает повторный прием' &&
 // <button className={classes.PatientFull__firstEntryButton}

@@ -3,13 +3,16 @@ import {connect} from "react-redux";
 import Patient from "../../components/Patient/Patient";
 import * as actions from '../../store/actions';
 import { Redirect } from 'react-router-dom';
-import classes from "../../containers/Patients/Patients.css"
+import classes from "../../containers/Patients/Patients.css";
+import {TestList} from '../../DataBase/TestsList';
 
 class Patients extends Component {
 
     state = {
-        firstEntry: false,
-        patientId: null
+        profileDone: false,
+        patientId: null,
+        testStarted: false,
+        testList: [],
     };
 
     componentDidMount() {
@@ -18,12 +21,18 @@ class Patients extends Component {
 
     entryProfileHandler = (patientId) => {
         this.setState({
-            firstEntry: true,
+            profileDone: true,
             patientId: patientId
         })
     };
 
+    firstTestHandler = () => {
+        this.setState({testStarted: true})
+    };
+
     render() {
+        console.log(this.state.testStarted);
+        console.log(this.state.testList);
         const fetchedPatients = [];
         for (let key in this.props.patients) {
             fetchedPatients.push({
@@ -37,7 +46,7 @@ class Patients extends Component {
         //     this.props.onInitPatientsData()
         // }
 
-        if (this.state.firstEntry) {
+        if (this.state.profileDone) {
             patientsList = (<Redirect to={{
                 pathname: '/firstEntry',
                 state: {
@@ -59,6 +68,9 @@ class Patients extends Component {
                                     secondName={patient.secondName}
                                     registerDate={patient.registerDate}
                                     entryProfileHandler={() => this.entryProfileHandler(patient.id)}
+                                    firstTestsHandler={()=> this.firstTestHandler(patient.id)}
+                                    testStarted = {this.state.testStarted}
+                                    stomatitTest = {TestList.stomatitisPresence}
                                 />
                             })
                         }

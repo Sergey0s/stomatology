@@ -1,0 +1,36 @@
+.profileBlock {
+    margin: auto;
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    cursor: pointer;
+}
+
+.profile__content {
+    text-align: justify;
+    padding: 3px;
+}
+
+.profile__title {
+    text-align: center;
+    font-size: 1.2rem;
+}
+
+.profileBlock__p {
+    display: inline;
+    font-size: 0.8rem;
+    margin: 0;
+    padding: 0;
+}
+
+.profileBlock__answers {
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.profileBlock__diagnosis {
+    font-size: 1rem;
+    text-align: center;
+}

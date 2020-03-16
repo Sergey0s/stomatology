@@ -15,7 +15,7 @@ class MainMenu extends Component {
     render() {
         let content = '';
         if (this.props.pageLoading) {
-            content = <Spinner/>
+            content = <div className={classes.MainMenu__spinner}><Spinner/></div>
         } else {
             let baseButton = '';
             this.props.patientsExist ?

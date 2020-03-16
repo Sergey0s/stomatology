@@ -24,6 +24,10 @@ const patientData = (state = initialState, action) => {
                     ...state.patients,
                    [action.patientId] : {
                         ...state.patients[action.patientId],
+                       stages : {
+                            ...state.patients[action.patientId].stages,
+                           entryProfile: true,
+                       },
                        status: 'Ожидает первичный прием',
                         completedTests : {
                             entryProfile: action.entryFormData
@@ -32,6 +36,7 @@ const patientData = (state = initialState, action) => {
                 }
             }
         }
+
         case actionTypes.TEST_COMPLETED_SUCCESS: {
             return {
                 ...state,

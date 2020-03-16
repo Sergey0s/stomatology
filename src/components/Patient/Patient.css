@@ -80,3 +80,16 @@ p {
 .Patient__firstEntryButton:hover {
     background-color: gold;
 }
+
+.PatientFull__results {
+    margin: 10px;
+}
+
+.PatientFull__link {
+    font-size: 1rem;
+    margin: 5px;
+    padding: 0 5px;
+    text-align: left;
+    color: blue;
+    cursor: pointer;
+}
