@@ -2,22 +2,21 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import Patient from "../../components/Patient/Patient";
 import * as actions from '../../store/actions';
-import { Redirect } from 'react-router-dom';
+import {Redirect} from 'react-router-dom';
 import classes from "../../containers/Patients/Patients.css";
-import {TestList} from '../../DataBase/TestsList';
+
 
 class Patients extends Component {
-
     state = {
         profileDone: false,
         patientId: null,
-        testStarted: false,
-        testList: [],
+        testDone: false,
     };
 
     componentDidMount() {
         this.props.onInitPatientsData();
     }
+
 
     entryProfileHandler = (patientId) => {
         this.setState({
@@ -26,13 +25,11 @@ class Patients extends Component {
         })
     };
 
-    firstTestHandler = () => {
-        this.setState({testStarted: true})
+    testHandler = () => {
+        this.props.onTestStarted();
     };
 
     render() {
-        console.log(this.state.testStarted);
-        console.log(this.state.testList);
         const fetchedPatients = [];
         for (let key in this.props.patients) {
             fetchedPatients.push({
@@ -55,7 +52,7 @@ class Patients extends Component {
             }}
             />)
         } else {
-            if (this.props.patients && this.props.patients.length!==0) {
+            if (this.props.patients && this.props.patients.length !== 0) {
                 patientsList = (
                     <div className={classes.Patients}>
                         {
@@ -68,9 +65,7 @@ class Patients extends Component {
                                     secondName={patient.secondName}
                                     registerDate={patient.registerDate}
                                     entryProfileHandler={() => this.entryProfileHandler(patient.id)}
-                                    firstTestsHandler={()=> this.firstTestHandler(patient.id)}
-                                    testStarted = {this.state.testStarted}
-                                    stomatitTest = {TestList.stomatitisPresence}
+                                    testsHandler={() => this.testHandler(patient.id)}
                                 />
                             })
                         }
@@ -88,12 +83,14 @@ class Patients extends Component {
 const mapStateToProps = (state) => {
     return {
         patients: state.patientData.patients,
+        testStarted: state.patientData.testStarted
     }
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        onInitPatientsData: () => dispatch(actions.getPatientsData())
+        onInitPatientsData: () => dispatch(actions.getPatientsData()),
+        onTestStarted: () => dispatch(actions.testStarted())
     }
 };
 

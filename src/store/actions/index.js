@@ -1,5 +1,6 @@
 export {
     getPatientsData,
     entryProfileSuccess,
-    testCompletedSuccess
+    testCompletedSuccess,
+    testStarted,
 } from './patientData'

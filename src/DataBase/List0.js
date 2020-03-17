@@ -4,18 +4,20 @@ let questionList0 =
         questions: [
             {
                 id: 1,
+                title: 'Наличие стоматита',
                 question: 'Есть ли в анамнезе рецидивирующий афтозный стоматит?',
                 answers: [
-                    {text: 'Да', id: '1', value: 3},
-                    {text: 'Нет', id: '0', value: 0}
+                    {text: 'Да', id: '0', value: 3},
+                    {text: 'Нет', id: '1', value: 0}
                 ]
             },
             {
                 id: 2,
+                title: 'Наличие стоматита',
                 question: 'Есть ли в настоящее время клинические проявления рецидивирующего афтозного стоматита?',
                 answers: [
-                    {text: 'Да', id: '1', value: 2},
-                    {text: 'Нет', id: '0', value: 0}
+                    {text: 'Да', id: '0', value: 2},
+                    {text: 'Нет', id: '1', value: 0}
                 ]
             }
         ],
