@@ -19,7 +19,6 @@ class TestCore extends Component {
     setAnswerHandler = (answerId) => {
 
         let oldTotalValue = this.state.totalScore;
-        console.log(this.props.questions.questions[this.state.activeQuestion].answers[answerId].value);
         oldTotalValue += this.props.questions.questions[this.state.activeQuestion].answers[answerId].value;
         this.setState({totalScore: oldTotalValue, activeQuestion: this.state.activeQuestion + 1});
 
@@ -33,13 +32,10 @@ class TestCore extends Component {
     };
 
     sendResultsHandler = () => {
-        console.log(this.state.totalScore);
         this.props.onCompleteTest(this.props.patientId,this.props.questions.questionsListName, this.state.totalScore)
     };
 
     render() {
-        console.log(this.props.questions);
-        console.log(this.state.totalScore);
 
         let testView = null;
 

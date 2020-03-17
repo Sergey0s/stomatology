@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 import EntryProfile from '../EntryProfile/EntryProfile';
 import TestCore from "../../containers/TestCore/TestCore";
 import {TestList} from '../../DataBase/TestsList';
+import Treatment from "../Treatment/Treatment";
 
 class Patient extends Component {
     state = {
@@ -13,22 +14,25 @@ class Patient extends Component {
     };
 
     render() {
-        console.log(this.props.testStarted);
+        const currentPatient = this.props.patientsData[this.props.id];
+        if (currentPatient.completedTests['Наличие стоматита']!==undefined) {
+            const stomatitisPresenceKey = Object.keys(currentPatient.completedTests['Наличие стоматита']);
+            const stomatitisPresenceResults = currentPatient.completedTests['Наличие стоматита'][stomatitisPresenceKey].totalScore;
+            console.log(stomatitisPresenceResults);
+        }
+
+
 
 
         const showMoreHandler = (id) => {
             this.setState({showMore: !this.state.showMore})
         };
 
-        const currentPatient = this.props.patientsData[this.props.id];
-
         let status = null;
         if (this.props.patientsData[this.props.id].status !== undefined) {
             status = this.props.patientsData[this.props.id].status;
         }
-        // console.log(status);
 
-        // console.log(currentPatient);
         let profileCompleted = null;
         let profileData = '';
         if (currentPatient.stages.entryProfile !== undefined) {
@@ -79,14 +83,13 @@ class Patient extends Component {
 
 
                         {
-                            (currentPatient.stages.entryProfile===true && currentPatient.stages.stomatitisPresence === true && !this.state.showResults &&
+                            (currentPatient.stages.entryProfile===true && currentPatient.stages.stomatitisPresence === true && currentPatient.stages.riskDevelopment === true && currentPatient.stages.riskDevelopment === true && !this.state.showResults &&
                                 <div className={classes.PatientFull__results}>
                                 <p className={classes.PatientFull__link}
                                    onClick={(id) => showResultsHandler(this.props.id)}
-                                >Смотреть результаты тестирования </p></div>)
-                            || (currentPatient.stages.entryProfile===true && currentPatient.stages.stomatitisPresence === true &&
-
-                                <div> RESULTS</div>)
+                                >Смотреть результаты тестирования / ЛЕЧЕНИЕ </p></div>)
+                            || (currentPatient.stages.entryProfile===true && currentPatient.stages.stomatitisPresence === true && currentPatient.stages.riskDevelopment === true && currentPatient.stages.riskDevelopment === true &&
+                                <Treatment id={this.props.id} clicked={(id) => showResultsHandler(this.props.id)}/>)
 
                         }
 
@@ -113,7 +116,7 @@ class Patient extends Component {
                             (status === 'Ожидает тест: Часть 1 - Риск развития' &&
                                 <TestCore questions={TestList.riskDevelopment} patientId={this.props.id}/>)}
 
-                        {(status === 'Ожидает тест: Часть 2 - Степень тяжести' && !this.props.testStarted &&
+                        {(status === 'Ожидает тест: Часть 2 - Степень тяжести' && !this.props.testStarted && stomatitisPresenceResults <2 &&
                             <button className={classes.PatientFull__firstEntryButton}
                                     onClick={this.props.testsHandler}>Начать тест: Часть 2 - Степень тяжести </button>)
                         ||
@@ -155,7 +158,7 @@ class Patient extends Component {
 const mapStateToProps = (state) => {
     return {
         patientsData: state.patientData.patients,
-        testStarted: state.patientData.testStarted
+        testStarted: state.patientData.testStarted,
     }
 };
 
