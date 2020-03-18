@@ -1,6 +1,6 @@
 .Treatment {
-    margin: 30px auto;
-    width: 60%;
+    margin: 20px auto;
+    width: 70%;
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
@@ -9,15 +9,17 @@
 }
 
 .Treatment__content {
-    margin-top: 20px;
+    margin-top: 0;
 }
 
 
 .Treatment__title {
     font-size: 1.2rem;
     font-weight: bold;
+    margin: 10px 0;
 }
 
 p {
     text-align: center;
+    font-size: 0.9rem;
 }
