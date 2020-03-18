@@ -1,22 +1,48 @@
 import React from "react";
 import classes from './Treatment.css';
-import Aux from '../../hoc/Auxiliary/Auxiliary';
+// import Aux from '../../hoc/Auxiliary/Auxiliary';
 import {connect} from "react-redux";
 
 const treatment = (props) => {
     const currentPatient = props.patientsData[props.id];
 
-    const stomatitisPresenceKey = Object.keys(currentPatient.completedTests['Наличие стоматита']);
-    const stomatitisPresenceResults = currentPatient.completedTests['Наличие стоматита'][stomatitisPresenceKey].totalScore;
+
+    let stomatitisPresenceResults = null;
+
+    let stomatitisPresencePath = currentPatient.completedTests['Наличие стоматита'];
+    let stomatitisPresenceKey = Object.keys(stomatitisPresencePath);
+    if (stomatitisPresenceKey.length !== 1) {
+        stomatitisPresenceResults = stomatitisPresencePath.totalScore;
+    } else {
+        stomatitisPresenceResults = stomatitisPresencePath[stomatitisPresenceKey].totalScore;
+    }
+
     console.log(stomatitisPresenceResults);
 
-    const riskDevelopmentKey = Object.keys(currentPatient.completedTests['Часть 1 - Риск развития']);
-    const riskDevelopmentResults = currentPatient.completedTests['Часть 1 - Риск развития'][riskDevelopmentKey].totalScore;
+
+    let riskDevelopmentResults = null;
+
+    let riskDevelopmentPath = currentPatient.completedTests['Часть 1 - Риск развития'];
+    let riskDevelopmentKey = Object.keys(riskDevelopmentPath);
+    if (riskDevelopmentKey.length !== 1) {
+        riskDevelopmentResults = riskDevelopmentPath.totalScore;
+    } else {
+        riskDevelopmentResults = riskDevelopmentPath[riskDevelopmentKey].totalScore;
+    }
+
     console.log(riskDevelopmentResults);
 
 
-    const  severityKey = Object.keys(currentPatient.completedTests['Часть 2 - Степень тяжести']);
-    const  severityResults = currentPatient.completedTests['Часть 2 - Степень тяжести'][severityKey].totalScore;
+    let severityResults = null;
+
+    let severityPath = currentPatient.completedTests['Часть 2 - Степень тяжести'];
+    let severityKey = Object.keys(severityPath);
+    if (severityKey.length !== 1) {
+        severityResults = severityPath.totalScore;
+    } else {
+        severityResults = severityPath[severityKey].totalScore;
+    }
+
     console.log(severityResults);
 
 

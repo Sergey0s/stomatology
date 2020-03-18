@@ -3,4 +3,6 @@ export {
     entryProfileSuccess,
     testCompletedSuccess,
     testStarted,
+    handleStatusInDb,
+    handleStageInDb
 } from './patientData'

@@ -5,6 +5,7 @@ import EntryProfile from '../EntryProfile/EntryProfile';
 import TestCore from "../../containers/TestCore/TestCore";
 import {TestList} from '../../DataBase/TestsList';
 import Treatment from "../Treatment/Treatment";
+import * as actions from "../../store/actions";
 
 class Patient extends Component {
     state = {
@@ -15,14 +16,67 @@ class Patient extends Component {
 
     render() {
         const currentPatient = this.props.patientsData[this.props.id];
-        if (currentPatient.completedTests['Наличие стоматита']!==undefined) {
-            const stomatitisPresenceKey = Object.keys(currentPatient.completedTests['Наличие стоматита']);
-            const stomatitisPresenceResults = currentPatient.completedTests['Наличие стоматита'][stomatitisPresenceKey].totalScore;
-            console.log(stomatitisPresenceResults);
+        if (!this.props.stageChanged) {
+            let stage = '1';
+            let value = true;
+
+            // stages
+            //stomatitisPresence,
+            //     riskDevelopment,
+            //     severity,
+            //     clinicNow,
+            //     clinicFuture,
+            //     laboratoryAnalysisNow,
+            //     laboratoryAnalysisFuture,
+            //     laboratoryAnalysisFarFuture
+
+            switch (currentPatient.status) {
+                case 'Ожидает тест: наличие стоматита' :
+                    stage = 'stomatitisPresence';
+                    break;
+                case 'Ожидает тест: Часть 1 - Риск развития':
+                    stage = 'riskDevelopment';
+                    break;
+                case 'Часть 2 не требуется. Ожидает повторный прием в течение 7 дней' :
+                    stage = 'severity';
+                    value = 'not needed';
+                    break;
+                case 'Ожидает тест: Часть 2 - Степень тяжести' :
+                    stage = 'severity';
+                    break;
+                case 'Ожидает повторный прием в течение 7 дней' :
+                    stage = 'clinicNow';
+                    break;
+                default:
+                    stage = 'stomatitisPresence';
+            }
+
+            this.props.onHandleStage(this.props.id, stage, value);
         }
 
+        if (!this.props.statusChanged) {
+            let status = '2';
+            let value = true;
+
+            if (currentPatient.stages.riskDevelopment === false) {
+                status = 'Ожидает тест: Часть 1 - Риск развития';
+            }  else if (currentPatient.completedTests['Наличие стоматита'].totalScore >= 3) {
+                status = 'Ожидает тест: Часть 2 - Степень тяжести'
+            } else {
+                status = 'Ожидает повторный прием в течение 7 дней'
+            }
+
+            if (currentPatient.completedTests['Наличие стоматита'].totalScore < 3 && currentPatient.stages.riskDevelopment === false) {
+                status = 'Часть 2 не требуется. Ожидает повторный прием в течение 7 дней';
+            }
+
+            if (currentPatient.stages.riskDevelopment === true && currentPatient.stages.severity === true) {
+                status = 'Ожидает повторный прием в течение 7 дней'
+            }
 
 
+            this.props.onHandleStatus(this.props.id, status);
+        }
 
         const showMoreHandler = (id) => {
             this.setState({showMore: !this.state.showMore})
@@ -83,16 +137,19 @@ class Patient extends Component {
 
 
                         {
-                            (currentPatient.stages.entryProfile===true && currentPatient.stages.stomatitisPresence === true && currentPatient.stages.riskDevelopment === true && currentPatient.stages.riskDevelopment === true && !this.state.showResults &&
+                            (currentPatient.stages.entryProfile === true
+                                && currentPatient.stages.stomatitisPresence === true
+                                && currentPatient.stages.riskDevelopment === true
+                                && !this.state.showResults &&
+
                                 <div className={classes.PatientFull__results}>
-                                <p className={classes.PatientFull__link}
-                                   onClick={(id) => showResultsHandler(this.props.id)}
-                                >Смотреть результаты тестирования / ЛЕЧЕНИЕ </p></div>)
-                            || (currentPatient.stages.entryProfile===true && currentPatient.stages.stomatitisPresence === true && currentPatient.stages.riskDevelopment === true && currentPatient.stages.riskDevelopment === true &&
+                                    <p className={classes.PatientFull__link}
+                                       onClick={(id) => showResultsHandler(this.props.id)}
+                                    >Смотреть результаты тестирования / ЛЕЧЕНИЕ </p></div>)
+                            || (currentPatient.stages.entryProfile === true && currentPatient.stages.stomatitisPresence === true
+                                && currentPatient.stages.riskDevelopment === true && currentPatient.stages.riskDevelopment === true &&
                                 <Treatment id={this.props.id} clicked={(id) => showResultsHandler(this.props.id)}/>)
-
                         }
-
 
 
                         {status === 'Ожидает анкетирование' &&
@@ -100,28 +157,32 @@ class Patient extends Component {
                                 onClick={this.props.entryProfileHandler}>Начать анкетирование</button>
                         }
 
+
                         {(status === 'Ожидает тест: наличие стоматита' && !this.props.testStarted &&
                             <button className={classes.PatientFull__firstEntryButton}
                                     onClick={this.props.testsHandler}>Начать тест: наличие стоматита </button>)
                         ||
                         (status === 'Ожидает тест: наличие стоматита' &&
-                            <TestCore questions={TestList.stomatitisPresence} patientId={this.props.id}/>)
-                        }
+                            <TestCore questions={TestList.stomatitisPresence} patientId={this.props.id}/>)}
+
 
                         {(status === 'Ожидает тест: Часть 1 - Риск развития' && !this.props.testStarted &&
-                                <button className={classes.PatientFull__firstEntryButton}
-                                        onClick={this.props.testsHandler}>Начать тест: Часть 1 - Риск
-                                    развития </button>)
-                            ||
-                            (status === 'Ожидает тест: Часть 1 - Риск развития' &&
-                                <TestCore questions={TestList.riskDevelopment} patientId={this.props.id}/>)}
-
-                        {(status === 'Ожидает тест: Часть 2 - Степень тяжести' && !this.props.testStarted && stomatitisPresenceResults <2 &&
                             <button className={classes.PatientFull__firstEntryButton}
-                                    onClick={this.props.testsHandler}>Начать тест: Часть 2 - Степень тяжести </button>)
+                                    onClick={this.props.testsHandler}>Начать тест: Часть 1 - Риск
+                                развития </button>)
+                        ||
+                        (status === 'Ожидает тест: Часть 1 - Риск развития' &&
+                            <TestCore questions={TestList.riskDevelopment} patientId={this.props.id}/>)}
+
+
+                        {(status === 'Ожидает тест: Часть 2 - Степень тяжести' && !this.props.testStarted &&
+                            <button className={classes.PatientFull__firstEntryButton}
+                                    onClick={this.props.testsHandler}>Начать тест: Часть 2 - Степень
+                                тяжести </button>)
                         ||
                         (status === 'Ожидает тест: Часть 2 - Степень тяжести' &&
                             <TestCore questions={TestList.severity} patientId={this.props.id}/>)}
+
 
                         <button className={classes.Patient__showMore} onClick={(id) => showMoreHandler(this.props.id)}>
                             {this.state.showMore ? 'Скрыть' : 'Подробнее'}
@@ -137,16 +198,6 @@ class Patient extends Component {
             <button className={classes.Patient__showMore} onClick={(id) => showMoreHandler(this.props.id)}>
                 {this.state.showMore ? 'Скрыть' : 'Подробнее'}
             </button>
-            {/*{*/}
-            {/*    (!entryProfile &&*/}
-            {/*    <button className={classes.Patient__firstEntryButton} onClick={this.props.entryProfileHandler}>Первичный прием</button>)*/}
-            {/*    ||*/}
-            {/*    <div className={classes.Patient__firstEntryInfo}>*/}
-            {/*        <p className={classes.Patient__span}> Результаты первого приема: </p>*/}
-            {/*        <p className={classes.Patient__p}> Жалобы: {'жалобы'} </p>*/}
-            {/*        <p className={classes.Patient__p}> Диагноз: К 12.0 - рецидивирующие афты полости рта</p>*/}
-            {/*    </div>*/}
-            {/*}*/}
         </div>;
 
         return (
@@ -159,10 +210,21 @@ const mapStateToProps = (state) => {
     return {
         patientsData: state.patientData.patients,
         testStarted: state.patientData.testStarted,
+        testFinished: state.patientData.testFinished,
+        stageChanged: state.patientData.stageChanged,
+        statusChanged: state.patientData.statusChanged,
     }
 };
 
-export default connect(mapStateToProps)(Patient);
+const mapDispatchToProps = dispatch => {
+    return {
+        onHandleStatus: (patientId, status) => dispatch(actions.handleStatusInDb(patientId, status)),
+        onHandleStage: (patientId, stage, value) => dispatch(actions.handleStageInDb(patientId, stage, value))
+    }
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Patient);
 
 
 //
