@@ -1,11 +1,21 @@
 .PatientRegistration {
-    margin: 120px auto;
-    width: 40%;
+    box-sizing: border-box;
+    position: absolute;
+    top: calc(50% - 300px);
+    left: calc(50% - 250px);
+    height: 430px;
+    margin: auto;
+    width: 500px;
     text-align: center;
     box-shadow: 0 2px 3px #ccc;
     border: 1px solid #eee;
     padding: 10px;
-    box-sizing: border-box;
+}
+
+.PatientRegistration__title {
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-bottom: 15px;
 }
 
 .PatientRegistration__button {
@@ -25,3 +35,4 @@
     background-color: #7d7d7d;
     color: #faffff;
 }
+

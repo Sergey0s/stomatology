@@ -4,5 +4,6 @@ export {
     testCompletedSuccess,
     testStarted,
     handleStatusInDb,
-    handleStageInDb
+    handleStageInDb,
+    deletePatientFromDb
 } from './patientData'

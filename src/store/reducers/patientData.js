@@ -96,6 +96,27 @@ const patientData = (state = initialState, action) => {
             }
         }
 
+        case actionTypes.DELETE_PATIENT: {
+            const fetchedPatients = [];
+            for (let key in state.patients) {
+                fetchedPatients.push({
+                    ...state.patients[key],
+                    patientId: key
+                });
+            }
+            let updPatients = fetchedPatients.filter(patient => patient.patientId !== action.patientId);
+            let newPatients = {};
+
+            for (let key of updPatients) {
+                newPatients[key.patientId] = key
+            }
+
+            return {
+                ...state,
+                 patients: newPatients,
+                }
+            }
+
         case actionTypes.TEST_STARTED: {
             return {
                 ...state,

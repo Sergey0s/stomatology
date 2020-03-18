@@ -19,13 +19,17 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-between;
+    align-items: center;
+    /*justify-content: space-between;*/
+
 }
 
 .testBlock__form__p {
     width: 60%;
     font-size: 0.9rem;
     margin: 4px 16px;
+    word-break: break-all;
+    word-wrap: break-word;
 }
 
 .testBlock__diagnosis {

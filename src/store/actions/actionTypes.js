@@ -11,3 +11,5 @@ export const TEST_FINISHED = 'TEST_FINISHED';
 
 export const HANDLE_STATUS = 'HANDLE_STATUS';
 export const HANDLE_STAGE = 'HANDLE_STAGE';
+
+export const DELETE_PATIENT = 'DELETE_PATIENT';

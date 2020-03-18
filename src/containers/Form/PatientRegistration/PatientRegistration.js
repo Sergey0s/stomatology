@@ -4,8 +4,13 @@ import {connect} from "react-redux";
 
 import classes from './PatientRegistration.css';
 import Input from '../../../components/UI/Input/Input';
+import * as actions from "../../../store/actions";
 
 class PatientRegistration extends Component {
+    componentDidMount() {
+        this.props.onInitPatientsData();
+    }
+
     state = {
         patientForm: {
             surname: {
@@ -70,7 +75,7 @@ class PatientRegistration extends Component {
         }
 
         let counter = 1;
-        if (this.props.patientsData!==null) {counter = Object.keys(this.props.patientsData).length+1}
+        if (this.props.patientsData) {counter = this.props.patientsData[Object.keys(this.props.patientsData)[Object.keys(this.props.patientsData).length-1]].id+1}
 
         const patient = {
             id: counter ,...formData, registerDate: Date(),
@@ -120,6 +125,7 @@ class PatientRegistration extends Component {
 
         let form = (
             <form onSubmit={this.patientHandler}>
+                <p className={classes.PatientRegistration__title}>Регистрация нового пациента</p>
                 {formElementArray.map(formElement => (
                         <Input
                             key={formElement.id}
@@ -147,5 +153,11 @@ const mapStateToProps = (state)=> {
     }
 };
 
-export default connect(mapStateToProps)(PatientRegistration);
+const mapDispatchToProps = dispatch => {
+    return {
+        onInitPatientsData: () => dispatch(actions.getPatientsData())
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(PatientRegistration);
 

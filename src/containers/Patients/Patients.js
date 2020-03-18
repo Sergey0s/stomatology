@@ -39,10 +39,6 @@ class Patients extends Component {
         }
         let patientsList = '';
 
-        // if (!this.props.patients || this.props.patients.length===0) {
-        //     this.props.onInitPatientsData()
-        // }
-
         if (this.state.profileDone) {
             patientsList = (<Redirect to={{
                 pathname: '/firstEntry',

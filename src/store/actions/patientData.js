@@ -98,10 +98,27 @@ export const handleStageInDb = (patientId, stage) => {
 };
 
 
-export const saveStage = (patientId, stage, value) => {
+export const saveStage = (patientId, stage) => {
     return {
         type: actionTypes.HANDLE_STAGE,
         patientId,
         stage
+    }
+};
+
+export const deletePatientFromDb = (patientId) => {
+    return dispatch => {
+        axios.delete('/patients/' + patientId + '.json')
+            .then(response => {
+                dispatch(deletePatientFromStore(patientId))
+            })
+    }
+};
+
+
+export const deletePatientFromStore = (patientId) => {
+    return {
+        type: actionTypes.DELETE_PATIENT,
+        patientId,
     }
 };

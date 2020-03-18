@@ -80,6 +80,10 @@ class Patient extends Component {
             this.setState({showMore: !this.state.showMore})
         };
 
+        const deletePatientHandler = (id) => {
+            this.props.onDeletePatient(id);
+        };
+
         let status = null;
         if (this.props.patientsData[this.props.id].status !== undefined) {
             status = this.props.patientsData[this.props.id].status;
@@ -191,6 +195,9 @@ class Patient extends Component {
                         <button className={classes.Patient__showMore} onClick={(id) => showMoreHandler(this.props.id)}>
                             {this.state.showMore ? 'Скрыть' : 'Подробнее'}
                         </button>
+                        <button className={classes.Patient__btnDelete} onClick={(id) => deletePatientHandler(this.props.id)}>
+                            Удалить пациента из базы
+                        </button>
                     </div>
                 </div>
 
@@ -222,7 +229,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = dispatch => {
     return {
         onHandleStatus: (patientId, status) => dispatch(actions.handleStatusInDb(patientId, status)),
-        onHandleStage: (patientId, stage, value) => dispatch(actions.handleStageInDb(patientId, stage, value))
+        onHandleStage: (patientId, stage, value) => dispatch(actions.handleStageInDb(patientId, stage, value)),
+        onDeletePatient: (patientId) => dispatch(actions.deletePatientFromDb(patientId))
     }
 };
 
