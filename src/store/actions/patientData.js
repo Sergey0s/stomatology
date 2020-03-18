@@ -92,16 +92,17 @@ export const handleStageInDb = (patientId, stage, value) => {
     return dispatch => {
         axios.patch('/patients/' + patientId + '/stages/.json', {[stage]: value})
             .then(response => {
-                dispatch(saveStage(patientId, stage))
+                dispatch(saveStage(patientId, stage, value))
             })
     }
 };
 
 
-export const saveStage = (patientId, stage) => {
+export const saveStage = (patientId, stage, value) => {
     return {
         type: actionTypes.HANDLE_STAGE,
         patientId,
-        stage
+        stage,
+        value
     }
 };

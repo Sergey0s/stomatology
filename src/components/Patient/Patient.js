@@ -16,7 +16,8 @@ class Patient extends Component {
 
     render() {
         const currentPatient = this.props.patientsData[this.props.id];
-        if (!this.props.stageChanged) {
+
+        if (currentPatient.stageChanged) {
             let stage = '1';
             let value = true;
 
@@ -31,10 +32,13 @@ class Patient extends Component {
             //     laboratoryAnalysisFarFuture
 
             switch (currentPatient.status) {
+                // case: 'Ожидает анкетирование' :
+                //     stage =;
+                //     break;
                 case 'Ожидает тест: наличие стоматита' :
                     stage = 'stomatitisPresence';
                     break;
-                case 'Ожидает тест: Часть 1 - Риск развития':
+                case 'Ожидает тест: Часть 1 - Риск развития' :
                     stage = 'riskDevelopment';
                     break;
                 case 'Часть 2 не требуется. Ожидает повторный прием в течение 7 дней' :
@@ -54,19 +58,18 @@ class Patient extends Component {
             this.props.onHandleStage(this.props.id, stage, value);
         }
 
-        if (!this.props.statusChanged) {
+        if (currentPatient.statusChanged) {
             let status = '2';
-            let value = true;
 
             if (currentPatient.stages.riskDevelopment === false) {
                 status = 'Ожидает тест: Часть 1 - Риск развития';
-            }  else if (currentPatient.completedTests['Наличие стоматита'].totalScore >= 3) {
+            } else if (currentPatient.completedTests['Наличие стоматита'].totalScore >= 3) {
                 status = 'Ожидает тест: Часть 2 - Степень тяжести'
             } else {
                 status = 'Ожидает повторный прием в течение 7 дней'
             }
 
-            if (currentPatient.completedTests['Наличие стоматита'].totalScore < 3 && currentPatient.stages.riskDevelopment === false) {
+            if (currentPatient.completedTests['Наличие стоматита'].totalScore < 3 && currentPatient.stages.riskDevelopment !== false) {
                 status = 'Часть 2 не требуется. Ожидает повторный прием в течение 7 дней';
             }
 
@@ -146,8 +149,11 @@ class Patient extends Component {
                                     <p className={classes.PatientFull__link}
                                        onClick={(id) => showResultsHandler(this.props.id)}
                                     >Смотреть результаты тестирования / ЛЕЧЕНИЕ </p></div>)
-                            || (currentPatient.stages.entryProfile === true && currentPatient.stages.stomatitisPresence === true
-                                && currentPatient.stages.riskDevelopment === true && currentPatient.stages.riskDevelopment === true &&
+                            ||
+                            (currentPatient.stages.entryProfile === true
+                                && currentPatient.stages.stomatitisPresence === true
+                                && currentPatient.stages.riskDevelopment === true
+                                && currentPatient.stages.riskDevelopment === true &&
                                 <Treatment id={this.props.id} clicked={(id) => showResultsHandler(this.props.id)}/>)
                         }
 
@@ -211,8 +217,7 @@ const mapStateToProps = (state) => {
         patientsData: state.patientData.patients,
         testStarted: state.patientData.testStarted,
         testFinished: state.patientData.testFinished,
-        stageChanged: state.patientData.stageChanged,
-        statusChanged: state.patientData.statusChanged,
+        // patientsExist: state.patientData.patientsExist,
     }
 };
 

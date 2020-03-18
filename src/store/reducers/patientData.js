@@ -5,11 +5,8 @@ const initialState = {
     pageLoading: true,
     testStarted: false,
     testFinished: false,
-    statusChanged: true,
-    stageChanged: true,
     patients: []
 };
-
 
 const patientData = (state = initialState, action) => {
     switch (action.type) {
@@ -20,16 +17,12 @@ const patientData = (state = initialState, action) => {
                 patientsExist: action.patientsExist,
                 pageLoading: false,
                 testFinished: false,
-                statusChanged: true,
-                stageChanged: true,
             }
         }
         case actionTypes.ENTRY_PROFILE_SUCCESS: {
             return {
                 ...state,
                 testFinished: false,
-                statusChanged: true,
-                stageChanged: true,
                 patients: {
                     ...state.patients,
                     [action.patientId]: {
@@ -52,12 +45,11 @@ const patientData = (state = initialState, action) => {
                 ...state,
                 testStarted: false,
                 testFinished: true,
-                statusChanged: false,
-                stageChanged: false,
                 patients: {
                     ...state.patients,
                     [action.patientId]: {
                         ...state.patients[action.patientId],
+                        stageChanged: true,
                         completedTests: {
                             ...state.patients[action.patientId].completedTests,
                             [action.testName]: {
@@ -73,13 +65,12 @@ const patientData = (state = initialState, action) => {
         case actionTypes.HANDLE_STATUS: {
             return {
                 ...state,
-                statusChanged: true,
-                testFinished: false,
                 patients: {
                     ...state.patients,
                     [action.patientId]: {
                         ...state.patients[action.patientId],
-                        status: action.status
+                        status: action.status,
+                        statusChanged: false,
                     }
                 }
             }
@@ -88,14 +79,14 @@ const patientData = (state = initialState, action) => {
         case actionTypes.HANDLE_STAGE: {
             return {
                 ...state,
-                stageChanged: true,
-                statusChanged: false,
                 testStarted: false,
                 testFinished: false,
                 patients: {
                     ...state.patients,
                     [action.patientId]: {
                         ...state.patients[action.patientId],
+                        statusChanged: true,
+                        stageChanged: false,
                         stages: {
                             ...state.patients[action.patientId].stages,
                             [action.stage]: action.value,
@@ -110,8 +101,6 @@ const patientData = (state = initialState, action) => {
                 ...state,
                 testStarted: true,
                 testFinished: false,
-                statusChanged: true,
-                stageChanged: true,
             }
         }
 

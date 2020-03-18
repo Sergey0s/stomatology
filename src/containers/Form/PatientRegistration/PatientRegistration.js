@@ -75,6 +75,8 @@ class PatientRegistration extends Component {
         const patient = {
             id: counter ,...formData, registerDate: Date(),
             status: 'Ожидает анкетирование',
+            stageChanged: false,
+            statusChanged: false,
             stages: {
                 entryProfile: false,
                 stomatitisPresence: false,
