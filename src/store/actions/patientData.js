@@ -88,11 +88,11 @@ export const saveStatus = (patientId, status) => {
     }
 };
 
-export const handleStageInDb = (patientId, stage, value) => {
+export const handleStageInDb = (patientId, stage) => {
     return dispatch => {
-        axios.patch('/patients/' + patientId + '/stages/.json', {[stage]: value})
+        axios.patch('/patients/' + patientId + '/stages/.json', {[stage]: true})
             .then(response => {
-                dispatch(saveStage(patientId, stage, value))
+                dispatch(saveStage(patientId, stage))
             })
     }
 };
@@ -102,7 +102,6 @@ export const saveStage = (patientId, stage, value) => {
     return {
         type: actionTypes.HANDLE_STAGE,
         patientId,
-        stage,
-        value
+        stage
     }
 };

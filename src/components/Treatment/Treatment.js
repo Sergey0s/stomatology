@@ -5,6 +5,8 @@ import {connect} from "react-redux";
 
 const treatment = (props) => {
     const currentPatient = props.patientsData[props.id];
+    const currentPatientStatus = props.patientsData[props.id].status;
+    console.log(currentPatientStatus)
 
 
     let stomatitisPresenceResults = null;

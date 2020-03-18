@@ -89,7 +89,7 @@ const patientData = (state = initialState, action) => {
                         stageChanged: false,
                         stages: {
                             ...state.patients[action.patientId].stages,
-                            [action.stage]: action.value,
+                            [action.stage]: true,
                         }
                     }
                 }
