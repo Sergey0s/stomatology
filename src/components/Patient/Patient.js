@@ -16,6 +16,7 @@ class Patient extends Component {
 
     render() {
         const currentPatient = this.props.patientsData[this.props.id];
+        // console.log(currentPatient)
 
         if (currentPatient.stageChanged) {
             let stage = '1';
@@ -56,20 +57,30 @@ class Patient extends Component {
         if (currentPatient.statusChanged) {
             let status = '2';
 
+            let stomatitisPresenceResults = null;
+
+            let stomatitisPresencePath = currentPatient.completedTests['Наличие стоматита'];
+            let stomatitisPresenceKey = Object.keys(stomatitisPresencePath);
+            if (stomatitisPresenceKey.length !== 1) {
+                stomatitisPresenceResults = stomatitisPresencePath.totalScore;
+            } else {
+                stomatitisPresenceResults = stomatitisPresencePath[stomatitisPresenceKey].totalScore;
+            }
+
+            // console.log(stomatitisPresenceResults);
+
+
+
             if (currentPatient.stages.riskDevelopment === false) {
                 status = 'Ожидает тест: Часть 1 - Риск развития';
-            } else if (currentPatient.completedTests['Наличие стоматита'].totalScore >= 3) {
+            } else if (stomatitisPresenceResults >= 3 && currentPatient.stages.severity === false) {
                 status = 'Ожидает тест: Часть 2 - Степень тяжести'
             } else {
                 status = 'Ожидает повторный прием в течение 7 дней'
             }
 
-            if (currentPatient.completedTests['Наличие стоматита'].totalScore < 3 && currentPatient.stages.riskDevelopment !== false) {
+            if (stomatitisPresenceResults < 3 && currentPatient.stages.riskDevelopment !== false) {
                 status = 'Часть 2 не требуется. Ожидает повторный прием в течение 7 дней';
-            }
-
-            if (currentPatient.stages.riskDevelopment === true && currentPatient.stages.severity === true) {
-                status = 'Ожидает повторный прием в течение 7 дней'
             }
 
 

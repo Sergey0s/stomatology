@@ -1,3 +1,7 @@
+.Test {
+    margin: 40px auto;
+}
+
 .Test__title {
     margin: 20px auto 0 auto;
     font-size: 1.6rem;

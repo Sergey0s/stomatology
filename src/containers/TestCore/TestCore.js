@@ -40,7 +40,7 @@ class TestCore extends Component {
 
         if (!this.state.testCompleted) {
             testView =
-                <div>
+                <div className={classes.Test}>
                     <p className={classes.Test__title}> {this.props.questions.questions[this.state.activeQuestion].title}</p>
                     <Questions question={this.props.questions.questions[this.state.activeQuestion].question}/>
                     <Answers

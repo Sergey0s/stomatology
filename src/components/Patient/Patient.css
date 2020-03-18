@@ -19,18 +19,19 @@ p {
 
 .Patient__span {
     font-weight: bolder;
-    font-size: 1rem;
+    font-size: 1.1rem;
     padding: 0 5px;
 }
 
 .Patient__p {
-    font-size: 0.9rem;
+    font-size: 1rem;
     margin: 5px;
     padding: 0 5px;
 }
 
 .Patient__showMore {
     cursor: pointer;
+    font-size: 1rem;
 }
 
 .Patient__btnDelete {
@@ -38,6 +39,7 @@ p {
     cursor: pointer;
     color: white;
     margin-top: 5px;
+    font-size: 1rem;
 }
 
 
@@ -62,14 +64,14 @@ p {
 }
 
 .PatientFull__p {
-    font-size: 1rem;
+    font-size: 1.1rem;
     margin: 5px;
     padding: 0 5px;
     text-align: center;
 }
 
 .PatientFull__status {
-    font-size: 1.3rem;
+    font-size: 1.4rem;
     margin: 7px;
     padding: 0 5px;
     text-align: center;
@@ -81,7 +83,7 @@ p {
     width: 210px;
     padding: 5px;
     margin: 20px auto;
-    font-size: 0.9rem;
+    font-size:1rem;
     cursor: pointer;
 }
 
@@ -94,9 +96,9 @@ p {
 }
 
 .PatientFull__link {
-    font-size: 1rem;
     padding: 0 5px;
     text-align: left;
     color: blue;
     cursor: pointer;
+    font-size: 1.1rem;
 }
