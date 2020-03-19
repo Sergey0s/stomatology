@@ -9,12 +9,70 @@ import * as actions from "../../store/actions";
 
 class Patient extends Component {
     state = {
+        daysFromRegister: null,
         showMore: false,
         showProfile: false,
         showResults: false,
+        repeatedEntry: false,
+    };
+
+    componentDidMount() {
+        this.dataEntryCheckHandler()
+    }
+
+
+    showProfileHandler = (id) => {
+        this.setState({showProfile: !this.state.showProfile})
+    };
+
+    showResultsHandler = (id) => {
+        this.setState({showResults: !this.state.showResults})
+    };
+
+   showMoreHandler = (id) => {
+        this.setState({showMore: !this.state.showMore})
+    };
+
+    deletePatientHandler = (id) => {
+        this.props.onDeletePatient(id);
+    };
+
+
+
+    repeatedEntryHandler = (id) => {
+        console.log('here');
+
+    };
+
+    secondEntryClinic = (id) => {
+        console.log('clinic');
+        this.props.testsHandler();
+
+    };
+
+    secondEntryLaboratory = (id) => {
+        console.log('laboratory')
+    };
+
+
+    dataEntryCheckHandler() {
+        const today = Date.now();
+        const registered = Date.parse(this.props.patientsData[this.props.id].registerDate);
+        const oneDay=1000*60*60*24;
+        this.setState({daysFromRegister: Math.ceil((today-registered)/oneDay)})
+    };
+
+    releaseCheckHandler() {
+            console.log('Статус - выписан... Дата: ', new Date().toLocaleString());
+            console.log('Итог лечения - супер');
+            console.log('Эпикриз')
     };
 
     render() {
+        if (this.state.daysFromRegister>8) {
+            this.releaseCheckHandler();
+        }
+
         const currentPatient = this.props.patientsData[this.props.id];
         // console.log(currentPatient)
 
@@ -44,11 +102,7 @@ class Patient extends Component {
                 case 'Ожидает тест: Часть 2 - Степень тяжести' :
                     stage = 'severity';
                     break;
-                case 'Ожидает повторный прием в течение 7 дней':
-                    stage = 'clinicNow';
-                    break;
                 default:
-                    stage = 'stomatitisPresence';
             }
 
             this.props.onHandleStage(this.props.id, stage);
@@ -67,10 +121,6 @@ class Patient extends Component {
                 stomatitisPresenceResults = stomatitisPresencePath[stomatitisPresenceKey].totalScore;
             }
 
-            // console.log(stomatitisPresenceResults);
-
-
-
             if (currentPatient.stages.riskDevelopment === false) {
                 status = 'Ожидает тест: Часть 1 - Риск развития';
             } else if (stomatitisPresenceResults >= 3 && currentPatient.stages.severity === false) {
@@ -86,14 +136,6 @@ class Patient extends Component {
 
             this.props.onHandleStatus(this.props.id, status);
         }
-
-        const showMoreHandler = (id) => {
-            this.setState({showMore: !this.state.showMore})
-        };
-
-        const deletePatientHandler = (id) => {
-            this.props.onDeletePatient(id);
-        };
 
         let status = null;
         if (this.props.patientsData[this.props.id].status !== undefined) {
@@ -115,21 +157,12 @@ class Patient extends Component {
             }
         }
 
-
-        const showProfileHandler = (id) => {
-            this.setState({showProfile: !this.state.showProfile})
-        };
-
-        const showResultsHandler = (id) => {
-            this.setState({showResults: !this.state.showResults})
-        };
-
         let content = '';
 
         let showResultsContent = <div className={classes.PatientFull__results}>
             <p className={classes.PatientFull__link}
-               onClick={(id) => showResultsHandler(this.props.id)}
-            >Смотреть результаты тестирования / ЛЕЧЕНИЕ </p></div>
+               onClick={(id) => this.showResultsHandler(this.props.id)}
+            >Смотреть результаты тестирования / ЛЕЧЕНИЕ </p></div>;
 
         if (this.state.showMore) {
             content =
@@ -139,19 +172,20 @@ class Patient extends Component {
                             <p className={classes.PatientFull__p}>id: {currentPatient.id} </p>
                             <p className={classes.PatientFull__p}>ФИО: {this.props.surname} {this.props.name} {this.props.secondName} </p>
                             <p className={classes.PatientFull__p}>Дата
-                                регистрации: {new Date(this.props.registerDate).toLocaleString()}</p>
+                                регистрации: {new Date(this.props.registerDate).toLocaleString('ru-RU', { year: 'numeric', month : 'numeric', day : 'numeric' })}</p>
                         </div>
+                        <p className={classes.PatientFull__date}> Дней под наблюдением: {this.state.daysFromRegister} </p>
                         <p className={classes.PatientFull__status}>Статус: {currentPatient.status} </p>
 
                         {(profileCompleted === true && !this.state.showProfile &&
                             <div className={classes.PatientFull__results}>
                                 <p className={classes.PatientFull__link}
-                                   onClick={(id) => showProfileHandler(this.props.id)}
+                                   onClick={(id) => this.showProfileHandler(this.props.id)}
                                 >Смотреть результаты анкеты </p></div>)
                         ||
                         (profileCompleted === true &&
                             <EntryProfile profileData={profileData}
-                                          clicked={(id) => showProfileHandler(this.props.id)}/>)
+                                          clicked={(id) => this.showProfileHandler(this.props.id)}/>)
                         }
 
 
@@ -163,10 +197,10 @@ class Patient extends Component {
                                 && !this.state.showResults && showResultsContent)
                             ||
                             (currentPatient.status === 'Ожидает повторный прием в течение 7 дней' &&
-                                <Treatment id={this.props.id} clicked={(id) => showResultsHandler(this.props.id)}/>)
+                                <Treatment id={this.props.id} clicked={(id) => this.showResultsHandler(this.props.id)}/>)
                             ||
                             (currentPatient.status === 'Часть 2 не требуется. Ожидает повторный прием в течение 7 дней' &&
-                                <Treatment id={this.props.id} clicked={(id) => showResultsHandler(this.props.id)}/>)
+                                <Treatment id={this.props.id} clicked={(id) => this.showResultsHandler(this.props.id)}/>)
 
                         }
 
@@ -203,10 +237,27 @@ class Patient extends Component {
                             <TestCore questions={TestList.severity} patientId={this.props.id}/>)}
 
 
-                        <button className={classes.Patient__showMore} onClick={(id) => showMoreHandler(this.props.id)}>
+                        {(status === 'Ожидает повторный прием в течение 7 дней' && !this.state.repeatedEntry &&
+                            <button className={classes.PatientFull__firstEntryButton}
+                                    onClick={this.repeatedEntryHandler}>Начать повторный прием </button>)
+                        ||
+                        (status === 'Ожидает повторный прием в течение 7 дней' && !this.props.testStarted &&
+                            <div className={classes.PatientFull__secondEntryButtons}>
+                                <button className={classes.PatientFull__firstEntryButton}
+                                        onClick={this.secondEntryClinic}> Клинические исследования
+                                </button>
+                                <button className={classes.PatientFull__firstEntryButton}
+                                        onClick={this.secondEntryLaboratory}> Лабораторные исследования
+                                </button>
+                            </div>)
+                        }
+
+
+                        <button className={classes.Patient__showMore} onClick={(id) => this.showMoreHandler(this.props.id)}>
                             {this.state.showMore ? 'Скрыть' : 'Подробнее'}
                         </button>
-                        <button className={classes.Patient__btnDelete} onClick={(id) => deletePatientHandler(this.props.id)}>
+                        <button className={classes.Patient__btnDelete}
+                                onClick={(id) => this.deletePatientHandler(this.props.id)}>
                             Удалить пациента из базы
                         </button>
                     </div>
@@ -215,9 +266,9 @@ class Patient extends Component {
         } else content = <div className={classes.Patient}>
             <p className={classes.Patient__p}>id: {currentPatient.id} </p>
             <p className={classes.Patient__p}>ФИО: {this.props.surname} {this.props.name} {this.props.secondName} </p>
-            <p className={classes.Patient__p}>Дата регистрации: {new Date(this.props.registerDate).toLocaleString()}</p>
+            <p className={classes.Patient__p}>Дата регистрации: {new Date(this.props.registerDate).toLocaleString('ru-RU', { year: 'numeric', month : 'numeric', day : 'numeric' })}</p>
             <p className={classes.Patient__p}>Статус: {currentPatient.status} </p>
-            <button className={classes.Patient__showMore} onClick={(id) => showMoreHandler(this.props.id)}>
+            <button className={classes.Patient__showMoreMain} onClick={(id) => this.showMoreHandler(this.props.id)}>
                 {this.state.showMore ? 'Скрыть' : 'Подробнее'}
             </button>
         </div>;

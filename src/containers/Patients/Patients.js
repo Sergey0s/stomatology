@@ -3,6 +3,7 @@ import {connect} from "react-redux";
 import Patient from "../../components/Patient/Patient";
 import * as actions from '../../store/actions';
 import {Redirect} from 'react-router-dom';
+import Aux from '../../hoc/Auxiliary/Auxiliary';
 import classes from "../../containers/Patients/Patients.css";
 
 
@@ -50,22 +51,25 @@ class Patients extends Component {
         } else {
             if (this.props.patients && this.props.patients.length !== 0) {
                 patientsList = (
-                    <div className={classes.Patients}>
-                        {
-                            fetchedPatients.reverse().map((patient) => {
-                                return <Patient
-                                    key={patient.id}
-                                    id={patient.id}
-                                    surname={patient.surname}
-                                    name={patient.name}
-                                    secondName={patient.secondName}
-                                    registerDate={patient.registerDate}
-                                    entryProfileHandler={() => this.entryProfileHandler(patient.id)}
-                                    testsHandler={() => this.testHandler(patient.id)}
-                                />
-                            })
-                        }
-                    </div>);
+                    <Aux>
+                        <p className={classes.Patients__title}> База пациентов, проходящих лечение: </p>
+                        <div className={classes.Patients}>
+                            {
+                                fetchedPatients.reverse().map((patient) => {
+                                    return <Patient
+                                        key={patient.id}
+                                        id={patient.id}
+                                        surname={patient.surname}
+                                        name={patient.name}
+                                        secondName={patient.secondName}
+                                        registerDate={patient.registerDate}
+                                        entryProfileHandler={() => this.entryProfileHandler(patient.id)}
+                                        testsHandler={() => this.testHandler(patient.id)}
+                                    />
+                                })
+                            }
+                        </div>
+                    </Aux>);
             }
         }
         return (

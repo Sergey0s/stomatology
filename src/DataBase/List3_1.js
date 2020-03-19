@@ -1,6 +1,6 @@
 let questionList3_1 =
     {
-        questionsListName: 'Клиника. Ближайшие и отдаленные сроки (6-12 месяцев)',
+        questionsListName: 'Клиника - Ближайшие и отдаленные сроки (6-12 месяцев)',
         questions: [{
             id: 1,
             title: 'Клиника',

@@ -63,7 +63,6 @@ class TestCore extends Component {
 const mapDispatchToProps = dispatch => {
     return {
         onCompleteTest: (patientId, testName, totalScore) => dispatch(actions.testCompletedSuccess(patientId, testName, totalScore)),
-        onTestStarted: () => dispatch(actions.testStarted()),
     }
 };
 

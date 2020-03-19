@@ -1,6 +1,5 @@
 .MainMenu {
     box-sizing: border-box;
-    border: 5px solid black;
     height: 100vh;
     display: flex;
     flex-direction: column;

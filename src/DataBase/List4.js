@@ -1,6 +1,6 @@
 let questionList4 =
     {
-        questionsListName: 'Лабораторные анализы. Непосредственные сроки (до 7 суток)',
+        questionsListName: 'Лабораторные анализы - Непосредственные сроки (до 7 суток)',
         questions: [
             {
                 id: 1,

@@ -1,6 +1,6 @@
 let questionList3 =
     {
-        questionsListName: 'Клиника. Непосредственные сроки (до 7 суток)',
+        questionsListName: 'Клиника - Непосредственные сроки (до 7 суток)',
         questions: [{
             id: 1,
             title: 'Клиника',
