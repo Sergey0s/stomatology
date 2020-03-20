@@ -117,6 +117,21 @@ const patientData = (state = initialState, action) => {
                 }
             }
 
+        case actionTypes.DISCHARGE_PATIENT: {
+            console.log(action.patientId)
+            return {
+                ...state,
+                patients: {
+                    ...state.patients,
+                    [action.patientId]: {
+                        ...state.patients[action.patientId],
+                        discharge: true
+                    }
+                }
+            }
+        }
+
+
         case actionTypes.TEST_STARTED: {
             return {
                 ...state,

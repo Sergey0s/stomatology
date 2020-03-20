@@ -106,6 +106,7 @@ export const saveStage = (patientId, stage) => {
     }
 };
 
+
 export const deletePatientFromDb = (patientId) => {
     return dispatch => {
         axios.delete('/patients/' + patientId + '.json')
@@ -119,6 +120,24 @@ export const deletePatientFromDb = (patientId) => {
 export const deletePatientFromStore = (patientId) => {
     return {
         type: actionTypes.DELETE_PATIENT,
+        patientId,
+    }
+};
+
+export const dischargePatient = (patientId) => {
+    return dispatch => {
+        axios.patch('/patients/' + patientId + '/.json', {discharge: true})
+            .then(response => {
+                dispatch(dischargePatientInStore(patientId))
+            }).then(response => {
+            dispatch(handleStatusInDb(patientId, 'ВЫПИСАН'))
+        })
+    }
+};
+
+export const dischargePatientInStore = (patientId) =>  {
+    return {
+        type: actionTypes.DISCHARGE_PATIENT,
         patientId,
     }
 };

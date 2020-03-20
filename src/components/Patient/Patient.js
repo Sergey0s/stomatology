@@ -69,12 +69,13 @@ class Patient extends Component {
     };
 
     render() {
-        if (this.state.daysFromRegister>8) {
+        const currentPatient = this.props.patientsData[this.props.id];
+
+        if (this.state.daysFromRegister>8 && !currentPatient.discharge) {
             this.releaseCheckHandler();
+            this.props.onDischargePatient(this.props.id)
         }
 
-        const currentPatient = this.props.patientsData[this.props.id];
-        // console.log(currentPatient)
 
         if (currentPatient.stageChanged) {
             let stage = '1';
@@ -253,6 +254,14 @@ class Patient extends Component {
                         }
 
 
+
+                        {
+                            (status === 'ВЫПИСАН' &&
+                                <button className={classes.PatientFull__firstEntryButton}
+                                        onClick={this.repeatedEntryHandler}> СМОТРЕТЬ ЭПИКРИЗ </button>)
+                        }
+
+
                         <button className={classes.Patient__showMore} onClick={(id) => this.showMoreHandler(this.props.id)}>
                             {this.state.showMore ? 'Скрыть' : 'Подробнее'}
                         </button>
@@ -263,14 +272,15 @@ class Patient extends Component {
                     </div>
                 </div>
 
-        } else content = <div className={classes.Patient}>
+        } else content = <div className={classes.Patient}
+                              onClick={(id) => this.showMoreHandler(this.props.id)}>
             <p className={classes.Patient__p}>id: {currentPatient.id} </p>
             <p className={classes.Patient__p}>ФИО: {this.props.surname} {this.props.name} {this.props.secondName} </p>
             <p className={classes.Patient__p}>Дата регистрации: {new Date(this.props.registerDate).toLocaleString('ru-RU', { year: 'numeric', month : 'numeric', day : 'numeric' })}</p>
             <p className={classes.Patient__p}>Статус: {currentPatient.status} </p>
-            <button className={classes.Patient__showMoreMain} onClick={(id) => this.showMoreHandler(this.props.id)}>
-                {this.state.showMore ? 'Скрыть' : 'Подробнее'}
-            </button>
+            {/*<button className={classes.Patient__showMoreMain} onClick={(id) => this.showMoreHandler(this.props.id)}>*/}
+            {/*    {this.state.showMore ? 'Скрыть' : 'Подробнее'}*/}
+            {/*</button>*/}
         </div>;
 
         return (
@@ -284,7 +294,7 @@ const mapStateToProps = (state) => {
         patientsData: state.patientData.patients,
         testStarted: state.patientData.testStarted,
         testFinished: state.patientData.testFinished,
-        // patientsExist: state.patientData.patientsExist,
+
     }
 };
 
@@ -292,7 +302,8 @@ const mapDispatchToProps = dispatch => {
     return {
         onHandleStatus: (patientId, status) => dispatch(actions.handleStatusInDb(patientId, status)),
         onHandleStage: (patientId, stage, value) => dispatch(actions.handleStageInDb(patientId, stage, value)),
-        onDeletePatient: (patientId) => dispatch(actions.deletePatientFromDb(patientId))
+        onDeletePatient: (patientId) => dispatch(actions.deletePatientFromDb(patientId)),
+        onDischargePatient:  (patientId) => dispatch(actions.dischargePatient(patientId)),
     }
 };
 

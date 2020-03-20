@@ -1,5 +1,5 @@
 export const EntryProfileForm = {
-    complaints: {
+    '0complaints': {
         text: 'Жалобы: на жжение, болезненность слизистой оболочки рта',
         elementType: 'input',
         elementConfig: {
@@ -8,7 +8,7 @@ export const EntryProfileForm = {
         },
         value: ''
     },
-    firstSymptoms: {
+    '1firstSymptoms': {
         text: 'Из анамнеза выявлено: считает себя больным (-ой)',
         elementType: 'input',
         elementConfig: {
@@ -17,7 +17,7 @@ export const EntryProfileForm = {
         },
         value: ''
     },
-    howOften: {
+    '2howOften': {
         text: 'лет, когда впервые заметил (-а) появляющиеся болезненные образования на слизистой оболочке рта. Со слов пациента, патологические элементы возникают',
         elementType: 'input',
         elementConfig: {
@@ -26,7 +26,7 @@ export const EntryProfileForm = {
         },
         value: ''
     },
-    healingIn: {
+    '3healingIn': {
         text: 'раз(-а) в год, заживают в течение',
         elementType: 'input',
         elementConfig: {
@@ -35,7 +35,7 @@ export const EntryProfileForm = {
         },
         value: ''
     },
-    reason: {
+    '4reason': {
         text: 'дней(-я). Обострение заболевания связывает с',
         elementType: 'input',
         elementConfig: {
@@ -44,7 +44,7 @@ export const EntryProfileForm = {
         },
         value: ''
     },
-    firstLook: {
+    '5firstLook': {
         text: 'Объективно: на фоне видимо неизмененной бледно-розовой слизистой оболочки',
         elementType: 'input',
         elementConfig: {
@@ -53,7 +53,7 @@ export const EntryProfileForm = {
         },
         value: ''
     },
-    defect: {
+    '6defect': {
         text: 'обнаружен',
         elementType: 'input',
         elementConfig: {
@@ -62,7 +62,7 @@ export const EntryProfileForm = {
         },
         value: ''
     },
-    size: {
+    '7size': {
         text: 'дефект эпителия слизистой рта размерами',
         elementType: 'input',
         elementConfig: {
@@ -71,7 +71,7 @@ export const EntryProfileForm = {
         },
         value: ''
     },
-    form: {
+    '8form': {
         text: 'мм,',
         elementType: 'input',
         elementConfig: {
@@ -80,7 +80,7 @@ export const EntryProfileForm = {
         },
         value: ''
     },
-    palpation: {
+    '9palpation': {
         text: 'формы, имеющий четкие контуры, покрытый фибринозным налетом серо-белого цвета, не снимающимся при попытке удаления, ограниченный ярким венчиком гиперемии по периферии. При пальпации патологический элемент мягкий, болезненный. В баллах по 10-бальной вербальной ранговой шкале - ',
         elementType: 'input',
         elementConfig: {
