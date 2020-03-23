@@ -19,9 +19,7 @@ const results = (props) => {
                     })}
                 </ul>
             </details>
-            <Treatment firstTestResult={props.firstTestResult}
-                       secondTestResult={props.secondTestResult}
-                       stomatitNow={props.stomatitNow}/>
+            <Treatment />
         </div>
     )
 };

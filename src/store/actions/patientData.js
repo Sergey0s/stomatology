@@ -46,12 +46,14 @@ export const saveProfile = (patientId, entryFormData) => {
     }
 };
 
-export const testCompletedSuccess = (patientId, testName, totalScore) => {
+export const testCompletedSuccess = (patientId, testName, totalScore, date) => {
     return dispatch => {
         axios.post('/patients/' + patientId + '/completedTests/' + testName + '.json', {totalScore, date: new Date()})
             .then(response => {
                 dispatch(saveTestResults(patientId, testName, totalScore))
-            })
+            }).then(response => {
+            dispatch(setEntryDate(patientId, date))
+        })
     };
 };
 
@@ -139,5 +141,39 @@ export const dischargePatientInStore = (patientId) =>  {
     return {
         type: actionTypes.DISCHARGE_PATIENT,
         patientId,
+    }
+};
+
+export const setEfficiency = (patientId, efficiency) => {
+    return dispatch => {
+        axios.patch('/patients/' + patientId + '/.json', {efficiency: efficiency})
+            .then(response => {
+                dispatch(setEfficiencyInStore(patientId, efficiency))
+            })
+    };
+};
+
+export const setEfficiencyInStore = (patientId, efficiency) =>  {
+    return {
+        type: actionTypes.SET_EFFICIENCY,
+        patientId,
+        efficiency
+    }
+};
+
+export const setEntryDate = (patientId, date) => {
+    return dispatch => {
+        axios.patch('/patients/' + patientId + '/.json', {lastEntryDate: date})
+            .then(response => {
+                dispatch(setEntryDateInStore(patientId, date))
+            })
+    };
+};
+
+export const setEntryDateInStore = (patientId, date) =>  {
+    return {
+        type: actionTypes.SET_LAST_ENTRY_DATE,
+        patientId,
+        date
     }
 };

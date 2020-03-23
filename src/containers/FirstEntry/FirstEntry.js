@@ -55,7 +55,6 @@ class FirstEntry extends Component {
                         <h1 className={classes.testBlock__title}> Первичный прием пациента</h1>
                         <form className={classes.testBlock__form} onSubmit={this.onSubmitHandler}>
                             {formElementArray.map((formElement, i) => {
-                                console.log(formElement);
                                 return (<Aux key={i}>
                                         <p className={classes.testBlock__form__p}> {formElement.config.text} </p>
                                         <div className={classes.testBlock__form__input}>

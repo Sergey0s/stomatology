@@ -118,7 +118,6 @@ const patientData = (state = initialState, action) => {
             }
 
         case actionTypes.DISCHARGE_PATIENT: {
-            console.log(action.patientId)
             return {
                 ...state,
                 patients: {
@@ -130,6 +129,35 @@ const patientData = (state = initialState, action) => {
                 }
             }
         }
+
+        case actionTypes.SET_EFFICIENCY: {
+            return {
+                ...state,
+                patients: {
+                    ...state.patients,
+                    [action.patientId]: {
+                        ...state.patients[action.patientId],
+                        efficiency: action.efficiency
+                    }
+                }
+            }
+        }
+
+        case actionTypes.SET_LAST_ENTRY_DATE: {
+            return {
+                ...state,
+                patients: {
+                    ...state.patients,
+                    [action.patientId]: {
+                        ...state.patients[action.patientId],
+                        lastEntryDate: action.date
+                    }
+                }
+            }
+        }
+
+
+
 
 
         case actionTypes.TEST_STARTED: {

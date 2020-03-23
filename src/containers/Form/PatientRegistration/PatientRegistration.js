@@ -19,7 +19,7 @@ class PatientRegistration extends Component {
                     type: 'text',
                     placeholder: 'Фамилия'
                 },
-                value: ''
+                value: 'Иванов'
             },
             name: {
                 elementType: 'input',
@@ -27,7 +27,7 @@ class PatientRegistration extends Component {
                     type: 'text',
                     placeholder: 'Имя'
                 },
-                value: '',
+                value: 'Иван',
             },
             secondName: {
                 elementType: 'input',
@@ -35,7 +35,7 @@ class PatientRegistration extends Component {
                     type: 'text',
                     placeholder: 'Отчество'
                 },
-                value: '',
+                value: 'Иванович',
             },
             gender: {
                 elementType: 'select',
@@ -80,6 +80,8 @@ class PatientRegistration extends Component {
         const patient = {
             id: counter ,...formData, registerDate: Date(),
             discharge: false,
+            efficiency: 'unknown',
+            lastEntryDate: Date(),
             status: 'Ожидает анкетирование',
             stageChanged: false,
             statusChanged: false,

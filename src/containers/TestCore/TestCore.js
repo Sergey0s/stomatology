@@ -31,7 +31,7 @@ class TestCore extends Component {
     };
 
     sendResultsHandler = () => {
-        this.props.onCompleteTest(this.props.patientId,this.props.questions.questionsListName, this.state.totalScore)
+        this.props.onCompleteTest(this.props.patientId,this.props.questions.questionsListName, this.state.totalScore, Date())
     };
 
     render() {
@@ -53,7 +53,7 @@ class TestCore extends Component {
         }
 
         return (
-            <div>
+            <div className={classes.Test__content}>
                 {testView}
             </div>
         );
@@ -62,7 +62,7 @@ class TestCore extends Component {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onCompleteTest: (patientId, testName, totalScore) => dispatch(actions.testCompletedSuccess(patientId, testName, totalScore)),
+        onCompleteTest: (patientId, testName, totalScore, date) => dispatch(actions.testCompletedSuccess(patientId, testName, totalScore, date)),
     }
 };
 

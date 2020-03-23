@@ -6,5 +6,6 @@ export {
     handleStatusInDb,
     handleStageInDb,
     deletePatientFromDb,
-    dischargePatient
+    dischargePatient,
+    setEfficiency
 } from './patientData'

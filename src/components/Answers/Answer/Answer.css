@@ -6,19 +6,19 @@ ul {
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
-    width: 30%;
+    width: 40%;
     margin: 10px auto;
 
     padding: 25px;
     text-align: center;
     border: 3px solid #b7b7b7;
     box-shadow: 0 2px 3px #ccc;
-border-radius: 20px;
+    border-radius: 20px;
     box-sizing: border-box;
     cursor: pointer;
-    list-style-type: none ;
-        -webkit-user-select: none;
-        -moz-user-select: none;
+    list-style-type: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
 }
 
 .Answer:hover,

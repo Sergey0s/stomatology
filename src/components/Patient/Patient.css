@@ -30,6 +30,21 @@ p {
     padding: 0 5px;
 }
 
+.Patient__nameContent {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    font-size: 1rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.Patient__name {
+    font-size: 1rem;
+    margin: 2px;
+    padding: 0 2px;
+}
+
 .PatientFull__date {
     font-size: 0.7rem;
     margin: 5px;
