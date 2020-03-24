@@ -208,12 +208,14 @@ class Patient extends Component {
                         month: 'numeric',
                         day: 'numeric'
                     })}</p>
-                <p className={classes.Patient__p}>Статус: {currentPatient.status} </p>
+                <div className={classes.Patient__statuses}>
+                    <p className={classes.Patient__p}>Статус: {currentPatient.status} </p>
 
-                {
-                    (currentPatient.efficiency !== null && currentPatient.efficiency !== 'unknown' &&
-                        <p className={classes.Patient__p}>Эффективность: {currentPatient.efficiency} </p>)
-                }
+                    {
+                        (currentPatient.efficiency !== null && currentPatient.efficiency !== 'unknown' &&
+                            <p className={classes.Patient__p}>Эффективность: {currentPatient.efficiency} </p>)
+                    }
+                </div>
             </div>;
 
         let showResultsContent = <div className={classes.PatientFull__results}>
@@ -270,7 +272,7 @@ class Patient extends Component {
                         }
 
                         {(this.props.testFinished && currentPatient.result &&
-                            <Efficiency lastEntryDate = {this.state.daysFromLastEntry} id={this.props.id}/>)
+                            <Efficiency lastEntryDate={this.state.daysFromLastEntry} id={this.props.id}/>)
                         }
 
                         {status === 'Ожидает анкетирование' &&
