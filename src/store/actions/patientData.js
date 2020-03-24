@@ -177,3 +177,39 @@ export const setEntryDateInStore = (patientId, date) =>  {
         date
     }
 };
+
+
+export const repeatedEntryHandler = (patientId, value) => {
+    return dispatch => {
+            axios.patch('/patients/' + patientId + '/.json', { result: true, stages: {repeatedEntry: true}})
+                .then(response => {
+                    dispatch(repeatedEntryInStore(patientId, value))
+                })
+        }
+};
+
+export const repeatedEntryInStore = (patientId, value) =>  {
+    return {
+        type: actionTypes.SET_REPEATED_ENTRY,
+        patientId,
+        value
+    }
+};
+
+export const returnPatient = (patientId) => {
+    return dispatch => {
+        axios.patch('/patients/' + patientId + '/.json', {discharge: false})
+            .then(response => {
+                dispatch(returnPatientInStore(patientId))
+            }).then(response => {
+            dispatch(handleStatusInDb(patientId, 'Ожидает повторный прием в течение 7 дней'))
+        })
+    }
+};
+
+export const returnPatientInStore = (patientId) =>  {
+    return {
+        type: actionTypes.RETURN_PATIENT,
+        patientId,
+    }
+};

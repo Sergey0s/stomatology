@@ -80,6 +80,7 @@ class PatientRegistration extends Component {
         const patient = {
             id: counter ,...formData, registerDate: Date(),
             discharge: false,
+            result: false,
             efficiency: 'unknown',
             lastEntryDate: Date(),
             status: 'Ожидает анкетирование',
@@ -90,11 +91,7 @@ class PatientRegistration extends Component {
                 stomatitisPresence: false,
                 riskDevelopment: false,
                 severity: false,
-                clinicNow: false,
-                clinicFuture: false,
-                laboratoryAnalysisNow: false,
-                laboratoryAnalysisFuture: false,
-                laboratoryAnalysisFarFuture: false,
+                repeatedEntry: false,
             }
         };
 

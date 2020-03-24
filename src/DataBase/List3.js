@@ -1,9 +1,9 @@
 let questionList3 =
     {
-        questionsListName: 'Клиника - Непосредственные сроки (до 7 суток)',
+        questionsListName: 'Клиника',
         questions: [{
             id: 1,
-            title: 'Клиника',
+            title: 'Клиника - Непосредственные сроки (до 7 суток)',
             question: 'Скорость эпителизации (в днях)',
             answers: [
                 {text: '3-4 дня', id: 0, value: 3},
@@ -14,7 +14,7 @@ let questionList3 =
         },
             {
                 id: 2,
-                title: 'Клиника',
+                title: 'Клиника - Непосредственные сроки (до 7 суток)',
                 question: 'Востановление функции',
                 answers: [
                     {text: 'В полном объеме', id: 0, value: 3},
@@ -24,7 +24,7 @@ let questionList3 =
             },
             {
                 id: 3,
-                title: 'Клиника',
+                title: 'Клиника - Непосредственные сроки (до 7 суток)',
                 question: 'Болевой синдром (в баллах)',
                 answers: [
                     {text: '0', id: 0, value: 3},
@@ -34,7 +34,7 @@ let questionList3 =
             ,
             {
                 id: 4,
-                title: 'Клиника',
+                title: 'Клиника - Непосредственные сроки (до 7 суток)',
                 question: 'Рубец',
                 answers: [
                     {text: '0', id: 0, value: 3},
@@ -46,22 +46,22 @@ let questionList3 =
             {
                 minScore: 10,
                 maxScore: 12,
-                conclusion: 'Высокая эффективность'
+                conclusion: 'Высокая'
             },
             {
                 minScore: 7,
                 maxScore: 9,
-                conclusion: 'Средняя эффективность'
+                conclusion: 'Средняя'
             },
             {
                 minScore: 4,
                 maxScore: 6,
-                conclusion: 'Низкая эффективность'
+                conclusion: 'Низкая'
             },
             {
                 minScore: 0,
                 maxScore: 3,
-                conclusion: 'Эффективность отсутствует'
+                conclusion: 'отсутствует'
             }
         ]
     };

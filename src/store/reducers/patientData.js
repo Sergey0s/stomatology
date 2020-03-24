@@ -4,7 +4,7 @@ const initialState = {
     patientsExist: false,
     pageLoading: true,
     testStarted: false,
-    testFinished: false,
+    testFinished: true,
     patients: []
 };
 
@@ -16,13 +16,13 @@ const patientData = (state = initialState, action) => {
                 patients: action.patients,
                 patientsExist: action.patientsExist,
                 pageLoading: false,
-                testFinished: false,
+                testFinished: true,
             }
         }
         case actionTypes.ENTRY_PROFILE_SUCCESS: {
             return {
                 ...state,
-                testFinished: false,
+                testFinished: true,
                 patients: {
                     ...state.patients,
                     [action.patientId]: {
@@ -71,6 +71,10 @@ const patientData = (state = initialState, action) => {
                         ...state.patients[action.patientId],
                         status: action.status,
                         statusChanged: false,
+                        stages: {
+                            ...state.patients[action.patientId].stages,
+                            repeatedEntry: false,
+                        }
                     }
                 }
             }
@@ -80,7 +84,7 @@ const patientData = (state = initialState, action) => {
             return {
                 ...state,
                 testStarted: false,
-                testFinished: false,
+                testFinished: true,
                 patients: {
                     ...state.patients,
                     [action.patientId]: {
@@ -89,7 +93,7 @@ const patientData = (state = initialState, action) => {
                         stageChanged: false,
                         stages: {
                             ...state.patients[action.patientId].stages,
-                            [action.stage]: true,
+                            [action.stage]: true
                         }
                     }
                 }
@@ -130,6 +134,19 @@ const patientData = (state = initialState, action) => {
             }
         }
 
+        case actionTypes.RETURN_PATIENT: {
+            return {
+                ...state,
+                patients: {
+                    ...state.patients,
+                    [action.patientId]: {
+                        ...state.patients[action.patientId],
+                        discharge: false
+                    }
+                }
+            }
+        }
+
         case actionTypes.SET_EFFICIENCY: {
             return {
                 ...state,
@@ -156,9 +173,23 @@ const patientData = (state = initialState, action) => {
             }
         }
 
-
-
-
+        case actionTypes.SET_REPEATED_ENTRY: {
+            return {
+                ...state,
+                patients: {
+                    ...state.patients,
+                    [action.patientId]: {
+                        ...state.patients[action.patientId],
+                        discharge: false,
+                        result: true,
+                        stages: {
+                            ...state.patients[action.patientId].stages,
+                            repeatedEntry: action.value,
+                        }
+                    }
+                }
+            }
+        }
 
         case actionTypes.TEST_STARTED: {
             return {

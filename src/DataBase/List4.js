@@ -1,10 +1,10 @@
 let questionList4 =
     {
-        questionsListName: 'Лабораторные анализы - Непосредственные сроки (до 7 суток)',
+        questionsListName: 'Лабораторные анализы',
         questions: [
             {
                 id: 1,
-                title: 'Лабораторные анализы',
+                title: 'Лабораторные анализы - Непосредственные сроки (до 7 суток)',
                 question: 'ФНО-2',
                 answers: [
                     {text: 'менее 7.6', id: 0, value: 1.5},
@@ -15,7 +15,7 @@ let questionList4 =
             },
             {
                 id: 2,
-                title: 'Лабораторные анализы',
+                title: 'Лабораторные анализы - Непосредственные сроки (до 7 суток)',
                 question: 'ИЛ-2',
                 answers: [
                     {text: 'менее 11.4', id: 0, value: 3},
@@ -26,7 +26,7 @@ let questionList4 =
             },
             {
                 id: 3,
-                title: 'Лабораторные анализы',
+                title: 'Лабораторные анализы - Непосредственные сроки (до 7 суток)',
                 question: 'ИЛ-10',
                 answers: [
                     {text: 'свыше 10.0', id: 0, value: 3},
@@ -37,7 +37,7 @@ let questionList4 =
             },
             {
                 id: 4,
-                title: 'Лабораторные анализы',
+                title: 'Лабораторные анализы - Непосредственные сроки (до 7 суток)',
                 question: 'I max',
                 answers: [
                     {text: 'менее 481.9', id: 0, value: 3},
@@ -48,7 +48,7 @@ let questionList4 =
             },
             {
                 id: 5,
-                title: 'Лабораторные анализы',
+                title: 'Лабораторные анализы - Непосредственные сроки (до 7 суток)',
                 question: 'S',
                 answers: [
                     {text: 'менее 1697.4', id: 0, value: 3},
@@ -59,7 +59,7 @@ let questionList4 =
             },
             {
                 id: 6,
-                title: 'Лабораторные анализы',
+                title: 'Лабораторные анализы - Непосредственные сроки (до 7 суток)',
                 question: 'TK',
                 answers: [
                     {text: 'менее 0.1359', id: 0, value: 3},
@@ -70,7 +70,7 @@ let questionList4 =
             },
             {
                 id: 7,
-                title: 'Лабораторные анализы',
+                title: 'Лабораторные анализы - Непосредственные сроки (до 7 суток)',
                 question: 'ОШ',
                 answers: [
                     {text: 'менее 9.44', id: 0, value: 3},
@@ -81,7 +81,7 @@ let questionList4 =
             },
             {
                 id: 8,
-                title: 'Лабораторные анализы',
+                title: 'Лабораторные анализы - Непосредственные сроки (до 7 суток)',
                 question: 'Коэффициент меп',
                 answers: [
                     {text: 'менее 26.9', id: 0, value: 3},
@@ -95,21 +95,22 @@ let questionList4 =
             {
                 minScore: 18,
                 maxScore: 22.5,
-                conclusion: 'Высокая эффективность'
+                conclusion: 'Высокая'
             },
             {
                 minScore: 12,
                 maxScore: 17,
-                conclusion: 'Средняя эффективность'
+                conclusion: 'Средняя'
             },
             {
                 minScore: 6,
                 maxScore: 11,
-                conclusion: 'Низкая эффективность'
+                conclusion: 'Низкая'
             },
             {
-                minScore: 0,                maxScore: 5,
-                conclusion: 'Эффективность отсутствует'
+                minScore: 0,
+                maxScore: 5,
+                conclusion: 'отсутствует'
             }
         ]
     };

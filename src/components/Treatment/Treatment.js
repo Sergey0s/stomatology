@@ -33,16 +33,18 @@ const treatment = (props) => {
     console.log(riskDevelopmentResults);
 
 
-    if (currentPatientStatus !== 'Часть 2 не требуется. Ожидает повторный прием в течение 7 дней') {
-        let severityPath = currentPatient.completedTests['Часть 2 - Степень тяжести'];
-        let severityKey = Object.keys(severityPath);
-        if (severityKey.length !== 1) {
-            severityResults = severityPath.totalScore;
-        } else {
-            severityResults = severityPath[severityKey].totalScore;
-        }
+    if (currentPatient.completedTests['Часть 2 - Степень тяжести'] !== undefined) {
+        if (currentPatientStatus !== 'Часть 2 не требуется. Ожидает повторный прием в течение 7 дней') {
+            let severityPath = currentPatient.completedTests['Часть 2 - Степень тяжести'];
+            let severityKey = Object.keys(severityPath);
+            if (severityKey.length !== 1) {
+                severityResults = severityPath.totalScore;
+            } else {
+                severityResults = severityPath[severityKey].totalScore;
+            }
 
-        console.log(severityResults);
+            console.log(severityResults);
+        }
     }
 
 

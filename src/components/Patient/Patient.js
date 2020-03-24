@@ -5,22 +5,28 @@ import EntryProfile from '../EntryProfile/EntryProfile';
 import TestCore from "../../containers/TestCore/TestCore";
 import {TestList} from '../../DataBase/TestsList';
 import Treatment from "../Treatment/Treatment";
+import Efficiency from "../Efficiency/Efficiency";
 import * as actions from "../../store/actions";
 
 class Patient extends Component {
     state = {
         daysFromRegister: null,
         daysFromLastEntry: null,
+        firstPartCompleted: false,
         showMore: false,
         showProfile: false,
         showResults: false,
-        repeatedEntry: false,
+        showEpicrisis: false,
+        repeated: null
     };
 
     componentDidMount() {
-        this.dataEntryCheckHandler()
+        this.dataEntryCheckHandler();
     }
 
+    componentDidUpdate(nextProps, nextState, nextContext) {
+        this.firstPartCompletedHandler();
+    }
 
     showProfileHandler = (id) => {
         this.setState({showProfile: !this.state.showProfile})
@@ -28,6 +34,10 @@ class Patient extends Component {
 
     showResultsHandler = (id) => {
         this.setState({showResults: !this.state.showResults})
+    };
+
+    showEpicrisisHandler = (id) => {
+        this.setState({showEpicrisis: !this.state.showEpicrisis})
     };
 
     showMoreHandler = (id) => {
@@ -39,19 +49,23 @@ class Patient extends Component {
     };
 
 
-    repeatedEntryHandler = (id) => {
-        console.log('here');
-        this.setState({repeatedEntry: true})
-
+    repeatedEntryHandler = () => {
+        this.props.onRepeatedEntryHandler(this.props.id, !this.props.patientsData[this.props.id].stages.repeatedEntry);
     };
 
     secondEntryClinic = (id) => {
         console.log('clinic');
+        this.setState({repeated: 'clinic'});
+        this.repeatedEntryHandler();
         this.props.testsHandler();
     };
 
     secondEntryLaboratory = (id) => {
-        console.log('laboratory')
+        console.log('laboratory');
+        this.props.testsHandler();
+        this.setState({repeated: 'laboratory'});
+        this.repeatedEntryHandler();
+        this.props.testsHandler();
     };
 
     dataEntryCheckHandler() {
@@ -65,37 +79,38 @@ class Patient extends Component {
         })
     };
 
-    // releaseCheckHandler() {
-    //         console.log('Статус - выписан... Дата: ', new Date().toLocaleString());
-    //         console.log('Итог лечения - супер');
-    //         console.log('Эпикриз')
-    // };
+    firstPartCompletedHandler() {
+        if ((this.props.patientsData[this.props.id].status === 'Ожидает повторный прием в течение 7 дней' ||
+            this.props.patientsData[this.props.id].status === 'Часть 2 не требуется. Ожидает повторный прием в течение 7 дней')
+            && !this.state.firstPartCompleted) {
+            this.setState({firstPartCompleted: true})
+        }
+    }
 
 
     render() {
-        const currentPatient = this.props.patientsData[this.props.id];
 
-        console.log(this.state.daysFromRegister);
-        console.log(this.state.daysFromLastEntry);
-        if (this.state.daysFromLastEntry > 8 && !currentPatient.discharge) {
-            // this.releaseCheckHandler();
-            this.props.onDischargePatient(this.props.id);
-            this.props.onSetEfficiency(this.props.id, 'ВЫСОКАЯ')
+        const currentPatient = this.props.patientsData[this.props.id];
+        // if (this.state.daysFromLastEntry > 8 && !currentPatient.discharge) {
+        //     this.props.onDischargePatient(this.props.id);
+        //     this.props.onSetEfficiency(this.props.id, 'ВЫСОКАЯ')
+        // }
+
+        let questionListForSecondStage = null;
+        if (this.state.daysFromLastEntry > 7 && this.state.repeated === 'clinic') {
+            questionListForSecondStage = TestList.clinicFuture
+        } else questionListForSecondStage = TestList.clinicNow;
+
+        if (this.state.repeated === 'laboratory') {
+            if (this.state.daysFromLastEntry < 7) {
+                questionListForSecondStage = TestList.laboratoryAnalysisNow
+            } else if (this.state.daysFromLastEntry > 7 && this.state.daysFromLastEntry < 181) {
+                questionListForSecondStage = TestList.laboratoryAnalysisFuture
+            } else questionListForSecondStage = TestList.laboratoryAnalysisFarFuture;
         }
 
-
-        if (currentPatient.stageChanged) {
+        if (currentPatient.stageChanged && !currentPatient.stages.repeatedEntry && currentPatient.status !== 'Ожидает повторный прием в течение 7 дней') {
             let stage = '1';
-
-            // stages
-            //stomatitisPresence,
-            //     riskDevelopment,
-            //     severity,
-            //     clinicNow,
-            //     clinicFuture,
-            //     laboratoryAnalysisNow,
-            //     laboratoryAnalysisFuture,
-            //     laboratoryAnalysisFarFuture
 
             switch (currentPatient.status) {
                 case 'Ожидает тест: наличие стоматита' :
@@ -116,7 +131,8 @@ class Patient extends Component {
             this.props.onHandleStage(this.props.id, stage);
         }
 
-        if (currentPatient.statusChanged) {
+        if (currentPatient.statusChanged && !currentPatient.stages.repeatedEntry && currentPatient.status !== 'Ожидает повторный прием в течение 7 дней') {
+
             let status = '2';
 
             let stomatitisPresenceResults = null;
@@ -141,8 +157,18 @@ class Patient extends Component {
                 status = 'Часть 2 не требуется. Ожидает повторный прием в течение 7 дней';
             }
 
-
             this.props.onHandleStatus(this.props.id, status);
+        }
+
+        if (currentPatient.statusChanged && currentPatient.stages.repeatedEntry) {
+            console.log('here');
+            this.props.onHandleStatus(this.props.id, 'Ожидает повторный прием в течение 7 дней');
+        }
+
+        if (currentPatient.stageChanged && currentPatient.stages.repeatedEntry) {
+            console.log('here');
+            this.props.onHandleStage(this.props.id, 'repeatedEntry');
+            // пересчет эффективности
         }
 
         let status = null;
@@ -167,27 +193,28 @@ class Patient extends Component {
 
         let content = '';
 
-        let miniPatientContent = <div className={classes.Patient}
-                                      onClick={(id) => this.showMoreHandler(this.props.id)}>
-            <p className={classes.Patient__p}>id: {currentPatient.id} </p>
-            <div className={classes.Patient__nameContent}>
-                <p className={classes.Patient__name}>{this.props.surname} </p>
-                <p className={classes.Patient__name}>{this.props.name} </p>
-                <p className={classes.Patient__name}>{this.props.secondName} </p>
-            </div>
-            <p className={classes.Patient__p}>Дата
-                регистрации: {new Date(this.props.registerDate).toLocaleString('ru-RU', {
-                    year: 'numeric',
-                    month: 'numeric',
-                    day: 'numeric'
-                })}</p>
-            <p className={classes.Patient__p}>Статус: {currentPatient.status} </p>
+        let miniPatientContent =
+            <div className={classes.Patient}
+                 onClick={(id) => this.showMoreHandler(this.props.id)}>
+                <p className={classes.Patient__p}>id: {currentPatient.id} </p>
+                <div className={classes.Patient__nameContent}>
+                    <p className={classes.Patient__name}>{this.props.surname} </p>
+                    <p className={classes.Patient__name}>{this.props.name} </p>
+                    <p className={classes.Patient__name}>{this.props.secondName} </p>
+                </div>
+                <p className={classes.Patient__p}>Дата
+                    регистрации: {new Date(this.props.registerDate).toLocaleString('ru-RU', {
+                        year: 'numeric',
+                        month: 'numeric',
+                        day: 'numeric'
+                    })}</p>
+                <p className={classes.Patient__p}>Статус: {currentPatient.status} </p>
 
-            {
-                (currentPatient.efficiency !== null && currentPatient.efficiency !== 'unknown' &&
-                    <p className={classes.Patient__p}>Эффективность: {currentPatient.efficiency} </p>)
-            }
-        </div>;
+                {
+                    (currentPatient.efficiency !== null && currentPatient.efficiency !== 'unknown' &&
+                        <p className={classes.Patient__p}>Эффективность: {currentPatient.efficiency} </p>)
+                }
+            </div>;
 
         let showResultsContent = <div className={classes.PatientFull__results}>
             <p className={classes.PatientFull__link}
@@ -242,6 +269,9 @@ class Patient extends Component {
 
                         }
 
+                        {(this.props.testFinished && currentPatient.result &&
+                            <Efficiency lastEntryDate = {this.state.daysFromLastEntry} id={this.props.id}/>)
+                        }
 
                         {status === 'Ожидает анкетирование' &&
                         <button className={classes.PatientFull__firstEntryButton}
@@ -275,11 +305,7 @@ class Patient extends Component {
                             <TestCore questions={TestList.severity} patientId={this.props.id}/>)}
 
 
-                        {(status === 'Ожидает повторный прием в течение 7 дней' && !this.state.repeatedEntry &&
-                            <button className={classes.PatientFull__firstEntryButton}
-                                    onClick={this.repeatedEntryHandler}>Начать повторный прием </button>)
-                        ||
-                        (status === 'Ожидает повторный прием в течение 7 дней' && !this.props.testStarted &&
+                        {(this.state.firstPartCompleted && !this.props.testStarted && status !== 'ВЫПИСАН' &&
                             <div className={classes.PatientFull__secondEntryButtons}>
                                 <button className={classes.PatientFull__firstEntryButton}
                                         onClick={this.secondEntryClinic}> Клинические исследования
@@ -287,44 +313,39 @@ class Patient extends Component {
                                 <button className={classes.PatientFull__firstEntryButton}
                                         onClick={this.secondEntryLaboratory}> Лабораторные исследования
                                 </button>
-                            </div>)
-                        ||
-                        (status === 'Ожидает повторный прием в течение 7 дней' && this.props.testStarted &&
-                            <TestCore questions={TestList.clinicNow} patientId={this.props.id}/>)
-                        }
-
-                        {(status === 'Часть 2 не требуется. Ожидает повторный прием в течение 7 дней' && !this.state.repeatedEntry &&
-                            <button className={classes.PatientFull__firstEntryButton}
-                                    onClick={this.repeatedEntryHandler}>Начать повторный прием </button>)
-                        ||
-                        (status === 'Часть 2 не требуется. Ожидает повторный прием в течение 7 дней' && !this.props.testStarted &&
-                            <div className={classes.PatientFull__secondEntryButtons}>
                                 <button className={classes.PatientFull__firstEntryButton}
-                                        onClick={this.secondEntryClinic}> Клинические исследования
-                                </button>
-                                <button className={classes.PatientFull__firstEntryButton}
-                                        onClick={this.secondEntryLaboratory}> Лабораторные исследования
+                                        onClick={() => this.props.onDischargePatient(this.props.id)}> Выписать пациента
                                 </button>
                             </div>)
                         ||
-                        (status === 'Часть 2 не требуется. Ожидает повторный прием в течение 7 дней' && this.props.testStarted &&
-                            <TestCore questions={TestList.clinicNow} patientId={this.props.id}/>)
+                        (this.state.firstPartCompleted && this.props.testStarted &&
+                            <TestCore questions={questionListForSecondStage} patientId={this.props.id}/>)
                         }
 
 
                         {
-                            (status === 'ВЫПИСАН' &&
+                            (currentPatient.discharge && !this.state.showEpicrisis &&
                                 <div>
                                     <button className={classes.PatientFull__firstEntryButton}
-                                            onClick={this.repeatedEntryHandler}> СМОТРЕТЬ ЭПИКРИЗ
+                                            onClick={() => this.showEpicrisisHandler(this.props.id)}> СМОТРЕТЬ ЭПИКРИЗ
                                     </button>
                                     <button className={classes.PatientFull__firstEntryButton}
-                                            onClick={this.repeatedEntryHandler}> РЕЦИДИВ / Восстановить и начать прием
+                                            onClick={() => this.props.onReturnPatient(this.props.id)}> РЕЦИДИВ /
+                                        Восстановить и начать прием
+                                    </button>
+                                </div>
+                            )
+                            ||
+                            (currentPatient.discharge && this.state.showEpicrisis &&
+                                <div>
+                                    <p onClick={() => this.showEpicrisisHandler(this.props.id)}> ЭПИКРИЗ </p>
+                                    <button className={classes.PatientFull__firstEntryButton}
+                                            onClick={() => this.props.onReturnPatient(this.props.id)}> РЕЦИДИВ /
+                                        Восстановить и начать прием
                                     </button>
                                 </div>
                             )
                         }
-
 
                         <button className={classes.Patient__showMore}
                                 onClick={(id) => this.showMoreHandler(this.props.id)}>
@@ -359,10 +380,11 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = dispatch => {
     return {
         onHandleStatus: (patientId, status) => dispatch(actions.handleStatusInDb(patientId, status)),
-        onHandleStage: (patientId, stage, value) => dispatch(actions.handleStageInDb(patientId, stage, value)),
+        onHandleStage: (patientId, stage) => dispatch(actions.handleStageInDb(patientId, stage)),
         onDeletePatient: (patientId) => dispatch(actions.deletePatientFromDb(patientId)),
         onDischargePatient: (patientId) => dispatch(actions.dischargePatient(patientId)),
-        onSetEfficiency: (patientId, efficiency) => dispatch(actions.setEfficiency(patientId, efficiency)),
+        onReturnPatient: (patientId) => dispatch(actions.returnPatient(patientId)),
+        onRepeatedEntryHandler: (patientId, value) => dispatch(actions.repeatedEntryHandler(patientId, value))
     }
 };
 

@@ -1,9 +1,9 @@
 let questionList3_1 =
     {
-        questionsListName: 'Клиника - Ближайшие и отдаленные сроки (6-12 месяцев)',
+        questionsListName: 'Клиника',
         questions: [{
             id: 1,
-            title: 'Клиника',
+            title: 'Клиника - Ближайшие и отдаленные сроки (6-12 месяцев)',
             question: 'Скорость эпителизации (в днях)',
             answers: [
                 {text: 'Не потребовалось', id: 0, value: 3},
@@ -14,7 +14,7 @@ let questionList3_1 =
         },
             {
                 id: 2,
-                title: 'Клиника',
+                title: 'Клиника - Ближайшие и отдаленные сроки (6-12 месяцев)',
                 question: 'Востановление функции',
                 answers: [
                     {text: 'Не потребовалось', id: 0, value: 3},
@@ -25,7 +25,7 @@ let questionList3_1 =
             },
             {
                 id: 3,
-                title: 'Клиника',
+                title: 'Клиника - Ближайшие и отдаленные сроки (6-12 месяцев)',
                 question: 'Болевой синдром (в баллах)',
                 answers: [
                     {text: '0', id: 0, value: 3},
@@ -34,7 +34,7 @@ let questionList3_1 =
             },
             {
                 id: 4,
-                title: 'Клиника',
+                title: 'Клиника - Ближайшие и отдаленные сроки (6-12 месяцев)',
                 question: 'Рубец',
                 answers: [
                     {text: '0', id: 0, value: 3},
@@ -43,7 +43,7 @@ let questionList3_1 =
             },
             {
                 id: 5,
-                title: 'Клиника',
+                title: 'Клиника - Ближайшие и отдаленные сроки (6-12 месяцев)',
                 question: 'Рецидивы',
                 answers: [
                     {text: 'Рецидивы отсутствовали', id: 0, value: 3},
@@ -57,22 +57,22 @@ let questionList3_1 =
             {
                 minScore: 12,
                 maxScore: 15,
-                conclusion: 'Высокая эффективность'
+                conclusion: 'Высокая'
             },
             {
                 minScore: 8,
                 maxScore: 11,
-                conclusion: 'Средняя эффективность'
+                conclusion: 'Средняя'
             },
             {
                 minScore: 4,
                 maxScore: 7,
-                conclusion: 'Низкая эффективность'
+                conclusion: 'Низкая'
             },
             {
                 minScore: 0,
                 maxScore: 3,
-                conclusion: 'Эффективность отсутствует'
+                conclusion: 'отсутствует'
             }
         ]
     };
