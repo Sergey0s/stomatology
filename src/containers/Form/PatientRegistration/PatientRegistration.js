@@ -80,6 +80,7 @@ class PatientRegistration extends Component {
         const patient = {
             id: counter ,...formData, registerDate: Date(),
             discharge: false,
+            dischargeDate: null,
             result: false,
             efficiency: 'unknown',
             lastEntryDate: Date(),

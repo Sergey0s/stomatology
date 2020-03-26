@@ -126,21 +126,22 @@ export const deletePatientFromStore = (patientId) => {
     }
 };
 
-export const dischargePatient = (patientId) => {
+export const dischargePatient = (patientId, date) => {
     return dispatch => {
-        axios.patch('/patients/' + patientId + '/.json', {discharge: true})
+        axios.patch('/patients/' + patientId + '/.json', {discharge: true, dischargeDate: date})
             .then(response => {
-                dispatch(dischargePatientInStore(patientId))
+                dispatch(dischargePatientInStore(patientId, date))
             }).then(response => {
             dispatch(handleStatusInDb(patientId, 'ВЫПИСАН'))
         })
     }
 };
 
-export const dischargePatientInStore = (patientId) =>  {
+export const dischargePatientInStore = (patientId, date) =>  {
     return {
         type: actionTypes.DISCHARGE_PATIENT,
         patientId,
+        date
     }
 };
 

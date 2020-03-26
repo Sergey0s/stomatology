@@ -16,7 +16,7 @@ const entryProfile = (props) => {
 
         let form = (
             (<div className={classes.profileBlock} onClick={props.clicked}>
-                <h1 className={classes.profile__title}>Результаты первичного анкетирования</h1>
+                <h1 className={classes.profile__title}>Результаты первичного осмотра</h1>
                 <div className={classes.profile__content}>
                     {updatedForm.map((formElement, i) => {
                             return (<Aux key={i}>

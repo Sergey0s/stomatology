@@ -6,6 +6,7 @@ import TestCore from "../../containers/TestCore/TestCore";
 import {TestList} from '../../DataBase/TestsList';
 import Treatment from "../Treatment/Treatment";
 import Efficiency from "../Efficiency/Efficiency";
+import Epicrisis from "../Epicrisis/Epicrisis";
 import * as actions from "../../store/actions";
 
 class Patient extends Component {
@@ -316,7 +317,7 @@ class Patient extends Component {
                                         onClick={this.secondEntryLaboratory}> Лабораторные исследования
                                 </button>
                                 <button className={classes.PatientFull__firstEntryButton}
-                                        onClick={() => this.props.onDischargePatient(this.props.id)}> Выписать пациента
+                                        onClick={() => this.props.onDischargePatient(this.props.id, Date())}> Выписать пациента
                                 </button>
                             </div>)
                         ||
@@ -340,7 +341,7 @@ class Patient extends Component {
                             ||
                             (currentPatient.discharge && this.state.showEpicrisis &&
                                 <div>
-                                    <p onClick={() => this.showEpicrisisHandler(this.props.id)}> ЭПИКРИЗ </p>
+                                    <Epicrisis id={this.props.id} onClick={() => this.showEpicrisisHandler(this.props.id)}/>
                                     <button className={classes.PatientFull__firstEntryButton}
                                             onClick={() => this.props.onReturnPatient(this.props.id)}> РЕЦИДИВ /
                                         Восстановить и начать прием
@@ -384,7 +385,7 @@ const mapDispatchToProps = dispatch => {
         onHandleStatus: (patientId, status) => dispatch(actions.handleStatusInDb(patientId, status)),
         onHandleStage: (patientId, stage) => dispatch(actions.handleStageInDb(patientId, stage)),
         onDeletePatient: (patientId) => dispatch(actions.deletePatientFromDb(patientId)),
-        onDischargePatient: (patientId) => dispatch(actions.dischargePatient(patientId)),
+        onDischargePatient: (patientId, date) => dispatch(actions.dischargePatient(patientId, date)),
         onReturnPatient: (patientId) => dispatch(actions.returnPatient(patientId)),
         onRepeatedEntryHandler: (patientId, value) => dispatch(actions.repeatedEntryHandler(patientId, value))
     }

@@ -128,7 +128,8 @@ const patientData = (state = initialState, action) => {
                     ...state.patients,
                     [action.patientId]: {
                         ...state.patients[action.patientId],
-                        discharge: true
+                        discharge: true,
+                        dischargeDate: action.date
                     }
                 }
             }

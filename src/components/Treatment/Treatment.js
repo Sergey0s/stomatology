@@ -1,6 +1,5 @@
 import React from "react";
 import classes from './Treatment.css';
-// import Aux from '../../hoc/Auxiliary/Auxiliary';
 import {connect} from "react-redux";
 
 const treatment = (props) => {
