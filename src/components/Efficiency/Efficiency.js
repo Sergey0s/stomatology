@@ -36,10 +36,10 @@ const efficiency = (props) => {
             } else clinicTest = TestList.clinicNow;
         }
 
-        // console.log(clinicTest);
+        console.log(clinicTest);
 
         clinicEffect = clinicTest.results.filter(el => {
-            return (el.minScore===0 || el.minScore<clinicResult) && el.maxScore>=clinicResult
+            return (el.minScore<=clinicResult && el.maxScore>clinicResult) || (el.minScore<clinicResult && el.maxScore>=clinicResult)
         })[0].conclusion;
     }
 
@@ -76,7 +76,7 @@ const efficiency = (props) => {
         }
 
         laboratoryEffect = laboratoryTest.results.filter(el => {
-            return (el.minScore===0 || el.minScore<laboratoryResult) && el.maxScore>=laboratoryResult
+            return (el.minScore<=laboratoryResult && el.maxScore>laboratoryResult) || (el.minScore<laboratoryResult && el.maxScore>=laboratoryResult)
         })[0].conclusion;
     }
 
@@ -129,7 +129,7 @@ const efficiency = (props) => {
     }
 
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    useEffect(() => {
+    useEffect((props,fullEffect) => {
         props.onSetEfficiency(props.id, fullEffect);
     }, []);
 

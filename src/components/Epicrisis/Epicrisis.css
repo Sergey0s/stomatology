@@ -1,3 +1,15 @@
 .Epicrisis {
+    border: 2px solid black;
+    border-radius: 10px;
+    background: url("gray-paperboard.jpg");
+}
+
+.Epicrisis__title {
+    margin: 15px auto;
+    font-weight: bold;
+    font-size: 1.6rem;
+}
+
+.Epicrisis__content {
 
 }

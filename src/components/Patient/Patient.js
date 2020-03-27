@@ -197,13 +197,13 @@ class Patient extends Component {
         let miniPatientContent =
             <div className={classes.Patient}
                  onClick={(id) => this.showMoreHandler(this.props.id)}>
-                <p className={classes.Patient__p}>id: {currentPatient.id} </p>
+                <p className={classes.Patient__id}>id: {currentPatient.id} </p>
                 <div className={classes.Patient__nameContent}>
                     <p className={classes.Patient__name}>{this.props.surname} </p>
                     <p className={classes.Patient__name}>{this.props.name} </p>
                     <p className={classes.Patient__name}>{this.props.secondName} </p>
                 </div>
-                <p className={classes.Patient__p}>Дата
+                <p className={classes.Patient__regDate}>Дата
                     регистрации: {new Date(this.props.registerDate).toLocaleString('ru-RU', {
                         year: 'numeric',
                         month: 'numeric',
@@ -272,7 +272,8 @@ class Patient extends Component {
 
                         }
 
-                        {(this.props.testFinished && currentPatient.result &&
+                        {
+                            (this.props.testFinished && currentPatient.result &&
                             <Efficiency lastEntryDate={this.state.daysFromLastEntry} id={this.props.id}/>)
                         }
 

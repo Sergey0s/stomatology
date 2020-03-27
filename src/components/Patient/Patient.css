@@ -1,17 +1,16 @@
 .Patient {
-    width: 60%;
-    border: 2px solid #b6b6b6;
-    box-shadow: 2px 2px 2px #7e7e7e;
+    border: 1px solid rgba(46, 28, 222, 0.7);
+    box-shadow: 0 0 2px 1px rgba(21, 43, 162, 0.7);
     margin: 8px auto;
     padding: 5px;
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
     flex-wrap: wrap;
+    justify-content: space-between;
 }
 
 .Patient:hover {
-    background-color: #cccccc;
+    background-color: rgba(0, 116, 255, 0.18);
 }
 
 p {
@@ -25,47 +24,64 @@ p {
 }
 
 .Patient__p {
-    font-size: 1rem;
     margin: 5px;
     padding: 0 5px;
+    font-size: 1rem;
+    border: 1px solid black;
+}
+
+.Patient__regDate {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 5px;
+    padding: 0 5px;
+    border: 1px solid black;
+    word-break: break-all;
+    word-wrap: break-spaces;
+    width: 20%;
+    font-size: 1rem;
+}
+
+.Patient__id {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 5%;
+    border: 1px solid black;
+    font-size: 1rem;
 }
 
 .Patient__statuses {
     display: flex;
     flex-direction: column;
-    flex-wrap: wrap;
-    font-size: 1rem;
     justify-content: center;
+    flex-wrap: wrap;
     align-items: center;
-    margin-top: 10px;
+    border: 1px solid black;
+    width: 40%;
 }
 
 .Patient__nameContent {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    font-size: 1rem;
     justify-content: center;
     align-items: center;
+    width: 30%;
+    border: 1px solid black;
 }
 
 .Patient__name {
-    font-size: 1rem;
     margin: 2px;
     padding: 0 2px;
+    font-size: 1rem;
 }
 
 .PatientFull__date {
     font-size: 0.7rem;
     margin: 5px;
     padding: 0 5px;
-}
-
-.Patient__showMoreMain {
-    cursor: pointer;
-    font-size: 1rem;
-    width: 98px;
-    margin: auto;
 }
 
 .Patient__showMore {
@@ -87,9 +103,9 @@ p {
 .PatientFull {
     display: flex;
     flex-direction: column;
-    width: 65%;
-    border: 2px solid #b6b6b6;
-    box-shadow: 2px 2px 2px #7e7e7e;
+    width: 85%;
+    border: 2px solid rgba(46, 28, 222, 0.7);
+    box-shadow: 0 0 2px 1px rgba(21, 43, 162, 0.7);
     margin: 8px auto;
     padding: 5px;
     justify-content: center;

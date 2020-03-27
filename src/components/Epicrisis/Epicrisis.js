@@ -13,7 +13,9 @@ const epicrisis = (props) => {
 
     return (
         <div className={classes.Epicrisis}>
-            <p> {currentPatient.surname} {currentPatient.name} {currentPatient.secondName} обратился (ась) <br/> в
+            <p className={classes.Epicrisis__title}> ЭПИКРИЗ </p>
+            <p className={classes.Epicrisis__content}> {currentPatient.surname} {currentPatient.name} {currentPatient.secondName} </p>
+            <p> обратился (ась) <br/> в
                 стоматологическую клинику ____________ (название клиники) <br/>
                 {new Date(currentPatient.registerDate).toLocaleString('ru-RU', {
                     year: 'numeric',
