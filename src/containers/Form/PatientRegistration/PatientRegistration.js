@@ -19,7 +19,7 @@ class PatientRegistration extends Component {
                     type: 'text',
                     placeholder: 'Фамилия'
                 },
-                value: 'Иванов'
+                value: ''
             },
             name: {
                 elementType: 'input',
@@ -27,7 +27,7 @@ class PatientRegistration extends Component {
                     type: 'text',
                     placeholder: 'Имя'
                 },
-                value: 'Иван',
+                value: '',
             },
             secondName: {
                 elementType: 'input',
@@ -35,7 +35,7 @@ class PatientRegistration extends Component {
                     type: 'text',
                     placeholder: 'Отчество'
                 },
-                value: 'Иванович',
+                value: '',
             },
             gender: {
                 elementType: 'select',
@@ -125,7 +125,7 @@ class PatientRegistration extends Component {
         }
 
         let form = (
-            <form onSubmit={this.patientHandler}>
+            <form className={classes.PatientRegistration__form} onSubmit={this.patientHandler}>
                 <p className={classes.PatientRegistration__title}>Регистрация нового пациента</p>
                 {formElementArray.map(formElement => (
                         <Input

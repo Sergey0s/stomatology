@@ -49,7 +49,7 @@ export const EntryProfileForm = {
         elementType: 'input',
         elementConfig: {
             type: 'text',
-            placeholder: 'Качество эпителия'
+            placeholder: 'Локализация элемента'
         },
         value: ''
     },
@@ -58,7 +58,7 @@ export const EntryProfileForm = {
         elementType: 'input',
         elementConfig: {
             type: 'text',
-            placeholder: 'Дефект'
+            placeholder: 'Поверхностный / глубокий'
         },
         value: ''
     },

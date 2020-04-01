@@ -16,7 +16,7 @@ const entryProfile = (props) => {
 
         let form = (
             (<div className={classes.profileBlock} onClick={props.clicked}>
-                <h1 className={classes.profile__title}>Результаты первичного осмотра</h1>
+                <p className={classes.profile__title}>Результаты первичного осмотра</p>
                 <div className={classes.profile__content}>
                     {updatedForm.map((formElement, i) => {
                             return (<Aux key={i}>
@@ -25,8 +25,8 @@ const entryProfile = (props) => {
                             )
                         }
                     )}
-                    <h2 className={classes.profileBlock__diagnosis}>Диагноз: К 12.0 - рецидивирующие афты полости
-                        рта</h2>
+                    <p className={classes.profileBlock__diagnosis}>Диагноз: К 12.0 - рецидивирующие афты полости
+                        рта</p>
                 </div>
             </div>));
 

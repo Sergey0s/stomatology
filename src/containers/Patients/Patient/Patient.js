@@ -1,13 +1,13 @@
 import React, {Component} from "react";
 import classes from './Patient.css';
 import {connect} from "react-redux";
-import EntryProfile from '../EntryProfile/EntryProfile';
-import TestCore from "../../containers/TestCore/TestCore";
-import {TestList} from '../../DataBase/TestsList';
-import Treatment from "../Treatment/Treatment";
-import Efficiency from "../Efficiency/Efficiency";
-import Epicrisis from "../Epicrisis/Epicrisis";
-import * as actions from "../../store/actions";
+import EntryProfile from '../../../components/EntryProfile/EntryProfile';
+import TestCore from "../../TestCore/TestCore";
+import {TestList} from '../../../DataBase/TestsList';
+import Treatment from "../../../components/Treatment/Treatment";
+import Efficiency from "../../../components/Efficiency/Efficiency";
+import Epicrisis from "../../../components/Epicrisis/Epicrisis";
+import * as actions from "../../../store/actions";
 
 class Patient extends Component {
     state = {
@@ -55,14 +55,12 @@ class Patient extends Component {
     };
 
     secondEntryClinic = (id) => {
-        console.log('clinic');
         this.setState({repeated: 'clinic'});
         this.repeatedEntryHandler();
         this.props.testsHandler();
     };
 
     secondEntryLaboratory = (id) => {
-        console.log('laboratory');
         this.props.testsHandler();
         this.setState({repeated: 'laboratory'});
         this.repeatedEntryHandler();
@@ -162,12 +160,10 @@ class Patient extends Component {
         }
 
         if (currentPatient.statusChanged && currentPatient.stages.repeatedEntry) {
-            console.log('here');
             this.props.onHandleStatus(this.props.id, 'Ожидает повторный прием в течение 7 дней');
         }
 
         if (currentPatient.stageChanged && currentPatient.stages.repeatedEntry) {
-            console.log('here');
             this.props.onHandleStage(this.props.id, 'repeatedEntry');
             // пересчет эффективности
         }
@@ -204,7 +200,7 @@ class Patient extends Component {
                     <p className={classes.Patient__name}>{this.props.secondName} </p>
                 </div>
                 <p className={classes.Patient__regDate}>Дата
-                    регистрации: {new Date(this.props.registerDate).toLocaleString('ru-RU', {
+                    регистрации: <br/> {new Date(this.props.registerDate).toLocaleString('ru-RU', {
                         year: 'numeric',
                         month: 'numeric',
                         day: 'numeric'
@@ -329,7 +325,7 @@ class Patient extends Component {
 
                         {
                             (currentPatient.discharge && !this.state.showEpicrisis &&
-                                <div>
+                                <div className={classes.PatientFull__epicrisisRedischargeButtons} >
                                     <button className={classes.PatientFull__firstEntryButton}
                                             onClick={() => this.showEpicrisisHandler(this.props.id)}> СМОТРЕТЬ ЭПИКРИЗ
                                     </button>
@@ -341,8 +337,8 @@ class Patient extends Component {
                             )
                             ||
                             (currentPatient.discharge && this.state.showEpicrisis &&
-                                <div>
-                                    <Epicrisis id={this.props.id} onClick={() => this.showEpicrisisHandler(this.props.id)}/>
+                                <div className={classes.PatientFull__epicrisisRedischargeButtons} onClick={() => this.showEpicrisisHandler(this.props.id)}>
+                                    <Epicrisis id={this.props.id} />
                                     <button className={classes.PatientFull__firstEntryButton}
                                             onClick={() => this.props.onReturnPatient(this.props.id)}> РЕЦИДИВ /
                                         Восстановить и начать прием
@@ -392,12 +388,4 @@ const mapDispatchToProps = dispatch => {
     }
 };
 
-
 export default connect(mapStateToProps, mapDispatchToProps)(Patient);
-
-
-//
-// { status=='Ожидает повторный прием' &&
-// <button className={classes.PatientFull__firstEntryButton}
-//         onClick={this.props.entryProfileHandler}>Начать повторный прием</button>
-// }

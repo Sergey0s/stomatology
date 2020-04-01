@@ -1,5 +1,4 @@
 .Question {
-
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
@@ -7,12 +6,11 @@
     margin: 30px auto 0 auto;
 font-weight: bold;
     font-size: 1.2rem;
-
     padding: 25px;
     text-align: center;
-    border: 3px solid #858585;
-    box-shadow: 0 2px 3px #ccc;
-
+    border: 3px solid rgb(19, 15, 76);
+    box-shadow: 0 0 2px 1px rgba(21, 43, 162, 0.7);
+    border-radius: 5px;
     box-sizing: border-box;
     -webkit-user-select: none;
     -moz-user-select: none;

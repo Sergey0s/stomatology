@@ -14,7 +14,7 @@ const epicrisis = (props) => {
     return (
         <div className={classes.Epicrisis}>
             <p className={classes.Epicrisis__title}> ЭПИКРИЗ </p>
-            <p className={classes.Epicrisis__content}> {currentPatient.surname} {currentPatient.name} {currentPatient.secondName} </p>
+            <p className={classes.Epicrisis__subtitle}> {currentPatient.surname} {currentPatient.name} {currentPatient.secondName} </p>
             <p> обратился (ась) <br/> в
                 стоматологическую клинику ____________ (название клиники) <br/>
                 {new Date(currentPatient.registerDate).toLocaleString('ru-RU', {
@@ -24,17 +24,13 @@ const epicrisis = (props) => {
                 })} с жалобами на {complaints}.<br/>
                 Длительность лечения составила {duration} дня (ей).</p>
 
-            <p>Диагноз: К 12.0 - рецидивирующие афты полости рта</p>
-            <p>Диагноз подтверждается данными объективного осмотра
-                <EntryProfile profileData={profileData}/></p>
-
-            <p>Лечение:
-                <Treatment id={props.id}/>
-            </p>
-
-            <p>Состояние больного на момент выписки удовлетворительное.</p>
-            <p>Эффективность лечения: {currentPatient.efficiency}</p>
-
+            <p className={classes.Epicrisis__subtitle}>Диагноз: К 12.0 - рецидивирующие афты полости рта</p>
+            <p>Диагноз подтверждается данными объективного осмотра </p>
+            <EntryProfile profileData={profileData}/>
+            <p className={classes.Epicrisis__subtitle}>Лечение: </p>
+            <Treatment id={props.id}/>
+            <p className={classes.Epicrisis__subtitle}>Состояние больного на момент выписки удовлетворительное.</p>
+            <p className={classes.Epicrisis__subtitle}>Эффективность лечения: {currentPatient.efficiency}</p>
         </div>
     );
 };

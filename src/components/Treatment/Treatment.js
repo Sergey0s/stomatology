@@ -19,8 +19,6 @@ const treatment = (props) => {
         stomatitisPresenceResults = stomatitisPresencePath[stomatitisPresenceKey].totalScore;
     }
 
-    console.log(stomatitisPresenceResults);
-
     let riskDevelopmentPath = currentPatient.completedTests['Часть 1 - Риск развития'];
     let riskDevelopmentKey = Object.keys(riskDevelopmentPath);
     if (riskDevelopmentKey.length !== 1) {
@@ -28,9 +26,6 @@ const treatment = (props) => {
     } else {
         riskDevelopmentResults = riskDevelopmentPath[riskDevelopmentKey].totalScore;
     }
-
-    console.log(riskDevelopmentResults);
-
 
     if (currentPatient.completedTests['Часть 2 - Степень тяжести'] !== undefined) {
         if (currentPatientStatus !== 'Часть 2 не требуется. Ожидает повторный прием в течение 7 дней') {
@@ -41,8 +36,6 @@ const treatment = (props) => {
             } else {
                 severityResults = severityPath[severityKey].totalScore;
             }
-
-            console.log(severityResults);
         }
     }
 

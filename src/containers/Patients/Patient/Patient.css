@@ -1,6 +1,6 @@
 .Patient {
-    border: 1px solid rgba(46, 28, 222, 0.7);
     box-shadow: 0 0 2px 1px rgba(21, 43, 162, 0.7);
+    border-radius: 5px;
     margin: 8px auto;
     padding: 5px;
     display: flex;
@@ -27,7 +27,7 @@ p {
     margin: 5px;
     padding: 0 5px;
     font-size: 1rem;
-    border: 1px solid black;
+    /*border: 1px solid black;*/
 }
 
 .Patient__regDate {
@@ -36,7 +36,7 @@ p {
     justify-content: center;
     margin: 5px;
     padding: 0 5px;
-    border: 1px solid black;
+    /*border: 1px solid black;*/
     word-break: break-all;
     word-wrap: break-spaces;
     width: 20%;
@@ -48,7 +48,7 @@ p {
     flex-direction: column;
     justify-content: center;
     width: 5%;
-    border: 1px solid black;
+    /*border: 1px solid black;*/
     font-size: 1rem;
 }
 
@@ -58,7 +58,7 @@ p {
     justify-content: center;
     flex-wrap: wrap;
     align-items: center;
-    border: 1px solid black;
+    /*border: 1px solid black;*/
     width: 40%;
 }
 
@@ -69,7 +69,7 @@ p {
     justify-content: center;
     align-items: center;
     width: 30%;
-    border: 1px solid black;
+    /*border: 1px solid black;*/
 }
 
 .Patient__name {
@@ -88,6 +88,14 @@ p {
     cursor: pointer;
     font-size: 1rem;
     width: 90%;
+    color: #010077;
+    background-color: rgba(0, 116, 255, 0.18);
+    border: 1px solid rgba(46, 28, 222, 0.7);
+    border-radius: 5px;
+}
+
+.Patient__showMore:hover {
+    border: 1px solid rgb(19, 15, 76);
 }
 
 .Patient__btnDelete {
@@ -97,15 +105,21 @@ p {
     margin-top: 5px;
     font-size: 1rem;
     width: 90%;
+    border: 1px solid rgba(46, 28, 222, 0.7);
+    border-radius: 5px;
+}
+
+.Patient__btnDelete:hover {
+    border: 1px solid rgb(19, 15, 76);
 }
 
 
 .PatientFull {
     display: flex;
     flex-direction: column;
-    width: 85%;
     border: 2px solid rgba(46, 28, 222, 0.7);
     box-shadow: 0 0 2px 1px rgba(21, 43, 162, 0.7);
+    border-radius: 5px;
     margin: 8px auto;
     padding: 5px;
     justify-content: center;
@@ -142,10 +156,16 @@ p {
     margin: 20px;
     font-size: 1rem;
     cursor: pointer;
+    border: 2px solid rgba(46, 28, 222, 0.7);
+    box-shadow: 0 0 2px 1px rgba(21, 43, 162, 0.7);
+    border-radius: 5px;
+    color: #010077;
+    background: none;
 }
 
-.Patient__firstEntryButton:hover {
-    background-color: gold;
+.PatientFull__firstEntryButton:hover {
+    border: 2px solid rgb(19, 15, 76);
+    box-shadow: 0 0 2px 1px rgb(19, 24, 91);
 }
 
 .PatientFull__results {
@@ -164,4 +184,42 @@ p {
     display: flex;
     flex-direction: row;
     justify-content: center;
+}
+
+.PatientFull__epicrisisRedischargeButtons {
+    display: flex;
+    flex-direction: column;
+}
+
+.PatientFull__epicrisisRedischargeButtons  > .PatientFull__firstEntryButton {
+    margin: 10px auto;
+}
+
+@media (max-width: 1019px) {
+    .Patient {
+       margin: 10px;
+        min-width: 612px;
+    }
+
+    .Patient__p, .Patient__id,.Patient__regDate, .Patient__name, .Patient__span   {
+        font-size: 0.7rem;
+    }
+
+    .PatientFull__p, .PatientFull__link {
+    font-size: 0.9rem;
+}
+
+    .PatientFull__secondEntryButtons {
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 767px) {
+    .Patient {
+        min-width: 325px;
+        width: 80%;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        margin: 10px auto;
+    }
 }

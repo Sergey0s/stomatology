@@ -104,7 +104,7 @@ let questionList4 =
             },
             {
                 minScore: 6,
-                maxScore: 11,
+                maxScore: 11.5,
                 conclusion: 'Низкая'
             },
             {
