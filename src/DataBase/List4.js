@@ -5,7 +5,7 @@ let questionList4 =
             {
                 id: 1,
                 title: 'Лабораторные анализы - Непосредственные сроки (до 7 суток)',
-                question: 'ФНО-2',
+                question: 'Фактор некроза опухоли-α',
                 answers: [
                     {text: 'менее 7.6', id: 0, value: 1.5},
                     {text: '7.7-8.2', id: 1, value: 1},
@@ -16,7 +16,7 @@ let questionList4 =
             {
                 id: 2,
                 title: 'Лабораторные анализы - Непосредственные сроки (до 7 суток)',
-                question: 'ИЛ-2',
+                question: 'Интерлейкин-2',
                 answers: [
                     {text: 'менее 11.4', id: 0, value: 3},
                     {text: '11.5-13.4', id: 1, value: 2},
@@ -27,7 +27,7 @@ let questionList4 =
             {
                 id: 3,
                 title: 'Лабораторные анализы - Непосредственные сроки (до 7 суток)',
-                question: 'ИЛ-10',
+                question: 'Интерлейкин-10',
                 answers: [
                     {text: 'свыше 10.0', id: 0, value: 3},
                     {text: '7.25-9.99', id: 1, value: 2},
@@ -60,7 +60,7 @@ let questionList4 =
             {
                 id: 6,
                 title: 'Лабораторные анализы - Непосредственные сроки (до 7 суток)',
-                question: 'TK',
+                question: 'Триеновые конъюгаты',
                 answers: [
                     {text: 'менее 0.1359', id: 0, value: 3},
                     {text: '0.1360-0.1498', id: 1, value: 2},
@@ -71,7 +71,7 @@ let questionList4 =
             {
                 id: 7,
                 title: 'Лабораторные анализы - Непосредственные сроки (до 7 суток)',
-                question: 'ОШ',
+                question: 'Основания Шиффа',
                 answers: [
                     {text: 'менее 9.44', id: 0, value: 3},
                     {text: '9.45-11.53', id: 1, value: 2},
@@ -82,7 +82,7 @@ let questionList4 =
             {
                 id: 8,
                 title: 'Лабораторные анализы - Непосредственные сроки (до 7 суток)',
-                question: 'Коэффициент меп',
+                question: 'Коэффициент липероксидации',
                 answers: [
                     {text: 'менее 26.9', id: 0, value: 3},
                     {text: '27.0-32.2', id: 1, value: 2},
