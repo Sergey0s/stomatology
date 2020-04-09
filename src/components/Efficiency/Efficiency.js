@@ -23,9 +23,6 @@ const efficiency = (props) => {
             clinicResult = clinicPath[clinicKey].totalScore;
         }
 
-        // console.log(props.lastEntryDate);
-        // console.log(clinicResult);
-
         let clinicTest = null;
 
         if (clinicResult>12) {
@@ -36,16 +33,10 @@ const efficiency = (props) => {
             } else clinicTest = TestList.clinicNow;
         }
 
-        //console.log(clinicTest);
-
         clinicEffect = clinicTest.results.filter(el => {
             return (el.minScore<=clinicResult && el.maxScore>clinicResult) || (el.minScore<clinicResult && el.maxScore>=clinicResult)
         })[0].conclusion;
     }
-
-    // console.log(clinicResult);
-    // console.log(clinicEffect);
-
 
     let laboratoryResult = null;
     let laboratoryEffect = null;
@@ -70,7 +61,7 @@ const efficiency = (props) => {
         } else {
             if (props.lastEntryDate<7) {
                 laboratoryTest = TestList.laboratoryAnalysisNow
-            } else if (this.state.daysFromLastEntry > 7 && this.state.daysFromLastEntry < 181) {
+            } else if (props.lastEntryDate > 7 && props.lastEntryDate < 181) {
                 laboratoryTest = TestList.laboratoryAnalysisFuture
             } else laboratoryTest = TestList.laboratoryAnalysisFarFuture;
         }
@@ -79,9 +70,6 @@ const efficiency = (props) => {
             return (el.minScore<=laboratoryResult && el.maxScore>laboratoryResult) || (el.minScore<laboratoryResult && el.maxScore>=laboratoryResult)
         })[0].conclusion;
     }
-
-    // console.log(laboratoryResult);
-    // console.log(laboratoryEffect);
 
     let fullEffect = null;
     if (clinicEffect!==null && laboratoryEffect===null) {
@@ -144,7 +132,6 @@ const efficiency = (props) => {
             { (currentPatient.completedTests['Лабораторные анализы']) !== undefined &&
                 <p> Лаб. анализы: {laboratoryEffect}</p>
             }
-
         </div>
     );
 };

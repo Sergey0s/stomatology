@@ -322,7 +322,6 @@ class Patient extends Component {
                             <TestCore questions={questionListForSecondStage} patientId={this.props.id}/>)
                         }
 
-
                         {
                             (currentPatient.discharge && !this.state.showEpicrisis &&
                                 <div className={classes.PatientFull__epicrisisRedischargeButtons} >

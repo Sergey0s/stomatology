@@ -172,11 +172,15 @@ module.exports = function(webpackEnv) {
       pathinfo: isEnvDevelopment,
       // There will be one main bundle, and one file per asynchronous chunk.
       // In development, it does not produce real files.
-      filename: 'static/js/bundle.js',
+      filename: isEnvProduction
+          ? 'static/js/[name].[contenthash:8].js'
+          : isEnvDevelopment && 'static/js/bundle.js',
       // TODO: remove this when upgrading to webpack 5
-      futureEmitAssets: false,
+      futureEmitAssets: true,
       // There are also additional JS chunk files if you use code splitting.
-      chunkFilename: 'static/js/[name].chunk.js',
+      chunkFilename: isEnvProduction
+          ? 'static/js/[name].[contenthash:8].chunk.js'
+          : isEnvDevelopment && 'static/js/[name].chunk.js',
       // We inferred the "public path" (such as / or /my-project) from homepage.
       // We use "/" in development.
       publicPath: publicPath,
@@ -247,7 +251,7 @@ module.exports = function(webpackEnv) {
                 ? {
                   // `inline: false` forces the sourcemap to be output into a
                   // separate file
-                  inline: true,
+                  inline: false,
                   // `annotation: true` appends the sourceMappingURL to the end of
                   // the css file, helping the browser find the sourcemap
                   annotation: true,
@@ -259,15 +263,16 @@ module.exports = function(webpackEnv) {
       // Automatically split vendor and commons
       // https://twitter.com/wSokra/status/969633336732905474
       // https://medium.com/webpack/webpack-4-code-splitting-chunk-graph-and-the-splitchunks-optimization-be739a861366
-      splitChunks: { // chunks: 'all',
-        // name: false,
-        cacheGroups: {
-          default: false
-        }},
+      splitChunks: {
+        chunks: 'all',
+        name: false,
+      },
       // Keep the runtime chunk separated to enable long term caching
       // https://twitter.com/wSokra/status/969679223278505985
       // https://github.com/facebook/create-react-app/issues/5358
-      runtimeChunk: false,
+      runtimeChunk: {
+        name: entrypoint => `runtime-${entrypoint.name}`,
+      },
     },
     resolve: {
       // This allows you to set a fallback for where Webpack should look for modules.
